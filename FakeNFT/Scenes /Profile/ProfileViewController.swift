@@ -9,4 +9,182 @@ import UIKit
 
 final class ProfileViewController: UIViewController {
     var profileViewModel: ProfileViewModel?
+    
+    private lazy var editProfileButton: UIButton = {
+        let editProfileButton = UIButton.systemButton(
+            with: UIImage(named: "editProfile")!,
+            target: self, action: #selector(didTapEditProfileButton))
+        editProfileButton.tintColor = .black
+        editProfileButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        return editProfileButton
+    }()
+    
+    private let profilePictureImage: UIImageView = {
+        let profilePictureImage = UIImageView()
+        profilePictureImage.translatesAutoresizingMaskIntoConstraints = false
+        profilePictureImage.image = UIImage(named: "MockUserPic")
+        
+        return profilePictureImage
+    }()
+    
+    private let profileNameLabel: UILabel = {
+        let profileNameLabel = UILabel()
+        profileNameLabel.text = "Joaquin Phoenix"
+        profileNameLabel.font = UIFont.systemFont(ofSize: 22, weight: .bold)
+        profileNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        return profileNameLabel
+    }()
+    
+    private let descriptionLabel: UILabel = {
+        let descriptionLabel = UILabel()
+        descriptionLabel.text = "Дизайнер из Казани, люблю цифровое искусство  и бейглы. В моей коллекции уже 100+ NFT,  и еще больше — на моём сайте. Открыт к коллаборациям."
+        descriptionLabel.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        return descriptionLabel
+    }()
+    
+    private let profileLinkLabel: UILabel = {
+        let profileLinkLabel = UILabel()
+        profileLinkLabel.text = "Joaquin Phoenix.com"
+        profileLinkLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        profileLinkLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        return profileLinkLabel
+    }()
+    
+    private var tableData: [String]? {
+        return ["Мои NFT", "Избранные NFT", "О Разработчике"]
+    }
+    
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+
+        tableView.backgroundColor = UIColor(red: 0.902, green: 0.91, blue: 0.922, alpha: 0.3)
+        tableView.layer.cornerRadius = 16
+
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorStyle = .singleLine
+        tableView.isScrollEnabled = false
+        tableView.register(ProfileCell.self, forCellReuseIdentifier: ProfileCell.identifier)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupView()
+        setupHierarchy()
+        setupLayout()
+    }
+    
+    private func setupView() {
+        view.backgroundColor = UIColor(named: "ypWhite")
+    }
+    
+    private func setupHierarchy() {
+        view.addSubview(editProfileButton)
+        view.addSubview(profilePictureImage)
+        view.addSubview(profileNameLabel)
+        view.addSubview(descriptionLabel)
+        view.addSubview(profileLinkLabel)
+        view.addSubview(tableView)
+    }
+    
+    private func setupLayout() {
+        NSLayoutConstraint.activate([
+            editProfileButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 2),
+            editProfileButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -9),
+            editProfileButton.heightAnchor.constraint(equalToConstant: 42),
+            editProfileButton.widthAnchor.constraint(equalToConstant: 42),
+            
+            profilePictureImage.topAnchor.constraint(equalTo: editProfileButton.bottomAnchor, constant: 20),
+            profilePictureImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            profilePictureImage.heightAnchor.constraint(equalToConstant: 70),
+            profilePictureImage.widthAnchor.constraint(equalToConstant: 70),
+            
+            profileNameLabel.topAnchor.constraint(equalTo: editProfileButton.bottomAnchor, constant: 20),
+            profileNameLabel.leadingAnchor.constraint(equalTo: profilePictureImage.trailingAnchor, constant: 16),
+            profileNameLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            profileNameLabel.centerYAnchor.constraint(equalTo: profilePictureImage.centerYAnchor),
+            
+            descriptionLabel.topAnchor.constraint(equalTo: profilePictureImage.bottomAnchor, constant: 20),
+            descriptionLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            descriptionLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -18),
+            descriptionLabel.heightAnchor.constraint(equalToConstant: 72),
+            
+            profileLinkLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
+            profileLinkLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+//            profileLinkLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -18),
+            profileLinkLabel.heightAnchor.constraint(equalToConstant: 28),
+            
+            tableView.topAnchor.constraint(equalTo: profileLinkLabel.bottomAnchor, constant: 40),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            tableView.heightAnchor.constraint(equalToConstant: CGFloat(integerLiteral: (tableData?.count ?? 0) * 54))
+        ])
+    }
+    
+    @objc
+    private func didTapEditProfileButton() {
+        
+        let profileEditionViewController = ProfileEditionViewController()
+//        profileEditionViewController.onDone = {
+//            self.onReload?()
+//        }
+        
+//        profileEditionViewController.delegate = self
+        let navigationController = UINavigationController(rootViewController: profileEditionViewController)
+        
+        present(navigationController, animated: true)
+    }
+}
+
+extension ProfileViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        switch indexPath.row {
+        case 0: //Мои NFT
+            let myNFTViewController = MyNFTViewController()
+//            myNFTViewController.delegate = self
+            let navigationController = UINavigationController(rootViewController: myNFTViewController)
+            present(navigationController, animated: true)
+        case 1: //Избранные NFT
+            let favoriteNFTViewController = FavoriteNFTViewController()
+//            favoriteNFTViewController.delegate = self
+            let navigationController = UINavigationController(rootViewController: favoriteNFTViewController)
+            present(navigationController, animated: true)
+        case 2: //О Разработчике
+            let aboutDeveloperViewController = AboutDeveloperViewController()
+//            favoriteNFTViewController.delegate = self
+            let navigationController = UINavigationController(rootViewController: aboutDeveloperViewController)
+            present(navigationController, animated: true)
+        default:
+            return
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        54
+    }
+}
+
+extension ProfileViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        tableData?.count ?? 0
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let profileCell = tableView.dequeueReusableCell(withIdentifier: ProfileCell.identifier) as? ProfileCell
+        else { return UITableViewCell() }
+        
+        let data = tableData?[indexPath.row]
+        
+        profileCell.configure(label: tableData?[indexPath.row] ?? "")
+        return profileCell
+    }
 }
