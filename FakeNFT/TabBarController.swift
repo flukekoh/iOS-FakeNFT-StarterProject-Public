@@ -18,7 +18,7 @@ final class TabBarController: UITabBarController {
         let profileViewModel = ProfileViewModel()
         profileViewController.profileViewModel = profileViewModel
         
-        profileViewController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "circle.fill"), selectedImage: nil)
+        profileViewController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(named: "profileTabBarImageNoActive"), selectedImage: UIImage(named: "profileTabBarImageActive"))
         
         //Каталог
         let catalogViewController = CatalogViewController()
