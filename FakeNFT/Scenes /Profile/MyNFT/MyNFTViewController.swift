@@ -63,8 +63,6 @@ extension MyNFTViewController: UITableViewDataSource {
         guard let myNFTCell = tableView.dequeueReusableCell(withIdentifier: MyNFTCell.identifier) as? MyNFTCell
         else { return UITableViewCell() }
         
-        let data = tableData[indexPath.row]
-        
         myNFTCell.configure(nft: tableData[indexPath.row])
         return myNFTCell
     }

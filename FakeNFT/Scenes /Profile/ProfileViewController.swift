@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
     var profileViewModel: ProfileViewModel?
@@ -40,6 +41,8 @@ final class ProfileViewController: UIViewController {
     private let descriptionLabel: UILabel = {
         let descriptionLabel = UILabel()
         descriptionLabel.text = "Дизайнер из Казани, люблю цифровое искусство  и бейглы. В моей коллекции уже 100+ NFT,  и еще больше — на моём сайте. Открыт к коллаборациям."
+        descriptionLabel.lineBreakMode = .byClipping
+        descriptionLabel.numberOfLines = 4
         descriptionLabel.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -67,7 +70,7 @@ final class ProfileViewController: UIViewController {
 
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.separatorStyle = .singleLine
+        tableView.separatorStyle = .none
         tableView.isScrollEnabled = false
         tableView.register(ProfileCell.self, forCellReuseIdentifier: ProfileCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -80,6 +83,29 @@ final class ProfileViewController: UIViewController {
         setupView()
         setupHierarchy()
         setupLayout()
+        
+        profileViewModel?.onProfileLoad = { [weak self] profile in
+            guard let self else { return }
+            self.setupProfileContent(profile: profile)
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        profileViewModel?.viewWillAppear()
+    }
+    
+    private func setupProfileContent(profile: ProfileModel) {
+        profilePictureImage.kf.setImage(with: URL(string: profile.avatar), placeholder: UIImage(named: "MockUserPic"), options: [.processor(RoundCornerImageProcessor(cornerRadius: 35))])
+        profileNameLabel.text = profile.name
+        descriptionLabel.text = profile.description
+        profileLinkLabel.text = profile.website
+        
+        var profileCell = tableView.cellForRow(at: [0,0]) as? ProfileCell
+        profileCell?.configure(label: "Мои NFT (\(profile.nfts.count))")
+        
+        profileCell = tableView.cellForRow(at: [0,1]) as? ProfileCell
+        profileCell?.configure(label: "Избранные NFT (\(profile.likes.count))")
     }
     
     private func setupView() {
@@ -182,9 +208,9 @@ extension ProfileViewController: UITableViewDataSource {
         guard let profileCell = tableView.dequeueReusableCell(withIdentifier: ProfileCell.identifier) as? ProfileCell
         else { return UITableViewCell() }
         
-        let data = tableData?[indexPath.row]
-        
         profileCell.configure(label: tableData?[indexPath.row] ?? "")
         return profileCell
     }
 }
+
+

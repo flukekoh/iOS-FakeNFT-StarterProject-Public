@@ -53,7 +53,7 @@ final class ProfileEditionViewController: UIViewController {
     private lazy var nameTextField: UITextField = {
         let nameTextField = TextField()
         
-        nameTextField.placeholder = "Введите название трекера"
+        nameTextField.placeholder = "Введите имя"
 //        nameTextField.delegate = self
         nameTextField.layer.cornerRadius = 16
         nameTextField.backgroundColor = UIColor(red: 0.902, green: 0.91, blue: 0.922, alpha: 0.3)
@@ -74,7 +74,7 @@ final class ProfileEditionViewController: UIViewController {
     private lazy var descriptionTextField: UITextField = {
         let descriptionTextField = TextField()
         
-        descriptionTextField.placeholder = "Введите название трекера"
+        descriptionTextField.placeholder = "Введите описание"
 //        descriptionTextField.delegate = self
         descriptionTextField.layer.cornerRadius = 16
         descriptionTextField.backgroundColor = UIColor(red: 0.902, green: 0.91, blue: 0.922, alpha: 0.3)
@@ -92,10 +92,18 @@ final class ProfileEditionViewController: UIViewController {
         return websiteLabel
     }()
     
+//    init(profile: ProfileModel) {
+//        super.init()
+//    }
+    
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+    
     private lazy var websiteTextField: UITextField = {
         let websiteTextField = TextField()
         
-        websiteTextField.placeholder = "Введите название трекера"
+        websiteTextField.placeholder = "Укажите ссылку"
 //        websiteTextField.delegate = self
         websiteTextField.layer.cornerRadius = 16
         websiteTextField.backgroundColor = UIColor(red: 0.902, green: 0.91, blue: 0.922, alpha: 0.3)
