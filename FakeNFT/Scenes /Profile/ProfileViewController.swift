@@ -11,18 +11,19 @@ import Kingfisher
 final class ProfileViewController: UIViewController {
     var profileViewModel: ProfileViewModel?
     
-    private lazy var editProfileButton: UIButton = {
-        let editProfileButton = UIButton.systemButton(
-            with: UIImage(named: "editProfile")!,
-            target: self, action: #selector(didTapEditProfileButton))
-        editProfileButton.tintColor = .black
-        editProfileButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        return editProfileButton
-    }()
+    private var currentProfile: ProfileModel?
+    
+    private lazy var editProfileButton = UIBarButtonItem(
+        image: UIImage(named: "editProfile")!,
+        style: .plain,
+        target: self,
+        action: #selector(didTapEditProfileButton)
+    )
     
     private let profilePictureImage: UIImageView = {
         let profilePictureImage = UIImageView()
+        profilePictureImage.layer.cornerRadius = 35
+        profilePictureImage.layer.masksToBounds = true
         profilePictureImage.translatesAutoresizingMaskIntoConstraints = false
         profilePictureImage.image = UIImage(named: "MockUserPic")
         
@@ -55,6 +56,12 @@ final class ProfileViewController: UIViewController {
         profileLinkLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         profileLinkLabel.translatesAutoresizingMaskIntoConstraints = false
         
+        let tapAction = UITapGestureRecognizer(target: self, action:#selector(profileLinkDidTap(_:)))
+        profileLinkLabel.addGestureRecognizer(tapAction)
+        profileLinkLabel.isUserInteractionEnabled = true
+                profileLinkLabel.attributedText = NSAttributedString(string: "", attributes: [.kern: 0.24])
+        profileLinkLabel.font = UIFont.systemFont(ofSize: 15)
+        profileLinkLabel.textColor = .blue
         return profileLinkLabel
     }()
     
@@ -64,10 +71,10 @@ final class ProfileViewController: UIViewController {
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
-
+        
         tableView.backgroundColor = UIColor(red: 0.902, green: 0.91, blue: 0.922, alpha: 0.3)
         tableView.layer.cornerRadius = 16
-
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
@@ -87,6 +94,7 @@ final class ProfileViewController: UIViewController {
         profileViewModel?.onProfileLoad = { [weak self] profile in
             guard let self else { return }
             self.setupProfileContent(profile: profile)
+            self.currentProfile = profile
         }
     }
     
@@ -110,10 +118,14 @@ final class ProfileViewController: UIViewController {
     
     private func setupView() {
         view.backgroundColor = UIColor(named: "ypWhite")
+        
+        navigationController?.navigationBar.tintColor = .black
+        navigationItem.rightBarButtonItem = editProfileButton
+        self.navigationController?.navigationBar.isHidden = false
     }
     
     private func setupHierarchy() {
-        view.addSubview(editProfileButton)
+        //        view.addSubview(editProfileButton)
         view.addSubview(profilePictureImage)
         view.addSubview(profileNameLabel)
         view.addSubview(descriptionLabel)
@@ -123,17 +135,12 @@ final class ProfileViewController: UIViewController {
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            editProfileButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 2),
-            editProfileButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -9),
-            editProfileButton.heightAnchor.constraint(equalToConstant: 42),
-            editProfileButton.widthAnchor.constraint(equalToConstant: 42),
-            
-            profilePictureImage.topAnchor.constraint(equalTo: editProfileButton.bottomAnchor, constant: 20),
+            profilePictureImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             profilePictureImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             profilePictureImage.heightAnchor.constraint(equalToConstant: 70),
             profilePictureImage.widthAnchor.constraint(equalToConstant: 70),
             
-            profileNameLabel.topAnchor.constraint(equalTo: editProfileButton.bottomAnchor, constant: 20),
+            profileNameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             profileNameLabel.leadingAnchor.constraint(equalTo: profilePictureImage.trailingAnchor, constant: 16),
             profileNameLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             profileNameLabel.centerYAnchor.constraint(equalTo: profilePictureImage.centerYAnchor),
@@ -145,7 +152,7 @@ final class ProfileViewController: UIViewController {
             
             profileLinkLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
             profileLinkLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-//            profileLinkLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -18),
+            //            profileLinkLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -18),
             profileLinkLabel.heightAnchor.constraint(equalToConstant: 28),
             
             tableView.topAnchor.constraint(equalTo: profileLinkLabel.bottomAnchor, constant: 40),
@@ -157,16 +164,22 @@ final class ProfileViewController: UIViewController {
     
     @objc
     private func didTapEditProfileButton() {
+        guard let currentProfile = currentProfile else { return }
         
-        let profileEditionViewController = ProfileEditionViewController()
-//        profileEditionViewController.onDone = {
-//            self.onReload?()
-//        }
+        let profileEditionViewController = ProfileEditionViewController(profile: currentProfile)
+        //        profileEditionViewController.onDone = {
+        //            self.onReload?()
+        //        }
         
-//        profileEditionViewController.delegate = self
+        //        profileEditionViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: profileEditionViewController)
         
         present(navigationController, animated: true)
+    }
+    
+    @objc
+    private func profileLinkDidTap(_ sender: UITapGestureRecognizer) {
+        self.present(AboutDeveloperViewController(webView: nil, profileLink: profileLinkLabel.text), animated: true)
     }
 }
 
@@ -176,19 +189,17 @@ extension ProfileViewController: UITableViewDelegate {
         switch indexPath.row {
         case 0: //Мои NFT
             let myNFTViewController = MyNFTViewController()
-//            myNFTViewController.delegate = self
-            let navigationController = UINavigationController(rootViewController: myNFTViewController)
-            present(navigationController, animated: true)
+            //            myNFTViewController.delegate = self
+            
+            navigationController?.pushViewController(myNFTViewController, animated: true)
         case 1: //Избранные NFT
             let favoriteNFTViewController = FavoriteNFTViewController()
-//            favoriteNFTViewController.delegate = self
-            let navigationController = UINavigationController(rootViewController: favoriteNFTViewController)
-            present(navigationController, animated: true)
+            //            favoriteNFTViewController.delegate = self
+            navigationController?.pushViewController(favoriteNFTViewController, animated: true)
         case 2: //О Разработчике
-            let aboutDeveloperViewController = AboutDeveloperViewController()
-//            favoriteNFTViewController.delegate = self
-            let navigationController = UINavigationController(rootViewController: aboutDeveloperViewController)
-            present(navigationController, animated: true)
+            let aboutDeveloperViewController = AboutDeveloperViewController(webView: nil, profileLink: profileLinkLabel.text)
+            //            favoriteNFTViewController.delegate = self
+            navigationController?.pushViewController(aboutDeveloperViewController, animated: true)
         default:
             return
         }
@@ -203,7 +214,7 @@ extension ProfileViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         tableData?.count ?? 0
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let profileCell = tableView.dequeueReusableCell(withIdentifier: ProfileCell.identifier) as? ProfileCell
         else { return UITableViewCell() }

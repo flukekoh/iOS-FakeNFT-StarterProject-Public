@@ -112,26 +112,26 @@ final class MyNFTCell: UITableViewCell {
             titleLabel.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: 20),
             titleLabel.topAnchor.constraint(equalTo: nftImage.topAnchor, constant: 23),
             titleLabel.heightAnchor.constraint(equalToConstant: 22),
-//            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            //            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
             authorLabel.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: 20),
             authorLabel.bottomAnchor.constraint(equalTo: nftImage.bottomAnchor,constant: -23),
             authorLabel.heightAnchor.constraint(equalToConstant: 20),
-//            authorLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            //            authorLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
             titlePriceLabel.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: 137),
             titlePriceLabel.topAnchor.constraint(equalTo: nftImage.topAnchor, constant: 33),
             titlePriceLabel.heightAnchor.constraint(equalToConstant: 18),
-//            titlePriceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            //            titlePriceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
             priceLabel.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: 137),
             priceLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 53),
             priceLabel.heightAnchor.constraint(equalToConstant: 22),
-//            priceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            //            priceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
             ratingImage.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: 20),
             ratingImage.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
-//            ratingImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            //            ratingImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             ratingImage.heightAnchor.constraint(equalToConstant: 12),
         ])
     }

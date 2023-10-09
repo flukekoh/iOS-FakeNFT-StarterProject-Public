@@ -74,7 +74,7 @@ final class FavoriteNFTCell: UICollectionViewCell {
     }
     
     func setupHierarchy() {
-//        selectionStyle = .none
+        //        selectionStyle = .none
         contentView.addSubview(nftImage)
         contentView.addSubview(onLikeImage)
         contentView.addSubview(titleLabel)

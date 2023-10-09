@@ -9,28 +9,33 @@ import UIKit
 import WebKit
 
 class AboutDeveloperViewController: UIViewController, WKNavigationDelegate {
-    var webView: WKWebView!
-
+    private var webView: WKWebView?
+    private var profileLink: String?
+    
+    init(webView: WKWebView?, profileLink: String?) {
+        self.webView = webView
+        self.profileLink = profileLink
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Создайте экземпляр WKWebView
+        
         webView = WKWebView()
-
-        // Назначьте делегата навигации
-        webView.navigationDelegate = self
-
-        // Добавьте webView как подпредставление в ваш контроллер
-        view.addSubview(webView)
-
-        // Задайте фрейм для webView
-        webView.frame = view.frame
-
-        // Загрузите URL в webView
-        if let url = URL(string: "https://www.speedhunters.com") {
-            let request = URLRequest(url: url)
-            webView.load(request)
-        }
+        webView?.navigationDelegate = self
+        
+        view.addSubview(webView ?? UIView())
+        webView?.frame = view.frame
+        
+        guard let profileLink = profileLink,
+              let url = URL(string: profileLink) else { return }
+        let request = URLRequest(url: url)
+        
+        webView?.load(request)
     }
 }
 

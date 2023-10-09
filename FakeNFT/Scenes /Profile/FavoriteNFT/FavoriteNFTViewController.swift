@@ -19,7 +19,7 @@ final class FavoriteNFTViewController: UIViewController {
             FavoriteNFTCell.self,
             forCellWithReuseIdentifier: FavoriteNFTCell.identifier
         )
-
+        
         view.dataSource = self
         view.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -73,7 +73,7 @@ extension FavoriteNFTViewController: UICollectionViewDataSource {
         }
         let currentNFT = collectionData[indexPath.row]
         cell.configure(nft: currentNFT)
-//        cell.delegate = self
+        //        cell.delegate = self
         
         return cell
     }

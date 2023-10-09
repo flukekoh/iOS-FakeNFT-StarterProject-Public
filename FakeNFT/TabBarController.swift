@@ -12,13 +12,22 @@ final class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tabBar.backgroundColor = .white
+        tabBar.tintColor = .blue
+        tabBar.unselectedItemTintColor = .black
+        tabBar.isTranslucent = false
+        
         //Профиль
-        let profileViewController = ProfileViewController()
+        let profileVC = ProfileViewController()
         
         let profileViewModel = ProfileViewModel()
-        profileViewController.profileViewModel = profileViewModel
+        profileVC.profileViewModel = profileViewModel
         
-        profileViewController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(named: "profileTabBarImageNoActive"), selectedImage: UIImage(named: "profileTabBarImageActive"))
+        let profileViewController = UINavigationController(
+            rootViewController: profileVC
+        )
+        
+        profileViewController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person.crop.circle.fill"), selectedImage: nil)
         
         //Каталог
         let catalogViewController = CatalogViewController()

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class TextField: UITextField {
     private let textPadding = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 41)
@@ -22,6 +23,8 @@ class TextField: UITextField {
 }
 
 final class ProfileEditionViewController: UIViewController {
+    
+    private var currentProfile: ProfileModel?
     
     private lazy var closeProfileButton: UIButton = {
         let closeProfileButton = UIButton.systemButton(
@@ -54,10 +57,10 @@ final class ProfileEditionViewController: UIViewController {
         let nameTextField = TextField()
         
         nameTextField.placeholder = "Введите имя"
-//        nameTextField.delegate = self
+        nameTextField.delegate = self
         nameTextField.layer.cornerRadius = 16
         nameTextField.backgroundColor = UIColor(red: 0.902, green: 0.91, blue: 0.922, alpha: 0.3)
-        
+        nameTextField.clearButtonMode = .whileEditing
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         return nameTextField
     }()
@@ -75,10 +78,10 @@ final class ProfileEditionViewController: UIViewController {
         let descriptionTextField = TextField()
         
         descriptionTextField.placeholder = "Введите описание"
-//        descriptionTextField.delegate = self
+        descriptionTextField.delegate = self
         descriptionTextField.layer.cornerRadius = 16
         descriptionTextField.backgroundColor = UIColor(red: 0.902, green: 0.91, blue: 0.922, alpha: 0.3)
-        
+        descriptionTextField.clearButtonMode = .whileEditing
         descriptionTextField.translatesAutoresizingMaskIntoConstraints = false
         return descriptionTextField
     }()
@@ -92,25 +95,26 @@ final class ProfileEditionViewController: UIViewController {
         return websiteLabel
     }()
     
-//    init(profile: ProfileModel) {
-//        super.init()
-//    }
-    
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-    
     private lazy var websiteTextField: UITextField = {
         let websiteTextField = TextField()
         
         websiteTextField.placeholder = "Укажите ссылку"
-//        websiteTextField.delegate = self
+        websiteTextField.delegate = self
         websiteTextField.layer.cornerRadius = 16
         websiteTextField.backgroundColor = UIColor(red: 0.902, green: 0.91, blue: 0.922, alpha: 0.3)
-        
+        websiteTextField.clearButtonMode = .whileEditing
         websiteTextField.translatesAutoresizingMaskIntoConstraints = false
         return websiteTextField
     }()
+    
+    init(profile: ProfileModel) {
+        self.currentProfile = profile
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -122,6 +126,14 @@ final class ProfileEditionViewController: UIViewController {
     
     private func setupView() {
         view.backgroundColor = UIColor(named: "ypWhite")
+        
+        guard let currentProfile = currentProfile else { return }
+        
+        profilePictureImage.kf.setImage(with: URL(string: currentProfile.avatar), placeholder: UIImage(named: "MockUserPic"), options: [.processor(RoundCornerImageProcessor(cornerRadius: 35))])
+        
+        nameTextField.text = currentProfile.name
+        descriptionTextField.text = currentProfile.description
+        websiteTextField.text = currentProfile.website
     }
     
     private func setupHierarchy() {
@@ -150,7 +162,7 @@ final class ProfileEditionViewController: UIViewController {
             nameLabel.topAnchor.constraint(equalTo: profilePictureImage.bottomAnchor, constant: 24),
             nameLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             nameLabel.heightAnchor.constraint(equalToConstant: 28),
-//            nameLabel.centerYAnchor.constraint(equalTo: profilePictureImage.centerYAnchor),
+            //            nameLabel.centerYAnchor.constraint(equalTo: profilePictureImage.centerYAnchor),
             
             nameTextField.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
             nameTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
@@ -159,7 +171,7 @@ final class ProfileEditionViewController: UIViewController {
             
             descriptionLabel.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 24),
             descriptionLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-//            descriptionLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -18),
+            //            descriptionLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -18),
             descriptionLabel.heightAnchor.constraint(equalToConstant: 22),
             
             descriptionTextField.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
@@ -169,7 +181,7 @@ final class ProfileEditionViewController: UIViewController {
             
             websiteLabel.topAnchor.constraint(equalTo: descriptionTextField.bottomAnchor, constant: 24),
             websiteLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-//            websiteLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -18),
+            //            websiteLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -18),
             websiteLabel.heightAnchor.constraint(equalToConstant: 22),
             
             websiteTextField.topAnchor.constraint(equalTo: websiteLabel.bottomAnchor, constant: 8),
@@ -182,5 +194,12 @@ final class ProfileEditionViewController: UIViewController {
     @objc
     private func didTapCloseProfileButton() {
         
+    }
+}
+
+extension ProfileEditionViewController: UITextFieldDelegate, UITextViewDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

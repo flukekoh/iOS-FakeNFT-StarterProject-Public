@@ -22,7 +22,7 @@ final class ProfileViewModel {
     }
     
     func viewWillAppear() {
-       getProfile()
+        getProfile()
     }
     
     func getProfile()  {
@@ -47,7 +47,7 @@ final class ProfileViewModel {
         guard let profile = profile else { return }
         
         let request = PutProfileRequest(profile: profile)
-            
+        
         networkClient.send(request: request, type: ProfileNetworkModel.self) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
@@ -69,7 +69,6 @@ final class ProfileViewModel {
 
 struct GetProfileRequest: NetworkRequest {
     var endpoint: URL? {
-//        URL(string: "INSERT_URL_HERE")
         baseURL.appendingPathComponent("profile/1")
     }
 }
