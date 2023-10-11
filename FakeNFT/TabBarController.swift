@@ -12,6 +12,11 @@ final class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tabBar.backgroundColor = .white
+        tabBar.tintColor = .blue
+        tabBar.unselectedItemTintColor = .black
+        tabBar.isTranslucent = false
+        
         //Профиль
         let profileViewController = ProfileViewController()
         
