@@ -14,7 +14,7 @@ final class ProfileViewModel {
     private var networkClient: NetworkClient = DefaultNetworkClient()
     private var error: Error?
     
-    private var profile: ProfileModel? {
+    var profile: ProfileModel? {
         didSet {
             guard let profile = profile else { return}
             onProfileLoad?(profile)
@@ -44,9 +44,7 @@ final class ProfileViewModel {
     
     func putProfile(name: String, avatar: String, description: String, website: String, likes: [String]) {
         
-        guard let profile = profile else { return }
-        
-        let request = PutProfileRequest(profile: profile)
+        let request = PutProfileRequest(name: name, description: description, website: website, likes: likes)
         
         networkClient.send(request: request, type: ProfileNetworkModel.self) { [weak self] result in
             DispatchQueue.main.async {
@@ -74,11 +72,12 @@ struct GetProfileRequest: NetworkRequest {
 }
 
 struct PutProfileRequest: NetworkRequest {
+
     struct Body: Encodable {
         let name: String
-        let avatar: String
         let description: String
         let website: String
+        let likes: [String]
     }
     
     var endpoint: URL? {
@@ -86,15 +85,9 @@ struct PutProfileRequest: NetworkRequest {
     }
     
     var httpMethod: HttpMethod = .put
-    
     var body: Data?
     
-    init(profile: ProfileModel) {
-        self.body = try? JSONEncoder().encode(Body(
-            name: profile.name,
-            avatar: profile.avatar,
-            description: profile.description,
-            website: profile.website
-        ))
+    init(name: String, description: String, website: String, likes: [String]) {
+        self.body = try? JSONEncoder().encode(Body(name: name, description: description, website: website, likes: likes))
     }
 }

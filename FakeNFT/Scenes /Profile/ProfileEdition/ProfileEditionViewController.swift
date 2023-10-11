@@ -24,11 +24,15 @@ class TextField: UITextField {
 
 final class ProfileEditionViewController: UIViewController {
     
-    private var currentProfile: ProfileModel?
+    let viewModel: ProfileViewModel?
     
     private lazy var closeProfileButton: UIButton = {
+//        let closeProfileButton = UIButton(type: .system)
+//        closeProfileButton.addTarget(self, action: #selector(didTapCloseProfileButton), for: .touchUpInside)
+//
+//        closeProfileButton.setImage(UIImage(named: "closeProfile"), for: .normal)
         let closeProfileButton = UIButton.systemButton(
-            with: UIImage(named: "editProfile")!,
+            with: UIImage(named: "closeProfile")!,
             target: self, action: #selector(didTapCloseProfileButton))
         closeProfileButton.tintColor = .black
         closeProfileButton.translatesAutoresizingMaskIntoConstraints = false
@@ -38,10 +42,28 @@ final class ProfileEditionViewController: UIViewController {
     
     private let profilePictureImage: UIImageView = {
         let profilePictureImage = UIImageView()
+        profilePictureImage.layer.cornerRadius = 35
+        profilePictureImage.layer.masksToBounds = true
         profilePictureImage.translatesAutoresizingMaskIntoConstraints = false
         profilePictureImage.image = UIImage(named: "MockUserPic")
         
         return profilePictureImage
+    }()
+   
+    private let changePictureLabel: UILabel = {
+        let changePictureLabel = UILabel()
+        changePictureLabel.text = "Сменить фото"
+        changePictureLabel.font = UIFont.systemFont(ofSize: 10, weight: .medium)
+        changePictureLabel.textColor = .white
+        changePictureLabel.backgroundColor = .black.withAlphaComponent(0.5)
+        changePictureLabel.layer.cornerRadius = 35
+        changePictureLabel.layer.masksToBounds = true
+        changePictureLabel.translatesAutoresizingMaskIntoConstraints = false
+//        changePictureLabel.lineBreakMode = .byClipping
+        changePictureLabel.numberOfLines = 2
+        changePictureLabel.textAlignment = .center
+
+        return changePictureLabel
     }()
     
     private let nameLabel: UILabel = {
@@ -107,8 +129,8 @@ final class ProfileEditionViewController: UIViewController {
         return websiteTextField
     }()
     
-    init(profile: ProfileModel) {
-        self.currentProfile = profile
+    init(viewModel: ProfileViewModel?) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -126,8 +148,8 @@ final class ProfileEditionViewController: UIViewController {
     
     private func setupView() {
         view.backgroundColor = UIColor(named: "ypWhite")
-        
-        guard let currentProfile = currentProfile else { return }
+        self.navigationController?.navigationBar.isHidden = true
+        guard let currentProfile = viewModel?.profile else { return }
         
         profilePictureImage.kf.setImage(with: URL(string: currentProfile.avatar), placeholder: UIImage(named: "MockUserPic"), options: [.processor(RoundCornerImageProcessor(cornerRadius: 35))])
         
@@ -139,6 +161,7 @@ final class ProfileEditionViewController: UIViewController {
     private func setupHierarchy() {
         view.addSubview(closeProfileButton)
         view.addSubview(profilePictureImage)
+        view.addSubview(changePictureLabel)
         view.addSubview(nameLabel)
         view.addSubview(nameTextField)
         view.addSubview(descriptionLabel)
@@ -149,7 +172,7 @@ final class ProfileEditionViewController: UIViewController {
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            closeProfileButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            closeProfileButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 30),
             closeProfileButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             closeProfileButton.heightAnchor.constraint(equalToConstant: 42),
             closeProfileButton.widthAnchor.constraint(equalToConstant: 42),
@@ -158,6 +181,12 @@ final class ProfileEditionViewController: UIViewController {
             profilePictureImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             profilePictureImage.heightAnchor.constraint(equalToConstant: 70),
             profilePictureImage.widthAnchor.constraint(equalToConstant: 70),
+            
+//            changePictureLabel.topAnchor.constraint(equalTo: profilePictureImage.bottomAnchor, constant: 22),
+            changePictureLabel.centerXAnchor.constraint(equalTo: profilePictureImage.centerXAnchor),
+            changePictureLabel.centerYAnchor.constraint(equalTo: profilePictureImage.centerYAnchor),
+            changePictureLabel.widthAnchor.constraint(equalToConstant: 70),
+            changePictureLabel.heightAnchor.constraint(equalToConstant: 70),
             
             nameLabel.topAnchor.constraint(equalTo: profilePictureImage.bottomAnchor, constant: 24),
             nameLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
@@ -193,7 +222,8 @@ final class ProfileEditionViewController: UIViewController {
     
     @objc
     private func didTapCloseProfileButton() {
-        
+        viewModel?.putProfile(name: nameTextField.text ?? "", avatar: viewModel?.profile?.avatar ?? "", description: descriptionTextField.text ?? "", website: websiteTextField.text ?? "", likes: viewModel?.profile?.likes ?? [""])
+        dismiss(animated: true)
     }
 }
 

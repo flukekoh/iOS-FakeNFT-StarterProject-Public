@@ -7,11 +7,10 @@
 
 import UIKit
 import Kingfisher
+import ProgressHUD
 
 final class ProfileViewController: UIViewController {
     var profileViewModel: ProfileViewModel?
-    
-    private var currentProfile: ProfileModel?
     
     private lazy var editProfileButton = UIBarButtonItem(
         image: UIImage(named: "editProfile")!,
@@ -20,6 +19,12 @@ final class ProfileViewController: UIViewController {
         action: #selector(didTapEditProfileButton)
     )
     
+    private var placeholderView: UIView {
+        let uiView = UIView()
+        uiView.backgroundColor = .white
+        uiView.frame = view.bounds
+        return uiView
+    }
     private let profilePictureImage: UIImageView = {
         let profilePictureImage = UIImageView()
         profilePictureImage.layer.cornerRadius = 35
@@ -42,8 +47,9 @@ final class ProfileViewController: UIViewController {
     private let descriptionLabel: UILabel = {
         let descriptionLabel = UILabel()
         descriptionLabel.text = "Дизайнер из Казани, люблю цифровое искусство  и бейглы. В моей коллекции уже 100+ NFT,  и еще больше — на моём сайте. Открыт к коллаборациям."
-        descriptionLabel.lineBreakMode = .byClipping
-        descriptionLabel.numberOfLines = 4
+        descriptionLabel.lineBreakMode = .byWordWrapping
+        descriptionLabel.numberOfLines = 0
+        descriptionLabel.sizeToFit()
         descriptionLabel.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -59,7 +65,7 @@ final class ProfileViewController: UIViewController {
         let tapAction = UITapGestureRecognizer(target: self, action:#selector(profileLinkDidTap(_:)))
         profileLinkLabel.addGestureRecognizer(tapAction)
         profileLinkLabel.isUserInteractionEnabled = true
-                profileLinkLabel.attributedText = NSAttributedString(string: "", attributes: [.kern: 0.24])
+//                profileLinkLabel.attributedText = NSAttributedString(string: "", attributes: [.kern: 0.24])
         profileLinkLabel.font = UIFont.systemFont(ofSize: 15)
         profileLinkLabel.textColor = .blue
         return profileLinkLabel
@@ -88,20 +94,32 @@ final class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         setupView()
-        setupHierarchy()
-        setupLayout()
         
+        ProgressHUD.show()
+        self.setupHierarchy()
+        self.setupLayout()
+        
+        placeholderView.isHidden = true
         profileViewModel?.onProfileLoad = { [weak self] profile in
             guard let self else { return }
+    
+//            self.setupHierarchy()
+//            self.setupLayout()
             self.setupProfileContent(profile: profile)
-            self.currentProfile = profile
+            
+//            self.placeholderView.removeFromSuperview()
+            ProgressHUD.dismiss()
         }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+//        ProgressHUD.show()
         profileViewModel?.viewWillAppear()
     }
+    
+    
     
     private func setupProfileContent(profile: ProfileModel) {
         profilePictureImage.kf.setImage(with: URL(string: profile.avatar), placeholder: UIImage(named: "MockUserPic"), options: [.processor(RoundCornerImageProcessor(cornerRadius: 35))])
@@ -131,6 +149,8 @@ final class ProfileViewController: UIViewController {
         view.addSubview(descriptionLabel)
         view.addSubview(profileLinkLabel)
         view.addSubview(tableView)
+        
+//        view.addSubview(placeholderView)
     }
     
     private func setupLayout() {
@@ -148,7 +168,7 @@ final class ProfileViewController: UIViewController {
             descriptionLabel.topAnchor.constraint(equalTo: profilePictureImage.bottomAnchor, constant: 20),
             descriptionLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             descriptionLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -18),
-            descriptionLabel.heightAnchor.constraint(equalToConstant: 72),
+//            descriptionLabel.heightAnchor.constraint(equalToConstant: 72),
             
             profileLinkLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
             profileLinkLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
@@ -158,15 +178,19 @@ final class ProfileViewController: UIViewController {
             tableView.topAnchor.constraint(equalTo: profileLinkLabel.bottomAnchor, constant: 40),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tableView.heightAnchor.constraint(equalToConstant: CGFloat(integerLiteral: (tableData?.count ?? 0) * 54))
+            tableView.heightAnchor.constraint(equalToConstant: CGFloat(integerLiteral: (tableData?.count ?? 0) * 54)),
+            
+//            placeholderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+//            placeholderView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+//            placeholderView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+//            placeholderView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
     }
     
     @objc
     private func didTapEditProfileButton() {
-        guard let currentProfile = currentProfile else { return }
         
-        let profileEditionViewController = ProfileEditionViewController(profile: currentProfile)
+        let profileEditionViewController = ProfileEditionViewController(viewModel: profileViewModel)
         //        profileEditionViewController.onDone = {
         //            self.onReload?()
         //        }
