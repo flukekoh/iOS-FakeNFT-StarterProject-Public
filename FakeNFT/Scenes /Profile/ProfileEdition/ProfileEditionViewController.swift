@@ -27,10 +27,6 @@ final class ProfileEditionViewController: UIViewController {
     let viewModel: ProfileViewModel?
     
     private lazy var closeProfileButton: UIButton = {
-//        let closeProfileButton = UIButton(type: .system)
-//        closeProfileButton.addTarget(self, action: #selector(didTapCloseProfileButton), for: .touchUpInside)
-//
-//        closeProfileButton.setImage(UIImage(named: "closeProfile"), for: .normal)
         let closeProfileButton = UIButton.systemButton(
             with: UIImage(named: "closeProfile")!,
             target: self, action: #selector(didTapCloseProfileButton))
@@ -49,7 +45,7 @@ final class ProfileEditionViewController: UIViewController {
         
         return profilePictureImage
     }()
-   
+    
     private let changePictureLabel: UILabel = {
         let changePictureLabel = UILabel()
         changePictureLabel.text = "Сменить фото"
@@ -59,10 +55,9 @@ final class ProfileEditionViewController: UIViewController {
         changePictureLabel.layer.cornerRadius = 35
         changePictureLabel.layer.masksToBounds = true
         changePictureLabel.translatesAutoresizingMaskIntoConstraints = false
-//        changePictureLabel.lineBreakMode = .byClipping
         changePictureLabel.numberOfLines = 2
         changePictureLabel.textAlignment = .center
-
+        
         return changePictureLabel
     }()
     
@@ -159,7 +154,7 @@ final class ProfileEditionViewController: UIViewController {
     private func setupView() {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(changePictureDidTap))
-            
+        
         changePictureLabel.addGestureRecognizer(tapGesture)
         changePictureLabel.isUserInteractionEnabled = true
         
@@ -199,7 +194,6 @@ final class ProfileEditionViewController: UIViewController {
             profilePictureImage.heightAnchor.constraint(equalToConstant: 70),
             profilePictureImage.widthAnchor.constraint(equalToConstant: 70),
             
-//            changePictureLabel.topAnchor.constraint(equalTo: profilePictureImage.bottomAnchor, constant: 22),
             changePictureLabel.centerXAnchor.constraint(equalTo: profilePictureImage.centerXAnchor),
             changePictureLabel.centerYAnchor.constraint(equalTo: profilePictureImage.centerYAnchor),
             changePictureLabel.widthAnchor.constraint(equalToConstant: 70),
@@ -211,7 +205,6 @@ final class ProfileEditionViewController: UIViewController {
             nameLabel.topAnchor.constraint(equalTo: profilePictureImage.bottomAnchor, constant: 24),
             nameLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             nameLabel.heightAnchor.constraint(equalToConstant: 28),
-            //            nameLabel.centerYAnchor.constraint(equalTo: profilePictureImage.centerYAnchor),
             
             nameTextField.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
             nameTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
@@ -220,7 +213,6 @@ final class ProfileEditionViewController: UIViewController {
             
             descriptionLabel.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 24),
             descriptionLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            //            descriptionLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -18),
             descriptionLabel.heightAnchor.constraint(equalToConstant: 22),
             
             descriptionTextField.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
@@ -230,7 +222,6 @@ final class ProfileEditionViewController: UIViewController {
             
             websiteLabel.topAnchor.constraint(equalTo: descriptionTextField.bottomAnchor, constant: 24),
             websiteLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            //            websiteLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -18),
             websiteLabel.heightAnchor.constraint(equalToConstant: 22),
             
             websiteTextField.topAnchor.constraint(equalTo: websiteLabel.bottomAnchor, constant: 8),

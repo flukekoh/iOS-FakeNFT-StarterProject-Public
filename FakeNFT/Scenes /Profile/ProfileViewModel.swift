@@ -30,7 +30,6 @@ final class ProfileViewModel {
         let request = GetProfileRequest()
         
         networkClient.send(request: request, type: ProfileNetworkModel.self) { [weak self] result in
-            
             DispatchQueue.main.async {
                 switch result {
                 case .success(let profile):
@@ -59,7 +58,6 @@ final class ProfileViewModel {
     }
     
     func setupProfileModel(response: ProfileNetworkModel) {
-        //URL(string: response.avatar)
         let profileModel = ProfileModel(name: response.name, avatar: response.avatar, description: response.description, website: response.website, nfts: response.nfts, likes: response.likes, id: response.id)
         self.profile = profileModel
     }
@@ -72,7 +70,7 @@ struct GetProfileRequest: NetworkRequest {
 }
 
 struct PutProfileRequest: NetworkRequest {
-
+    
     struct Body: Encodable {
         let name: String
         let description: String

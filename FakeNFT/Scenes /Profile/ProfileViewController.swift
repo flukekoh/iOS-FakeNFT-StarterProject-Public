@@ -86,6 +86,8 @@ final class ProfileViewController: UIViewController {
         return tableView
     }()
     
+    private let tableCellHeight: CGFloat = 54
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -98,12 +100,12 @@ final class ProfileViewController: UIViewController {
         placeholderView.isHidden = true
         profileViewModel?.onProfileLoad = { [weak self] profile in
             guard let self else { return }
-    
-//            self.setupHierarchy()
-//            self.setupLayout()
+            
+            //            self.setupHierarchy()
+            //            self.setupLayout()
             self.setupProfileContent(profile: profile)
             
-//            self.placeholderView.removeFromSuperview()
+            //            self.placeholderView.removeFromSuperview()
             ProgressHUD.dismiss()
         }
         
@@ -111,11 +113,8 @@ final class ProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        ProgressHUD.show()
         profileViewModel?.viewWillAppear()
     }
-    
-    
     
     private func setupProfileContent(profile: ProfileModel) {
         profilePictureImage.kf.setImage(with: URL(string: profile.avatar), placeholder: UIImage(named: "MockUserPic"), options: [.processor(RoundCornerImageProcessor(cornerRadius: 35))])
@@ -132,7 +131,7 @@ final class ProfileViewController: UIViewController {
     
     private func setupView() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(profileLinkDidTap))
-            
+        
         profileLinkLabel.addGestureRecognizer(tapGesture)
         profileLinkLabel.isUserInteractionEnabled = true
         
@@ -144,14 +143,13 @@ final class ProfileViewController: UIViewController {
     }
     
     private func setupHierarchy() {
-        //        view.addSubview(editProfileButton)
         view.addSubview(profilePictureImage)
         view.addSubview(profileNameLabel)
         view.addSubview(descriptionLabel)
         view.addSubview(profileLinkLabel)
         view.addSubview(tableView)
         
-//        view.addSubview(placeholderView)
+        //        view.addSubview(placeholderView)
     }
     
     private func setupLayout() {
@@ -169,11 +167,9 @@ final class ProfileViewController: UIViewController {
             descriptionLabel.topAnchor.constraint(equalTo: profilePictureImage.bottomAnchor, constant: 20),
             descriptionLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             descriptionLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -18),
-//            descriptionLabel.heightAnchor.constraint(equalToConstant: 72),
             
             profileLinkLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
             profileLinkLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            //            profileLinkLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -18),
             profileLinkLabel.heightAnchor.constraint(equalToConstant: 28),
             
             tableView.topAnchor.constraint(equalTo: profileLinkLabel.bottomAnchor, constant: 40),
@@ -181,10 +177,10 @@ final class ProfileViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.heightAnchor.constraint(equalToConstant: CGFloat(integerLiteral: (tableData?.count ?? 0) * 54)),
             
-//            placeholderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-//            placeholderView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-//            placeholderView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-//            placeholderView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+            //            placeholderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            //            placeholderView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            //            placeholderView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            //            placeholderView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
     }
     
@@ -192,11 +188,6 @@ final class ProfileViewController: UIViewController {
     private func didTapEditProfileButton() {
         
         let profileEditionViewController = ProfileEditionViewController(viewModel: profileViewModel)
-        //        profileEditionViewController.onDone = {
-        //            self.onReload?()
-        //        }
-        
-        //        profileEditionViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: profileEditionViewController)
         
         present(navigationController, animated: true)
@@ -214,16 +205,12 @@ extension ProfileViewController: UITableViewDelegate {
         switch indexPath.row {
         case 0: //Мои NFT
             let myNFTViewController = MyNFTViewController()
-            //            myNFTViewController.delegate = self
-            
             navigationController?.pushViewController(myNFTViewController, animated: true)
         case 1: //Избранные NFT
             let favoriteNFTViewController = FavoriteNFTViewController()
-            //            favoriteNFTViewController.delegate = self
             navigationController?.pushViewController(favoriteNFTViewController, animated: true)
         case 2: //О Разработчике
             let aboutDeveloperViewController = AboutDeveloperViewController(webView: nil, profileLink: profileLinkLabel.text)
-            //            favoriteNFTViewController.delegate = self
             navigationController?.pushViewController(aboutDeveloperViewController, animated: true)
         default:
             return
@@ -231,7 +218,7 @@ extension ProfileViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        54
+        tableCellHeight
     }
 }
 
