@@ -19,25 +19,19 @@ final class ProfileViewController: UIViewController {
         action: #selector(didTapEditProfileButton)
     )
     
-    private var placeholderView: UIView {
-        let uiView = UIView()
-        uiView.backgroundColor = .white
-        uiView.frame = view.bounds
-        return uiView
-    }
     private let profilePictureImage: UIImageView = {
         let profilePictureImage = UIImageView()
         profilePictureImage.layer.cornerRadius = 35
         profilePictureImage.layer.masksToBounds = true
         profilePictureImage.translatesAutoresizingMaskIntoConstraints = false
-        profilePictureImage.image = UIImage(named: "MockUserPic")
+        profilePictureImage.image = UIImage()
         
         return profilePictureImage
     }()
     
     private let profileNameLabel: UILabel = {
         let profileNameLabel = UILabel()
-        profileNameLabel.text = "Joaquin Phoenix"
+        profileNameLabel.text = ""
         profileNameLabel.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         profileNameLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -46,7 +40,7 @@ final class ProfileViewController: UIViewController {
     
     private let descriptionLabel: UILabel = {
         let descriptionLabel = UILabel()
-        descriptionLabel.text = "Дизайнер из Казани, люблю цифровое искусство  и бейглы. В моей коллекции уже 100+ NFT,  и еще больше — на моём сайте. Открыт к коллаборациям."
+        descriptionLabel.text = ""
         descriptionLabel.lineBreakMode = .byWordWrapping
         descriptionLabel.numberOfLines = 0
         descriptionLabel.sizeToFit()
@@ -58,7 +52,7 @@ final class ProfileViewController: UIViewController {
     
     private let profileLinkLabel: UILabel = {
         let profileLinkLabel = UILabel()
-        profileLinkLabel.text = "Joaquin Phoenix.com"
+        profileLinkLabel.text = ""
         profileLinkLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         profileLinkLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -94,18 +88,13 @@ final class ProfileViewController: UIViewController {
         setupView()
         
         ProgressHUD.show()
-        self.setupHierarchy()
-        self.setupLayout()
+        setupHierarchy()
+        setupLayout()
         
-        placeholderView.isHidden = true
         profileViewModel?.onProfileLoad = { [weak self] profile in
             guard let self else { return }
             
-            //            self.setupHierarchy()
-            //            self.setupLayout()
             self.setupProfileContent(profile: profile)
-            
-            //            self.placeholderView.removeFromSuperview()
             ProgressHUD.dismiss()
         }
         
@@ -175,12 +164,7 @@ final class ProfileViewController: UIViewController {
             tableView.topAnchor.constraint(equalTo: profileLinkLabel.bottomAnchor, constant: 40),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tableView.heightAnchor.constraint(equalToConstant: CGFloat(integerLiteral: (tableData?.count ?? 0) * 54)),
-            
-            //            placeholderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            //            placeholderView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            //            placeholderView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            //            placeholderView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+            tableView.heightAnchor.constraint(equalToConstant: CGFloat(integerLiteral: (tableData?.count ?? 0) * 54))
         ])
     }
     
