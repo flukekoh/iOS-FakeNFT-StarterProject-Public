@@ -62,10 +62,6 @@ final class ProfileViewController: UIViewController {
         profileLinkLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         profileLinkLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        let tapAction = UITapGestureRecognizer(target: self, action:#selector(profileLinkDidTap(_:)))
-        profileLinkLabel.addGestureRecognizer(tapAction)
-        profileLinkLabel.isUserInteractionEnabled = true
-//                profileLinkLabel.attributedText = NSAttributedString(string: "", attributes: [.kern: 0.24])
         profileLinkLabel.font = UIFont.systemFont(ofSize: 15)
         profileLinkLabel.textColor = .blue
         return profileLinkLabel
@@ -135,6 +131,11 @@ final class ProfileViewController: UIViewController {
     }
     
     private func setupView() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(profileLinkDidTap))
+            
+        profileLinkLabel.addGestureRecognizer(tapGesture)
+        profileLinkLabel.isUserInteractionEnabled = true
+        
         view.backgroundColor = UIColor(named: "ypWhite")
         
         navigationController?.navigationBar.tintColor = .black
@@ -202,7 +203,7 @@ final class ProfileViewController: UIViewController {
     }
     
     @objc
-    private func profileLinkDidTap(_ sender: UITapGestureRecognizer) {
+    private func profileLinkDidTap() {
         self.present(AboutDeveloperViewController(webView: nil, profileLink: profileLinkLabel.text), animated: true)
     }
 }

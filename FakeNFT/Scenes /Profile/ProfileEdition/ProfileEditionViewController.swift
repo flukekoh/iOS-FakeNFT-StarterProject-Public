@@ -66,6 +66,16 @@ final class ProfileEditionViewController: UIViewController {
         return changePictureLabel
     }()
     
+    private let profileImageLinkLabel: UILabel = {
+        let profileImageLinkLabel = UILabel()
+        profileImageLinkLabel.text = "Загрузить изображение"
+        profileImageLinkLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        profileImageLinkLabel.translatesAutoresizingMaskIntoConstraints = false
+        profileImageLinkLabel.isHidden = true
+        
+        return profileImageLinkLabel
+    }()
+    
     private let nameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.text = "Имя"
@@ -147,6 +157,12 @@ final class ProfileEditionViewController: UIViewController {
     }
     
     private func setupView() {
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(changePictureDidTap))
+            
+        changePictureLabel.addGestureRecognizer(tapGesture)
+        changePictureLabel.isUserInteractionEnabled = true
+        
         view.backgroundColor = UIColor(named: "ypWhite")
         self.navigationController?.navigationBar.isHidden = true
         guard let currentProfile = viewModel?.profile else { return }
@@ -162,6 +178,7 @@ final class ProfileEditionViewController: UIViewController {
         view.addSubview(closeProfileButton)
         view.addSubview(profilePictureImage)
         view.addSubview(changePictureLabel)
+        view.addSubview(profileImageLinkLabel)
         view.addSubview(nameLabel)
         view.addSubview(nameTextField)
         view.addSubview(descriptionLabel)
@@ -187,6 +204,9 @@ final class ProfileEditionViewController: UIViewController {
             changePictureLabel.centerYAnchor.constraint(equalTo: profilePictureImage.centerYAnchor),
             changePictureLabel.widthAnchor.constraint(equalToConstant: 70),
             changePictureLabel.heightAnchor.constraint(equalToConstant: 70),
+            
+            profileImageLinkLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            profileImageLinkLabel.topAnchor.constraint(equalTo: changePictureLabel.bottomAnchor, constant: 12),
             
             nameLabel.topAnchor.constraint(equalTo: profilePictureImage.bottomAnchor, constant: 24),
             nameLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
@@ -224,6 +244,46 @@ final class ProfileEditionViewController: UIViewController {
     private func didTapCloseProfileButton() {
         viewModel?.putProfile(name: nameTextField.text ?? "", avatar: viewModel?.profile?.avatar ?? "", description: descriptionTextField.text ?? "", website: websiteTextField.text ?? "", likes: viewModel?.profile?.likes ?? [""])
         dismiss(animated: true)
+    }
+    
+    @objc
+    private func changePictureDidTap() {
+        profileImageLinkLabel.text = viewModel?.profile?.avatar
+        profileImageLinkLabel.isHidden = false
+        
+        let alertController = UIAlertController(title: "Введите ссылку на изображение", message: nil, preferredStyle: .alert)
+        
+        alertController.addTextField { textField in
+            textField.placeholder = "Ссылка на изображение"
+        }
+        
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+        
+        let okAction = UIAlertAction(title: "ОК", style: .default) { [weak self] _ in
+            if let textField = alertController.textFields?.first,
+               let imageURLString = textField.text,
+               let imageURL = URL(string: imageURLString),
+               UIApplication.shared.canOpenURL(imageURL) {
+                self?.profileImageLinkLabel.text = imageURLString
+                
+                self?.profilePictureImage.kf.setImage(with: URL(string: imageURLString), placeholder: UIImage(named: "MockUserPic"), options: [.processor(RoundCornerImageProcessor(cornerRadius: 35))])
+                
+            } else {
+                self?.showInvalidURLAlert()
+            }
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func showInvalidURLAlert() {
+        let alertController = UIAlertController(title: "Неверный формат ссылки", message: "Пожалуйста, введите правильную ссылку на изображение.", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "ОК", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
     }
 }
 
