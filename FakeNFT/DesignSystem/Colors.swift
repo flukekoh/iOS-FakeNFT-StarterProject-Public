@@ -19,15 +19,15 @@ extension UIColor {
         }
         self.init(red: CGFloat(red) / 255, green: CGFloat(green) / 255, blue: CGFloat(blue) / 255, alpha: CGFloat(alpha) / 255)
     }
-
+    
     // Ниже приведены примеры цветов, настоящие цвета надо взять из фигмы
-
+    
     // Primary Colors
     static let primary = UIColor(red: 0 / 255, green: 122 / 255, blue: 255 / 255, alpha: 1.0)
-
+    
     // Secondary Colors
     static let secondary = UIColor(red: 255 / 255, green: 193 / 255, blue: 7 / 255, alpha: 1.0)
-
+    
     // Background Colors
     static let background = UIColor(named: "background")
     
@@ -38,7 +38,7 @@ extension UIColor {
     static let ypBlue = UIColor(named: "ypBlue")
     static let ypRed = UIColor(named: "ypRed")
     static let ypWhite = UIColor(named: "ypWhite")
-
+    
     // Text Colors
     static let textPrimary = UIColor(named: "ypBlack") ?? UIColor.black
     static let textSecondary = UIColor.gray

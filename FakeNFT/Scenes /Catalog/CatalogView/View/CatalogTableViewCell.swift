@@ -3,7 +3,7 @@ import Kingfisher
 
 final class CatalogTableViewCell: UITableViewCell {
     static let identifier = "CatalogTableViewCell"
- 
+    
     private lazy var imageCategory: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -14,7 +14,7 @@ final class CatalogTableViewCell: UITableViewCell {
     }()
     
     private lazy var label: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .textPrimary
         label.textAlignment = .left
@@ -40,7 +40,7 @@ final class CatalogTableViewCell: UITableViewCell {
             imageCategory.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             imageCategory.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             imageCategory.heightAnchor.constraint(equalToConstant: 140),
-
+            
             label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             label.topAnchor.constraint(equalTo: imageCategory.bottomAnchor, constant: 4),

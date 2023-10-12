@@ -11,7 +11,7 @@ final class CatalogViewController: UIViewController {
     private let viewModel: CatalogViewModel
     
     private lazy var catalogTableView: UITableView = {
-       let tableView = UITableView()
+        let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(CatalogTableViewCell.self, forCellReuseIdentifier: CatalogTableViewCell.identifier)
         tableView.backgroundColor = .background
@@ -58,7 +58,7 @@ final class CatalogViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     //MARK: - Private Func
     
     private func startAnimating() {
@@ -117,11 +117,11 @@ final class CatalogViewController: UIViewController {
     }
     
     @objc private func didTapSortButton() {
-       let alertSort = UIAlertController(
-        title: "Сортировка",
-        message: nil,
-        preferredStyle: .actionSheet
-       )
+        let alertSort = UIAlertController(
+            title: "Сортировка",
+            message: nil,
+            preferredStyle: .actionSheet
+        )
         let sortByNameAction = UIAlertAction(title: "По названию", style: .default) { [weak self] _ in
             self?.viewModel.sortByName()
         }
@@ -142,11 +142,11 @@ extension CatalogViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         collections.count
     }
-
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         1
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let categoryCell = tableView.dequeueReusableCell(
             withIdentifier: CatalogTableViewCell.identifier) as? CatalogTableViewCell else {
@@ -166,7 +166,7 @@ extension CatalogViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 183
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //Доделать
     }
