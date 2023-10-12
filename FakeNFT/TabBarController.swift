@@ -26,12 +26,12 @@ final class TabBarController: UITabBarController {
         profileViewController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "circle.fill"), selectedImage: nil)
         
         //Каталог
-        let catalogViewController = CatalogViewController()
-        
-        let catalogViewModel = CatalogViewModel()
-        catalogViewController.catalogViewModel = catalogViewModel
-        
-        catalogViewController.tabBarItem = UITabBarItem(title: "Каталог", image: UIImage(systemName: "square.stack.3d.up.fill"), selectedImage: nil)
+        let catalogViewController = UINavigationController(
+            rootViewController: CatalogViewController(viewModel: CatalogViewModel()))
+        catalogViewController.tabBarItem = UITabBarItem(
+            title: "Каталог",
+            image: UIImage(named: "catalogTabBarImageNoActive"),
+            selectedImage: UIImage(named: "catalogTabBarImageActive"))
         
         //Корзина
         let shoppingCartViewController = ShoppingCartViewController()
