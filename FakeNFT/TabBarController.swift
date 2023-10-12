@@ -8,51 +8,65 @@
 import UIKit
 
 final class TabBarController: UITabBarController {
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         tabBar.backgroundColor = .white
         tabBar.tintColor = .blue
         tabBar.unselectedItemTintColor = .black
         tabBar.isTranslucent = false
-        
-        //Профиль
-        let profileVC = ProfileViewController()
-        
+
+        // Профиль
         let profileViewModel = ProfileViewModel()
-        profileVC.profileViewModel = profileViewModel
-        
+        let profileVC = ProfileViewController(profileViewModel: profileViewModel)
+
         let profileViewController = UINavigationController(
             rootViewController: profileVC
         )
-        
-        profileViewController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person.crop.circle.fill"), selectedImage: nil)
-        
-        //Каталог
+
+        profileViewController.tabBarItem = UITabBarItem(
+            title: "Профиль",
+            image: UIImage(systemName: "person.crop.circle.fill"),
+            selectedImage: nil)
+
+        // Каталог
         let catalogViewController = CatalogViewController()
-        
+
         let catalogViewModel = CatalogViewModel()
         catalogViewController.catalogViewModel = catalogViewModel
-        
-        catalogViewController.tabBarItem = UITabBarItem(title: "Каталог", image: UIImage(systemName: "square.stack.3d.up.fill"), selectedImage: nil)
-        
-        //Корзина
+
+        catalogViewController.tabBarItem = UITabBarItem(
+            title: "Каталог",
+            image: UIImage(systemName: "square.stack.3d.up.fill"),
+            selectedImage: nil)
+
+        // Корзина
         let shoppingCartViewController = ShoppingCartViewController()
-        
+
         let shoppingCartViewModel = ShoppingCartViewModel()
         shoppingCartViewController.shoppingCartViewModel = shoppingCartViewModel
-        
-        shoppingCartViewController.tabBarItem = UITabBarItem(title: "Корзина", image: UIImage(systemName: "trash"), selectedImage: nil)
-        
-        //Статистика
+
+        shoppingCartViewController.tabBarItem = UITabBarItem(
+            title: "Корзина",
+            image: UIImage(systemName: "trash"),
+            selectedImage: nil)
+
+        // Статистика
         let statisticsViewController = StatisticsViewController()
-        
+
         let statisticsViewModel = StatisticsViewModel()
         statisticsViewController.statisticsViewModel = statisticsViewModel
-        
-        statisticsViewController.tabBarItem = UITabBarItem(title: "Статистика", image: UIImage(systemName: "flag.2.crossed.fill"), selectedImage: nil)
-        
-        self.viewControllers = [profileViewController, catalogViewController, shoppingCartViewController, statisticsViewController]
+
+        statisticsViewController.tabBarItem = UITabBarItem(
+            title: "Статистика",
+            image: UIImage(systemName: "flag.2.crossed.fill"),
+            selectedImage: nil)
+
+        self.viewControllers = [
+            profileViewController,
+            catalogViewController,
+            shoppingCartViewController,
+            statisticsViewController
+        ]
     }
 }

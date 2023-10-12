@@ -15,7 +15,7 @@ class ProfileModel {
     let nfts: [String]
     let likes: [String]
     let id: String
-    
+
     init(name: String, avatar: String, description: String, website: String, nfts: [String], likes: [String], id: String) {
         self.name = name
         self.avatar = avatar

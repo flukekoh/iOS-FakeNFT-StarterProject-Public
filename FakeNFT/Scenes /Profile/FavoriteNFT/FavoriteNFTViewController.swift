@@ -19,34 +19,34 @@ final class FavoriteNFTViewController: UIViewController {
             FavoriteNFTCell.self,
             forCellWithReuseIdentifier: FavoriteNFTCell.identifier
         )
-        
+
         view.dataSource = self
         view.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupView()
         setupHierarchy()
         setupLayout()
     }
-    
+
     private var collectionData: [NFTModel] {
         return NFTModel.mockedNFTs
     }
-    
+
     private func setupView() {
         title = "Избранные NFT"
         view.backgroundColor = UIColor(named: "ypWhite")
     }
-    
+
     private func setupHierarchy() {
         view.addSubview(collectionView)
     }
-    
+
     private func setupLayout() {
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -61,7 +61,7 @@ extension FavoriteNFTViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         collectionData.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard
             let cell = collectionView.dequeueReusableCell(
@@ -74,11 +74,10 @@ extension FavoriteNFTViewController: UICollectionViewDataSource {
         let currentNFT = collectionData[indexPath.row]
         cell.configure(nft: currentNFT)
         //        cell.delegate = self
-        
+
         return cell
     }
 }
 
 extension FavoriteNFTViewController: UICollectionViewDelegate {
-    
 }

@@ -10,10 +10,10 @@ import UIKit
 final class MyNFTViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
-        
-        tableView.backgroundColor = UIColor(red: 0.902, green: 0.91, blue: 0.922, alpha: 0.3)
+
+        tableView.backgroundColor = .tableViewBackground
         tableView.layer.cornerRadius = 16
-        
+
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .singleLine
@@ -22,28 +22,28 @@ final class MyNFTViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupView()
         setupHierarchy()
         setupLayout()
     }
-    
+
     private var tableData: [NFTModel] {
         return NFTModel.mockedNFTs
     }
-    
+
     private func setupView() {
         title = "Мои NFT"
         view.backgroundColor = UIColor(named: "ypWhite")
     }
-    
+
     private func setupHierarchy() {
         view.addSubview(tableView)
     }
-    
+
     private func setupLayout() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -58,11 +58,11 @@ extension MyNFTViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         tableData.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let myNFTCell = tableView.dequeueReusableCell(withIdentifier: MyNFTCell.identifier) as? MyNFTCell
         else { return UITableViewCell() }
-        
+
         myNFTCell.configure(nft: tableData[indexPath.row])
         return myNFTCell
     }
@@ -74,26 +74,35 @@ extension MyNFTViewController: UITableViewDelegate {
     }
 }
 
-class NFTModel {
+struct NFTModel {
     let nftImage: UIImage?
     let title: String
     let markedFavorite: Bool
     let price: Double
     let author: String
     let rating: Int
-    
-    init(nftImage: UIImage?, title: String, markedFavorite: Bool, price: Double, author: String, rating: Int) {
-        self.nftImage = nftImage
-        self.title = title
-        self.markedFavorite = markedFavorite
-        self.price = price
-        self.author = author
-        self.rating = rating
-    }
-    
+
     static let mockedNFTs: [NFTModel] = [
-        NFTModel(nftImage: UIImage(named: "NFT1"), title: "Lilo", markedFavorite: true, price: 1.78, author: "John Doe", rating: 3),
-        NFTModel(nftImage: UIImage(named: "NFT2"), title: "Spring", markedFavorite: true, price: 1.78, author: "John Doe", rating: 3),
-        NFTModel(nftImage: UIImage(named: "NFT1"), title: "April", markedFavorite: true, price: 1.78, author: "John Doe", rating: 3)
+        NFTModel(
+            nftImage: UIImage(named: "NFT1"),
+            title: "Lilo",
+            markedFavorite: true,
+            price: 1.78,
+            author: "John Doe",
+            rating: 3),
+        NFTModel(
+            nftImage: UIImage(named: "NFT2"),
+            title: "Spring",
+            markedFavorite: true,
+            price: 1.78,
+            author: "John Doe",
+            rating: 3),
+        NFTModel(
+            nftImage: UIImage(named: "NFT1"),
+            title: "April",
+            markedFavorite: true,
+            price: 1.78,
+            author: "John Doe",
+            rating: 3)
     ]
 }
