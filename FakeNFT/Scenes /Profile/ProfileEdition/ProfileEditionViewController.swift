@@ -11,6 +11,15 @@ import Kingfisher
 final class ProfileEditionViewController: UIViewController {
     private let viewModel: ProfileViewModel
 
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.frame = view.bounds // Устанавливает размер `UIScrollView` равным размеру `view`
+        scrollView.contentSize = CGSize(width: view.bounds.width, height: 1000)
+        scrollView.isScrollEnabled = true
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+
     private lazy var closeProfileButton: UIButton = {
         let closeProfileButton = UIButton.systemButton(
             with: UIImage(named: "closeProfile") ?? UIImage(),
@@ -75,6 +84,7 @@ final class ProfileEditionViewController: UIViewController {
         nameTextField.backgroundColor = .textFiledBackground
         nameTextField.clearButtonMode = .whileEditing
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
+        nameTextField.tintColor = UIColor(named: "iconBlue")
         return nameTextField
     }()
 
@@ -96,6 +106,7 @@ final class ProfileEditionViewController: UIViewController {
         descriptionTextField.backgroundColor = .textFiledBackground
         descriptionTextField.clearButtonMode = .whileEditing
         descriptionTextField.translatesAutoresizingMaskIntoConstraints = false
+        descriptionTextField.tintColor = UIColor(named: "iconBlue")
         return descriptionTextField
     }()
 
@@ -117,6 +128,7 @@ final class ProfileEditionViewController: UIViewController {
         websiteTextField.backgroundColor = .textFiledBackground
         websiteTextField.clearButtonMode = .whileEditing
         websiteTextField.translatesAutoresizingMaskIntoConstraints = false
+        websiteTextField.tintColor = UIColor(named: "iconBlue")
         return websiteTextField
     }()
 
@@ -131,6 +143,19 @@ final class ProfileEditionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
 
         setupView()
         setupHierarchy()
@@ -158,29 +183,36 @@ final class ProfileEditionViewController: UIViewController {
     }
 
     private func setupHierarchy() {
-        view.addSubview(closeProfileButton)
-        view.addSubview(profilePictureImage)
-        view.addSubview(changePictureLabel)
-        view.addSubview(profileImageLinkLabel)
-        view.addSubview(nameLabel)
-        view.addSubview(nameTextField)
-        view.addSubview(descriptionLabel)
-        view.addSubview(descriptionTextField)
-        view.addSubview(websiteLabel)
-        view.addSubview(websiteTextField)
+        scrollView.addSubview(closeProfileButton)
+        scrollView.addSubview(profilePictureImage)
+        scrollView.addSubview(changePictureLabel)
+        scrollView.addSubview(profileImageLinkLabel)
+        scrollView.addSubview(nameLabel)
+        scrollView.addSubview(nameTextField)
+        scrollView.addSubview(descriptionLabel)
+        scrollView.addSubview(descriptionTextField)
+        scrollView.addSubview(websiteLabel)
+        scrollView.addSubview(websiteTextField)
+
+        view.addSubview(scrollView)
     }
 
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            closeProfileButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 30),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+
+            closeProfileButton.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 30),
             closeProfileButton.trailingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+                equalTo: scrollView.safeAreaLayoutGuide.trailingAnchor,
                 constant: -Constants.defaultOffset),
             closeProfileButton.heightAnchor.constraint(equalToConstant: 42),
             closeProfileButton.widthAnchor.constraint(equalToConstant: 42),
 
             profilePictureImage.topAnchor.constraint(equalTo: closeProfileButton.bottomAnchor, constant: 22),
-            profilePictureImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            profilePictureImage.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             profilePictureImage.heightAnchor.constraint(equalToConstant: Constants.imageSize),
             profilePictureImage.widthAnchor.constraint(equalToConstant: Constants.imageSize),
 
@@ -189,51 +221,51 @@ final class ProfileEditionViewController: UIViewController {
             changePictureLabel.widthAnchor.constraint(equalToConstant: Constants.imageSize),
             changePictureLabel.heightAnchor.constraint(equalToConstant: Constants.imageSize),
 
-            profileImageLinkLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            profileImageLinkLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             profileImageLinkLabel.topAnchor.constraint(equalTo: changePictureLabel.bottomAnchor, constant: 12),
 
             nameLabel.topAnchor.constraint(equalTo: profilePictureImage.bottomAnchor, constant: 24),
             nameLabel.leadingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+                equalTo: scrollView.safeAreaLayoutGuide.leadingAnchor,
                 constant: Constants.defaultOffset),
             nameLabel.heightAnchor.constraint(equalToConstant: 28),
 
             nameTextField.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
             nameTextField.leadingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+                equalTo: scrollView.safeAreaLayoutGuide.leadingAnchor,
                 constant: Constants.defaultOffset),
             nameTextField.trailingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+                equalTo: scrollView.safeAreaLayoutGuide.trailingAnchor,
                 constant: -Constants.defaultOffset),
             nameTextField.heightAnchor.constraint(equalToConstant: 44),
 
             descriptionLabel.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 24),
             descriptionLabel.leadingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+                equalTo: scrollView.safeAreaLayoutGuide.leadingAnchor,
                 constant: Constants.defaultOffset),
             descriptionLabel.heightAnchor.constraint(equalToConstant: 22),
 
             descriptionTextField.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
             descriptionTextField.leadingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+                equalTo: scrollView.safeAreaLayoutGuide.leadingAnchor,
                 constant: Constants.defaultOffset),
             descriptionTextField.trailingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+                equalTo: scrollView.safeAreaLayoutGuide.trailingAnchor,
                 constant: -Constants.defaultOffset),
             descriptionTextField.heightAnchor.constraint(equalToConstant: 132),
 
             websiteLabel.topAnchor.constraint(equalTo: descriptionTextField.bottomAnchor, constant: 24),
             websiteLabel.leadingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+                equalTo: scrollView.safeAreaLayoutGuide.leadingAnchor,
                 constant: Constants.defaultOffset),
             websiteLabel.heightAnchor.constraint(equalToConstant: 22),
 
             websiteTextField.topAnchor.constraint(equalTo: websiteLabel.bottomAnchor, constant: 8),
             websiteTextField.leadingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+                equalTo: scrollView.safeAreaLayoutGuide.leadingAnchor,
                 constant: Constants.defaultOffset),
             websiteTextField.trailingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+                equalTo: scrollView.safeAreaLayoutGuide.trailingAnchor,
                 constant: -Constants.defaultOffset),
             websiteTextField.heightAnchor.constraint(equalToConstant: 44)
         ])
@@ -296,6 +328,18 @@ final class ProfileEditionViewController: UIViewController {
         let okAction = UIAlertAction(title: "ОК", style: .default, handler: nil)
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
+    }
+
+    @objc
+    func keyboardWillShow(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+        }
+    }
+
+    @objc
+    func keyboardWillHide(notification: Notification) {
+        scrollView.contentInset = UIEdgeInsets.zero
     }
 }
 

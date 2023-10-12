@@ -57,7 +57,7 @@ final class ProfileViewController: UIViewController {
         profileLinkLabel.translatesAutoresizingMaskIntoConstraints = false
 
         profileLinkLabel.font = UIFont.systemFont(ofSize: 15)
-        profileLinkLabel.textColor = .blue
+        profileLinkLabel.textColor = UIColor(named: "iconBlue")
         return profileLinkLabel
     }()
 
@@ -104,6 +104,13 @@ final class ProfileViewController: UIViewController {
             guard let self else { return }
 
             self.setupProfileContent(profile: profile)
+            ProgressHUD.dismiss()
+        }
+
+        profileViewModel.onError = { [weak self] error in
+            guard let self else { return }
+            self.showAlert(title: "Ошибка", message: error.localizedDescription)
+
             ProgressHUD.dismiss()
         }
     }
@@ -188,6 +195,13 @@ final class ProfileViewController: UIViewController {
     @objc
     private func profileLinkDidTap() {
         self.present(AboutDeveloperViewController(webView: nil, profileLink: profileLinkLabel.text), animated: true)
+    }
+
+    private func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
     }
 }
 
