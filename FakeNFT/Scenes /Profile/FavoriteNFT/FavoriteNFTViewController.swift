@@ -17,7 +17,7 @@ final class FavoriteNFTViewController: UIViewController {
         )
         return uiBarButtonItem
     }()
-    
+
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: (self.view.frame.width / 2) - 30, height: 142)
@@ -29,36 +29,36 @@ final class FavoriteNFTViewController: UIViewController {
             FavoriteNFTCell.self,
             forCellWithReuseIdentifier: FavoriteNFTCell.identifier
         )
-        
+
         view.dataSource = self
         view.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupView()
         setupHierarchy()
         setupLayout()
     }
-    
+
     private var collectionData: [NFTModel] {
         return NFTModel.mockedNFTs
     }
-    
+
     private func setupView() {
         title = "Избранные NFT"
         view.backgroundColor = UIColor(named: "ypWhite")
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.leftBarButtonItem = customBackButton
     }
-    
+
     private func setupHierarchy() {
         view.addSubview(collectionView)
     }
-    
+
     private func setupLayout() {
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -67,7 +67,7 @@ final class FavoriteNFTViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-    
+
     @objc
     func goBack() {
         navigationController?.popViewController(animated: true)
@@ -78,7 +78,7 @@ extension FavoriteNFTViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         collectionData.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard
             let cell = collectionView.dequeueReusableCell(
@@ -91,7 +91,7 @@ extension FavoriteNFTViewController: UICollectionViewDataSource {
         let currentNFT = collectionData[indexPath.row]
         cell.configure(nft: currentNFT)
         //        cell.delegate = self
-        
+
         return cell
     }
 }

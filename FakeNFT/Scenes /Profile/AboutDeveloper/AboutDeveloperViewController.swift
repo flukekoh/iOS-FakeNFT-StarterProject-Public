@@ -15,7 +15,7 @@ final class AboutDeveloperViewController: UIViewController, WKNavigationDelegate
         webView.backgroundColor = UIColor(named: "ypWhite")
         return webView
     }()
-    
+
     private lazy var customBackButton: UIBarButtonItem = {
         let uiBarButtonItem = UIBarButtonItem(
             image: UIImage(named: "BackButton"),
@@ -25,44 +25,44 @@ final class AboutDeveloperViewController: UIViewController, WKNavigationDelegate
         )
         return uiBarButtonItem
     }()
-    
+
     private var profileLink: String?
-    
+
     init(profileLink: String?) {
         self.profileLink = profileLink
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupView()
         setupHierarchy()
         setupLayout()
-        
+
         guard let profileLink = profileLink,
               let url = URL(string: profileLink) else { return }
         let request = URLRequest(url: url)
-        
+
         webView.load(request)
     }
-    
+
     private func setupView() {
         view.backgroundColor = UIColor(named: "ypWhite")
         webView.navigationDelegate = self
-        
+
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.leftBarButtonItem = customBackButton
     }
-    
+
     private func setupHierarchy() {
         view.addSubview(webView)
     }
-    
+
     private func setupLayout() {
         NSLayoutConstraint.activate([
             webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -71,7 +71,7 @@ final class AboutDeveloperViewController: UIViewController, WKNavigationDelegate
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
-    
+
     @objc
     func goBack() {
         navigationController?.popViewController(animated: true)
