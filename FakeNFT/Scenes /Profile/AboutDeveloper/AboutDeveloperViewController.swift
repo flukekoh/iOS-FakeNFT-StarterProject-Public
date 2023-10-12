@@ -10,20 +10,20 @@ import WebKit
 
 final class AboutDeveloperViewController: UIViewController, WKNavigationDelegate {
     private var webView: WKWebView = {
-        let prefs = WKWebpagePreferences()
-        let configuration = WKWebViewConfiguration()
-        configuration.defaultWebpagePreferences = prefs
-        let webView = WKWebView(frame: .zero, configuration: configuration)
-//        let webView = WKWebView()
+        let webView = WKWebView()
         webView.translatesAutoresizingMaskIntoConstraints = false
-        webView.backgroundColor = .black// UIColor(named: "ypWhite")
+        webView.backgroundColor = UIColor(named: "ypWhite")
         return webView
+    }()
+
+    private lazy var customBackButton: UIBarButtonItem = {
+        let uiBarButtonItem = UIBarButtonItem(image: UIImage(named: "BackButton"), style: .plain, target: self, action: #selector(goBack))
+        return uiBarButtonItem
     }()
 
     private var profileLink: String?
 
-    init(webView: WKWebView?, profileLink: String?) {
-        self.webView = webView ?? WKWebView()
+    init(profileLink: String?) {
         self.profileLink = profileLink
         super.init(nibName: nil, bundle: nil)
     }
@@ -49,6 +49,9 @@ final class AboutDeveloperViewController: UIViewController, WKNavigationDelegate
     private func setupView() {
         view.backgroundColor = UIColor(named: "ypWhite")
         webView.navigationDelegate = self
+
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.leftBarButtonItem = customBackButton
     }
 
     private func setupHierarchy() {
@@ -62,5 +65,10 @@ final class AboutDeveloperViewController: UIViewController, WKNavigationDelegate
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+    }
+
+    @objc
+    func goBack() {
+        navigationController?.popViewController(animated: true)
     }
 }

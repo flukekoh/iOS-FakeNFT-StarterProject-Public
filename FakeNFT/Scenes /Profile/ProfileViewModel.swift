@@ -46,7 +46,13 @@ class ProfileViewModel {
     }
 
     func putProfile(name: String, avatar: String, description: String, website: String, likes: [String]) {
-        let request = PutProfileRequest(name: name, description: description, website: website, likes: likes)
+        let request = PutProfileRequest(
+            name: name,
+            avatar: avatar,
+            description: description,
+            website: website,
+            likes: likes
+        )
 
         networkClient.send(request: request, type: ProfileNetworkModel.self) { [self] result in
             DispatchQueue.global(qos: .background).async {

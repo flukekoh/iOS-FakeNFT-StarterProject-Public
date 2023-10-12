@@ -8,6 +8,11 @@
 import UIKit
 
 final class FavoriteNFTViewController: UIViewController {
+    private lazy var customBackButton: UIBarButtonItem = {
+        let uiBarButtonItem = UIBarButtonItem(image: UIImage(named: "BackButton"), style: .plain, target: self, action: #selector(goBack))
+        return uiBarButtonItem
+    }()
+
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: (self.view.frame.width / 2) - 30, height: 142)
@@ -41,6 +46,8 @@ final class FavoriteNFTViewController: UIViewController {
     private func setupView() {
         title = "Избранные NFT"
         view.backgroundColor = UIColor(named: "ypWhite")
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.leftBarButtonItem = customBackButton
     }
 
     private func setupHierarchy() {
@@ -54,6 +61,11 @@ final class FavoriteNFTViewController: UIViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+
+    @objc
+    func goBack() {
+        navigationController?.popViewController(animated: true)
     }
 }
 

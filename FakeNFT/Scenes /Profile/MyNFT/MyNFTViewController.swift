@@ -8,6 +8,11 @@
 import UIKit
 
 final class MyNFTViewController: UIViewController {
+    private lazy var customBackButton: UIBarButtonItem = {
+        let uiBarButtonItem = UIBarButtonItem(image: UIImage(named: "BackButton"), style: .plain, target: self, action: #selector(goBack))
+        return uiBarButtonItem
+    }()
+
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
 
@@ -38,6 +43,9 @@ final class MyNFTViewController: UIViewController {
     private func setupView() {
         title = "Мои NFT"
         view.backgroundColor = UIColor(named: "ypWhite")
+
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.leftBarButtonItem = customBackButton
     }
 
     private func setupHierarchy() {
@@ -51,6 +59,11 @@ final class MyNFTViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+
+    @objc
+    func goBack() {
+        navigationController?.popViewController(animated: true)
     }
 }
 
@@ -72,37 +85,4 @@ extension MyNFTViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         140
     }
-}
-
-struct NFTModel {
-    let nftImage: UIImage?
-    let title: String
-    let markedFavorite: Bool
-    let price: Double
-    let author: String
-    let rating: Int
-
-    static let mockedNFTs: [NFTModel] = [
-        NFTModel(
-            nftImage: UIImage(named: "NFT1"),
-            title: "Lilo",
-            markedFavorite: true,
-            price: 1.78,
-            author: "John Doe",
-            rating: 3),
-        NFTModel(
-            nftImage: UIImage(named: "NFT2"),
-            title: "Spring",
-            markedFavorite: true,
-            price: 1.78,
-            author: "John Doe",
-            rating: 3),
-        NFTModel(
-            nftImage: UIImage(named: "NFT1"),
-            title: "April",
-            markedFavorite: true,
-            price: 1.78,
-            author: "John Doe",
-            rating: 3)
-    ]
 }

@@ -194,7 +194,7 @@ final class ProfileViewController: UIViewController {
 
     @objc
     private func profileLinkDidTap() {
-        self.present(AboutDeveloperViewController(webView: nil, profileLink: profileLinkLabel.text), animated: true)
+        self.present(AboutDeveloperViewController(profileLink: profileLinkLabel.text), animated: true)
     }
 
     private func showAlert(title: String, message: String) {
@@ -217,7 +217,6 @@ extension ProfileViewController: UITableViewDelegate {
             navigationController?.pushViewController(favoriteNFTViewController, animated: true)
         case 2: // О Разработчике
             let aboutDeveloperViewController = AboutDeveloperViewController(
-                webView: nil,
                 profileLink: profileLinkLabel.text)
             navigationController?.pushViewController(aboutDeveloperViewController, animated: true)
         default:

@@ -13,7 +13,6 @@ final class ProfileEditionViewController: UIViewController {
 
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.frame = view.bounds // Устанавливает размер `UIScrollView` равным размеру `view`
         scrollView.contentSize = CGSize(width: view.bounds.width, height: 1000)
         scrollView.isScrollEnabled = true
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -77,7 +76,6 @@ final class ProfileEditionViewController: UIViewController {
 
     private lazy var nameTextField: UITextField = {
         let nameTextField = TextField()
-
         nameTextField.placeholder = "Введите имя"
         nameTextField.delegate = self
         nameTextField.layer.cornerRadius = 16
@@ -85,6 +83,7 @@ final class ProfileEditionViewController: UIViewController {
         nameTextField.clearButtonMode = .whileEditing
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         nameTextField.tintColor = UIColor(named: "iconBlue")
+
         return nameTextField
     }()
 
@@ -99,7 +98,6 @@ final class ProfileEditionViewController: UIViewController {
 
     private lazy var descriptionTextField: UITextField = {
         let descriptionTextField = TextField()
-
         descriptionTextField.placeholder = "Введите описание"
         descriptionTextField.delegate = self
         descriptionTextField.layer.cornerRadius = 16
@@ -107,6 +105,7 @@ final class ProfileEditionViewController: UIViewController {
         descriptionTextField.clearButtonMode = .whileEditing
         descriptionTextField.translatesAutoresizingMaskIntoConstraints = false
         descriptionTextField.tintColor = UIColor(named: "iconBlue")
+
         return descriptionTextField
     }()
 
@@ -121,7 +120,6 @@ final class ProfileEditionViewController: UIViewController {
 
     private lazy var websiteTextField: UITextField = {
         let websiteTextField = TextField()
-
         websiteTextField.placeholder = "Укажите ссылку"
         websiteTextField.delegate = self
         websiteTextField.layer.cornerRadius = 16
@@ -129,6 +127,7 @@ final class ProfileEditionViewController: UIViewController {
         websiteTextField.clearButtonMode = .whileEditing
         websiteTextField.translatesAutoresizingMaskIntoConstraints = false
         websiteTextField.tintColor = UIColor(named: "iconBlue")
+
         return websiteTextField
     }()
 
@@ -180,6 +179,7 @@ final class ProfileEditionViewController: UIViewController {
         nameTextField.text = currentProfile.name
         descriptionTextField.text = currentProfile.description
         websiteTextField.text = currentProfile.website
+        profileImageLinkLabel.text = currentProfile.avatar
     }
 
     private func setupHierarchy() {
@@ -275,7 +275,7 @@ final class ProfileEditionViewController: UIViewController {
     private func didTapCloseProfileButton() {
         viewModel.putProfile(
             name: nameTextField.text ?? "",
-            avatar: viewModel.profile?.avatar ?? "",
+            avatar: profileImageLinkLabel.text ?? "",
             description: descriptionTextField.text ?? "",
             website: websiteTextField.text ?? "",
             likes: viewModel.profile?.likes ?? [""])

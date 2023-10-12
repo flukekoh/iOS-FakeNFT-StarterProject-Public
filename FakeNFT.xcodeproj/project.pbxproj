@@ -46,6 +46,7 @@
 		A226A8912AD2AFB200E782E3 /* FavoriteNFTViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A226A8902AD2AFB200E782E3 /* FavoriteNFTViewModel.swift */; };
 		A226A8932AD2D4A400E782E3 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A226A8922AD2D4A400E782E3 /* ProfileModel.swift */; };
 		A226A8952AD2D4E500E782E3 /* ProfileNetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A226A8942AD2D4E500E782E3 /* ProfileNetworkModel.swift */; };
+		A26250B92AD83876008B19A9 /* NFTModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26250B82AD83876008B19A9 /* NFTModel.swift */; };
 		A288C36E2AD7D91400AE26F2 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A288C36D2AD7D91400AE26F2 /* TextField.swift */; };
 		A288C3702AD7DC5900AE26F2 /* GetProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A288C36F2AD7DC5900AE26F2 /* GetProfileRequest.swift */; };
 		A288C3722AD7DC7A00AE26F2 /* PutProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A288C3712AD7DC7A00AE26F2 /* PutProfileRequest.swift */; };
@@ -112,6 +113,7 @@
 		A226A8902AD2AFB200E782E3 /* FavoriteNFTViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteNFTViewModel.swift; sourceTree = "<group>"; };
 		A226A8922AD2D4A400E782E3 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		A226A8942AD2D4E500E782E3 /* ProfileNetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNetworkModel.swift; sourceTree = "<group>"; };
+		A26250B82AD83876008B19A9 /* NFTModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTModel.swift; sourceTree = "<group>"; };
 		A288C36D2AD7D91400AE26F2 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		A288C36F2AD7DC5900AE26F2 /* GetProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProfileRequest.swift; sourceTree = "<group>"; };
 		A288C3712AD7DC7A00AE26F2 /* PutProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutProfileRequest.swift; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				A226A8922AD2D4A400E782E3 /* ProfileModel.swift */,
+				A26250B82AD83876008B19A9 /* NFTModel.swift */,
 				A226A8942AD2D4E500E782E3 /* ProfileNetworkModel.swift */,
 				3F6806D829CC979D00B4F915 /* Network */,
 			);
@@ -564,6 +567,7 @@
 				A226A86F2ACFF2A900E782E3 /* ShoppingCartViewController.swift in Sources */,
 				3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */,
 				A226A8892AD1623A00E782E3 /* AboutDeveloperViewController.swift in Sources */,
+				A26250B92AD83876008B19A9 /* NFTModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

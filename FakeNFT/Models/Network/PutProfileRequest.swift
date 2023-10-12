@@ -8,8 +8,11 @@
 import Foundation
 
 struct PutProfileRequest: NetworkRequest {
+    var dto: Encodable?
+
     struct Body: Encodable {
         let name: String
+        let avatar: String
         let description: String
         let website: String
         let likes: [String]
@@ -20,13 +23,13 @@ struct PutProfileRequest: NetworkRequest {
     }
 
     var httpMethod: HttpMethod = .put
-    var body: Data?
 
-    init(name: String, description: String, website: String, likes: [String]) {
-        self.body = try? JSONEncoder().encode(Body(
+    init(name: String, avatar: String, description: String, website: String, likes: [String]) {
+        self.dto = Body(
             name: name,
+            avatar: avatar,
             description: description,
             website: website,
-            likes: likes))
+            likes: likes)
     }
 }
