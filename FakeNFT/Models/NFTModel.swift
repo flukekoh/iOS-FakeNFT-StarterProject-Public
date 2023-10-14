@@ -8,8 +8,8 @@
 import UIKit
 
 struct NFTModel {
-    let nftImage: UIImage?
-    let title: String
+    let nftImage: String
+    let name: String
     let markedFavorite: Bool
     let price: Double
     let author: String
@@ -17,22 +17,22 @@ struct NFTModel {
 
     static let mockedNFTs: [NFTModel] = [
         NFTModel(
-            nftImage: UIImage(named: "NFT1"),
-            title: "Lilo",
+            nftImage: "NFT1",
+            name: "Lilo",
             markedFavorite: true,
             price: 1.78,
             author: "John Doe",
             rating: 3),
         NFTModel(
-            nftImage: UIImage(named: "NFT2"),
-            title: "Spring",
+            nftImage: "NFT2",
+            name: "Spring",
             markedFavorite: true,
             price: 1.78,
             author: "John Doe",
             rating: 3),
         NFTModel(
-            nftImage: UIImage(named: "NFT1"),
-            title: "April",
+            nftImage: "NFT1",
+            name: "April",
             markedFavorite: true,
             price: 1.78,
             author: "John Doe",

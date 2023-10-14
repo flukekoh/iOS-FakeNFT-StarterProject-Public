@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import ProgressHUD
 
 final class MyNFTViewController: UIViewController {
+    private var myNFTViewModel: MyNFTViewModel
+
     private lazy var customBackButton: UIBarButtonItem = {
         let uiBarButtonItem = UIBarButtonItem(
             image: UIImage(named: "BackButton"),
@@ -18,15 +21,25 @@ final class MyNFTViewController: UIViewController {
         return uiBarButtonItem
     }()
 
+    private lazy var sortButton: UIBarButtonItem = {
+        let uiBarButtonItem = UIBarButtonItem(
+            image: UIImage(named: "sortButton"),
+            style: .plain,
+            target: self,
+            action: #selector(sortTable)
+        )
+        return uiBarButtonItem
+    }()
+
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
 
-        tableView.backgroundColor = .tableViewBackground
+        tableView.backgroundColor = UIColor(named: "ypWhite")
         tableView.layer.cornerRadius = 16
 
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.separatorStyle = .singleLine
+        tableView.separatorStyle = .none
         tableView.isScrollEnabled = false
         tableView.register(MyNFTCell.self, forCellReuseIdentifier: MyNFTCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -37,13 +50,27 @@ final class MyNFTViewController: UIViewController {
         super.viewDidLoad()
 
         setupView()
+        ProgressHUD.show()
         setupHierarchy()
         setupLayout()
+
+        myNFTViewModel.onTableDataLoad = { [weak self] tableData in
+            guard let self else { return }
+
+            self.setupTableData(tableData: tableData)
+            ProgressHUD.dismiss()
+        }
     }
 
-    private var tableData: [NFTModel] {
-        return NFTModel.mockedNFTs
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        myNFTViewModel.viewWillAppear()
     }
+
+    private var tableData: [NFTModel] = []
+//    {
+//        return NFTModel.mockedNFTs
+//    }
 
     private func setupView() {
         title = "Мои NFT"
@@ -51,6 +78,7 @@ final class MyNFTViewController: UIViewController {
 
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.leftBarButtonItem = customBackButton
+        navigationItem.rightBarButtonItem = sortButton
     }
 
     private func setupHierarchy() {
@@ -66,9 +94,27 @@ final class MyNFTViewController: UIViewController {
         ])
     }
 
+    init(myNFTViewModel: MyNFTViewModel) {
+        self.myNFTViewModel = myNFTViewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    private func setupTableData(tableData: [NFTModel]) {
+        self.tableData = tableData
+        tableView.reloadData()
+    }
+
     @objc
     func goBack() {
         navigationController?.popViewController(animated: true)
+    }
+
+    @objc
+    func sortTable() {
     }
 }
 
@@ -81,7 +127,9 @@ extension MyNFTViewController: UITableViewDataSource {
         guard let myNFTCell = tableView.dequeueReusableCell(withIdentifier: MyNFTCell.identifier) as? MyNFTCell
         else { return UITableViewCell() }
 
-        myNFTCell.configure(nft: tableData[indexPath.row])
+        let myNFT = tableData[indexPath.row]
+
+        myNFTCell.configure(nft: myNFT)
         return myNFTCell
     }
 }

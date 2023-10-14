@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class MyNFTCell: UITableViewCell {
     static let identifier = "MyNFTCell"
@@ -46,7 +47,7 @@ final class MyNFTCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         return label
     }()
 
@@ -55,7 +56,7 @@ final class MyNFTCell: UITableViewCell {
         label.text = "Цена"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         return label
     }()
 
@@ -125,7 +126,7 @@ final class MyNFTCell: UITableViewCell {
             //            titlePriceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 
             priceLabel.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: 137),
-            priceLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 53),
+            priceLabel.topAnchor.constraint(equalTo: titlePriceLabel.bottomAnchor, constant: 2),
             priceLabel.heightAnchor.constraint(equalToConstant: 22),
             //            priceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 
@@ -136,15 +137,19 @@ final class MyNFTCell: UITableViewCell {
         ])
     }
     func configure(nft: NFTModel) {
-        nftImage.image = nft.nftImage
+        nftImage.kf.setImage(
+            with: URL(string: nft.nftImage),
+            placeholder: UIImage(named: "MockUserPic"),
+            options: [.processor(RoundCornerImageProcessor(cornerRadius: 35))])
+
         if nft.markedFavorite {
             onLikeImage.image = onLikeImage.image
         } else {
             onLikeImage.image = offLikeImage.image
         }
 
-        titleLabel.text = nft.title
+        titleLabel.text = nft.name
         authorLabel.text = nft.author
-        priceLabel.text = "\(nft.price)"
+        priceLabel.text = "\(nft.price) ETH"
     }
 }

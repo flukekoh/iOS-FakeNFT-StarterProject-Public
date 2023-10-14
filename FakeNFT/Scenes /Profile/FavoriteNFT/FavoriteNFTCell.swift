@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class FavoriteNFTCell: UICollectionViewCell {
     static let identifier = "FavoriteNFTCell"
@@ -113,14 +114,18 @@ final class FavoriteNFTCell: UICollectionViewCell {
         ])
     }
     func configure(nft: NFTModel) {
-        nftImage.image = nft.nftImage
+        nftImage.kf.setImage(
+            with: URL(string: nft.nftImage),
+            placeholder: UIImage(named: "MockUserPic"),
+            options: [.processor(RoundCornerImageProcessor(cornerRadius: 35))])
+
         if nft.markedFavorite {
             onLikeImage.image = onLikeImage.image
         } else {
             onLikeImage.image = offLikeImage.image
         }
 
-        titleLabel.text = nft.title
+        titleLabel.text = nft.name
         priceLabel.text = "\(nft.price)"
     }
 }
