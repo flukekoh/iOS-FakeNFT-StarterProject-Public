@@ -17,7 +17,12 @@ extension UIColor {
         default:
             (alpha, red, green, blue) = (255, 0, 0, 0)
         }
-        self.init(red: CGFloat(red) / 255, green: CGFloat(green) / 255, blue: CGFloat(blue) / 255, alpha: CGFloat(alpha) / 255)
+        self.init(
+            red: CGFloat(red) / 255,
+            green: CGFloat(green) / 255,
+            blue: CGFloat(blue) / 255,
+            alpha: CGFloat(alpha) / 255
+        )
     }
 
     // Ниже приведены примеры цветов, настоящие цвета надо взять из фигмы
@@ -36,4 +41,7 @@ extension UIColor {
     static let textSecondary = UIColor.gray
     static let textOnPrimary = UIColor.white
     static let textOnSecondary = UIColor.black
+
+    static let tableViewBackground = UIColor(red: 0.902, green: 0.91, blue: 0.922, alpha: 0.3)
+    static let textFiledBackground = UIColor(red: 0.902, green: 0.91, blue: 0.922, alpha: 0.3)
 }
