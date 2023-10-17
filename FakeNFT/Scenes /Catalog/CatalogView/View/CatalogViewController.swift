@@ -1,15 +1,15 @@
 import UIKit
 
 final class CatalogViewController: UIViewController {
-    
-    // MARK: -  Private Properties
-    
+
+    // MARK: - Private Properties
+
     private var collections: [CatalogNetworkModel] {
         viewModel.collections
     }
-    
+
     private let viewModel: CatalogViewModel
-    
+
     private lazy var catalogTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -20,32 +20,16 @@ final class CatalogViewController: UIViewController {
         tableView.delegate = self
         return tableView
     }()
-    
+
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let activitiIndicator = UIActivityIndicatorView(style: .medium)
         activitiIndicator.color = .textPrimary
         activitiIndicator.translatesAutoresizingMaskIntoConstraints = false
         return activitiIndicator
     }()
-    
-    //MARK: - Override
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        addSubviews()
-        setupLayout()
-        makeNavBar()
-        viewModel.onLoadingStarted = self.startAnimating
-        viewModel.onLoadingFinished = self.stopAnimating
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        viewModel.updateData()
-    }
-    
-    //MARK: - Init
-    
+
+    // MARK: - Init
+
     init(viewModel: CatalogViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -54,41 +38,57 @@ final class CatalogViewController: UIViewController {
             self?.showErrorAlert(error: error)
         }
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    //MARK: - Private Func
-    
+
+    // MARK: - Override
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        addSubviews()
+        setupLayout()
+        makeNavBar()
+        viewModel.onLoadingStarted = self.startAnimating
+        viewModel.onLoadingFinished = self.stopAnimating
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.updateData()
+    }
+
+    // MARK: - Private Func
+
     private func startAnimating() {
         activityIndicator.startAnimating()
     }
-    
+
     private func stopAnimating() {
         activityIndicator.stopAnimating()
     }
-    
+
     private func addSubviews() {
         view.addSubview(catalogTableView)
         view.addSubview(activityIndicator)
         view.backgroundColor = .background
     }
-    
+
     private func setupLayout() {
         NSLayoutConstraint.activate([
             catalogTableView.topAnchor.constraint(equalTo: view.topAnchor),
             catalogTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             catalogTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             catalogTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            
+
             activityIndicator.widthAnchor.constraint(equalToConstant: 50),
             activityIndicator.heightAnchor.constraint(equalToConstant: 50),
             activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
-    
+
     private func showErrorAlert(error: String) {
         let alertController = UIAlertController(
             title: "Ошибка",
@@ -102,7 +102,7 @@ final class CatalogViewController: UIViewController {
         }))
         present(alertController, animated: true, completion: nil)
     }
-    
+
     private func makeNavBar() {
         if let navBar = navigationController?.navigationBar {
             let righButton = UIBarButtonItem(
@@ -115,7 +115,7 @@ final class CatalogViewController: UIViewController {
             navBar.tintColor = .textPrimary
         }
     }
-    
+
     @objc private func didTapSortButton() {
         let alertSort = UIAlertController(
             title: "Сортировка",
@@ -125,28 +125,28 @@ final class CatalogViewController: UIViewController {
         let sortByNameAction = UIAlertAction(title: "По названию", style: .default) { [weak self] _ in
             self?.viewModel.sortByName()
         }
-        let sortByNumberOfNFT = UIAlertAction(title: "По колличеству NFT", style: .default) {[weak self] _ in
+        let sortByNumberOfNFT = UIAlertAction(title: "По количеству NFT", style: .default) {[weak self] _ in
             self?.viewModel.sortByNFT()
         }
         let closeAlert = UIAlertAction(title: "Закрыть", style: .cancel)
         alertSort.addAction(sortByNameAction)
         alertSort.addAction(sortByNumberOfNFT)
         alertSort.addAction(closeAlert)
-        self.present(alertSort, animated: true, completion: nil)
+        present(alertSort, animated: true, completion: nil)
     }
 }
 
-//MARK: - Extensions
+// MARK: - Extensions
 
 extension CatalogViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         collections.count
     }
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         1
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let categoryCell = tableView.dequeueReusableCell(
             withIdentifier: CatalogTableViewCell.identifier) as? CatalogTableViewCell else {
@@ -166,9 +166,9 @@ extension CatalogViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 183
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //Доделать
+        // Доделать
     }
 }
 

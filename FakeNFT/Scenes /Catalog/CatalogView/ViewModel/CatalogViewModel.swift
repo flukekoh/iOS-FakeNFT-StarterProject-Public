@@ -1,22 +1,22 @@
 import Foundation
 
 final class CatalogViewModel: NSObject {
-    
+
     private let sortManager = SortManager()
     private(set) var collections: [CatalogNetworkModel] = []
     var onChange: (() -> Void)?
     var onError: ((String) -> Void)?
     var onLoadingStarted: (() -> Void)?
     var onLoadingFinished: (() -> Void)?
-    
+
     override init() {
         super.init()
     }
-    
+
     func updateData() {
         loadData()
     }
-    
+
     private func loadData() {
         let sort = sortManager.getSortValue()
         onLoadingStarted?()
@@ -45,7 +45,7 @@ final class CatalogViewModel: NSObject {
             }
         }
     }
-    
+
     func sortByName() {
         collections = collections.sorted {
             $0.name < $1.name
@@ -53,7 +53,7 @@ final class CatalogViewModel: NSObject {
         sortManager.setSortValue(value: SortType.byName.rawValue)
         onChange?()
     }
-    
+
     func sortByNFT() {
         collections = collections.sorted {
             $0.nfts.count > $1.nfts.count
