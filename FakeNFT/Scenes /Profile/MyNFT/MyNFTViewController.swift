@@ -102,7 +102,6 @@ final class MyNFTViewController: UIViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.leftBarButtonItem = customBackButton
 
-//        setupNoNFT()
     }
 
     private func setupNoNFT() {
