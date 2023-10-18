@@ -30,11 +30,12 @@ struct DefaultNetworkClient: NetworkClient {
     init(
         session: URLSession = URLSession.shared,
         decoder: JSONDecoder = JSONDecoder(),
-        encoder: JSONEncoder = JSONEncoder()) {
-            self.session = session
-            self.decoder = decoder
-            self.encoder = encoder
-        }
+        encoder: JSONEncoder = JSONEncoder()
+    ) {
+        self.session = session
+        self.decoder = decoder
+        self.encoder = encoder
+    }
 
     @discardableResult
     func send(request: NetworkRequest, onResponse: @escaping (Result<Data, Error>) -> Void) -> NetworkTask? {
