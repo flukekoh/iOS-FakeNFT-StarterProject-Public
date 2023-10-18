@@ -16,15 +16,15 @@ enum SortingMethod: Codable {
 class MyNFTViewModel {
     var onTableDataLoad: (([NFTModel]) -> Void)?
     var onError: ((Error) -> Void)?
-    
+
     private var networkClient: NetworkClient = DefaultNetworkClient()
     private var error: Error?
     private var nftsIds: [String]
     private var likesIds: [String]
     var authorsSet: [String: String] = [:]
-    
+
     var tableData: [NFTModel] = []
-    
+
     var sorting: SortingMethod? {
         didSet {
             guard let sorting else { return }
@@ -35,17 +35,17 @@ class MyNFTViewModel {
         self.nftsIds = nftsIds ?? []
         self.likesIds = likesIds ?? []
     }
-    
+
     func viewWillAppear() {
         getTableData()
     }
-    
+
     func getTableData() {
         let dispatchGroup = DispatchGroup()
-        
+
         for id in nftsIds {
             dispatchGroup.enter()
-            
+
             networkClient.send(request: GetNFTsRequest(id: id), type: NFTNetworkModel.self) { [self] result in
                 DispatchQueue.global(qos: .background).async {
                     switch result {
@@ -62,12 +62,12 @@ class MyNFTViewModel {
                 }
             }
         }
-        
+
         dispatchGroup.notify(queue: .main) {
             self.getAuthors(loadedNFTS: self.tableData)
         }
     }
-    
+
     func getAuthors(loadedNFTS: [NFTModel]) {
         let dispatchGroup = DispatchGroup()
         for nft in loadedNFTS {
@@ -88,12 +88,12 @@ class MyNFTViewModel {
                 }
             }
         }
-        
+
         dispatchGroup.notify(queue: .main) {
             self.sort(by: self.sorting ?? .rating)
         }
     }
-    
+
     func setupTableData(response: NFTNetworkModel) {
         tableData.append(NFTModel(
             nftImage: response.images[0],
@@ -105,11 +105,11 @@ class MyNFTViewModel {
         )
         )
     }
-    
+
     func setupAuthor(response: UserNetworkModel) {
         authorsSet.updateValue(response.name, forKey: response.id)
     }
-    
+
     private func sort(by sortingMethod: SortingMethod) {
         switch sortingMethod {
         case .price:
