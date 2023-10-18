@@ -1,11 +1,12 @@
 import Foundation
 
 struct NFTNetworkModel: Codable {
+    let createdAt: String
     let name: String
-    let avatar: String
+    let images: [String]
+    let rating: Int
     let description: String
-    let website: String
-    let nfts: [String]
-    let likes: [String]
+    let price: Float
+    let author: String
     let id: String
 }

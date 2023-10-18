@@ -14,7 +14,7 @@ struct User {
 struct Order {
     let nfts: [String]
     let id: String
-    
+
     init(with nft: OrderNetworkModel) {
         self.nfts = nft.nfts
         self.id = nft.id

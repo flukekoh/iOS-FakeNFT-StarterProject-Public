@@ -43,7 +43,7 @@ final class CatalogViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Override
+    // MARK: - View Did Load
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +53,8 @@ final class CatalogViewController: UIViewController {
         viewModel.onLoadingStarted = self.startAnimating
         viewModel.onLoadingFinished = self.stopAnimating
     }
+
+    // MARK: - View Will Appear
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -136,7 +138,7 @@ final class CatalogViewController: UIViewController {
     }
 }
 
-// MARK: - Extensions
+// MARK: - UITableViewDataSource
 
 extension CatalogViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -162,13 +164,16 @@ extension CatalogViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
+
 extension CatalogViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 183
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Доделать
+        let collectionVC = NFTCollectionView(viewModel: CollectionViewModel(collection: collections[indexPath.row]))
+        self.navigationController?.pushViewController(collectionVC, animated: true)
     }
 }
 
