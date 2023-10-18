@@ -66,7 +66,7 @@ final class MyNFTViewController: UIViewController {
         setupHierarchy()
         setupLayout()
 
-        myNFTViewModel.onTableDataLoad = { [weak self] _ in
+        myNFTViewModel.onTableDataLoad = { [weak self] tableData in
             guard let self else { return }
 
             self.setupTableData(tableData: tableData)
@@ -102,6 +102,10 @@ final class MyNFTViewController: UIViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.leftBarButtonItem = customBackButton
 
+//        setupNoNFT()
+    }
+
+    private func setupNoNFT() {
         if tableData.isEmpty {
             noNFTLabel.isHidden = false
         } else {
@@ -141,10 +145,8 @@ final class MyNFTViewController: UIViewController {
     private func setupTableData(tableData: [NFTModel]) {
         self.tableData = tableData
         tableView.reloadData()
-    }
 
-    private func setupTableData(authors: [String: String]) {
-        tableView.reloadData()
+        setupNoNFT()
     }
 
     @objc

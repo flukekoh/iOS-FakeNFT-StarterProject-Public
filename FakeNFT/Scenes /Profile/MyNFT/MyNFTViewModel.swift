@@ -47,7 +47,7 @@ class MyNFTViewModel {
             dispatchGroup.enter()
 
             networkClient.send(request: GetNFTsRequest(id: id), type: NFTNetworkModel.self) { [self] result in
-                DispatchQueue.global(qos: .background).async {
+                DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 2) { //без задержки все время получаю ошибку 429
                     switch result {
                     case .success(let nftData):
                         DispatchQueue.main.async {
@@ -91,6 +91,7 @@ class MyNFTViewModel {
 
         dispatchGroup.notify(queue: .main) {
             self.sort(by: self.sorting ?? .rating)
+            self.onTableDataLoad?(self.tableData)
         }
     }
 
@@ -113,11 +114,11 @@ class MyNFTViewModel {
     private func sort(by sortingMethod: SortingMethod) {
         switch sortingMethod {
         case .price:
-            onTableDataLoad?(tableData.sorted(by: { $0.price < $1.price }))
+            tableData = tableData.sorted(by: { $0.price < $1.price })
         case .rating:
-            onTableDataLoad?(tableData.sorted(by: { $0.rating > $1.rating }))
+            tableData = tableData.sorted(by: { $0.rating > $1.rating })
         case .name:
-            onTableDataLoad?(tableData.sorted(by: { $0.name < $1.name }))
+            tableData = tableData.sorted(by: { $0.name < $1.name })
         }
     }
 }
