@@ -173,7 +173,7 @@ extension NFTCollectionView: UICollectionViewDataSource {
                let rating = viewModel.nfts(by: nftId)?.rating {
                 let isNFTLiked = viewModel.isNFTLiked(with: nftId)
                 let isNFTinOrder = viewModel.isNFTInOrder(with: nftId)
-                likeOrDislikeButton = isNFTLiked ? "like" : "dislike"
+                likeOrDislikeButton = isNFTLiked ? "Like" : "dislike"
                 cartButton = isNFTinOrder ? "inCart" : "cart"
                 collectionNFTCell.configure(
                     nftImage: imageURL,
