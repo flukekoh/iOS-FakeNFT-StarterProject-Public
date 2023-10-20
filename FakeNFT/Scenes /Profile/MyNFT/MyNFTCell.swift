@@ -48,7 +48,7 @@ final class MyNFTCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.font = .caption1
         return label
     }()
 
@@ -57,7 +57,7 @@ final class MyNFTCell: UITableViewCell {
         label.text = "Цена"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        label.font = .caption2
         return label
     }()
 

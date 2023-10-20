@@ -34,9 +34,8 @@ final class MyNFTViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
 
-        tableView.backgroundColor = UIColor(named: "ypWhite")
+        tableView.backgroundColor = .background
         tableView.layer.cornerRadius = 16
-
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
@@ -97,11 +96,10 @@ final class MyNFTViewController: UIViewController {
 
 
     private func setupView() {
-        view.backgroundColor = UIColor(named: "ypWhite")
+        view.backgroundColor = .background
 
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.leftBarButtonItem = customBackButton
-
     }
 
     private func setupNoNFT() {
