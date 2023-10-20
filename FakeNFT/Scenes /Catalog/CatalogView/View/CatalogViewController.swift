@@ -9,6 +9,7 @@ final class CatalogViewController: UIViewController {
     }
 
     private let viewModel: CatalogViewModel
+    private let tableCellHeight = 187
 
     private lazy var catalogTableView: UITableView = {
         let tableView = UITableView()
@@ -168,7 +169,7 @@ extension CatalogViewController: UITableViewDataSource {
 
 extension CatalogViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 183
+        return CGFloat(tableCellHeight)
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
