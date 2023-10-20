@@ -47,7 +47,7 @@ class MyNFTViewModel {
             dispatchGroup.enter()
 
             networkClient.send(request: GetNFTsRequest(id: id), type: NFTNetworkModel.self) { [self] result in
-                DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 2) { // без задержки все время получаю ошибку 429
+                DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 3) { // без задержки все время получаю ошибку 429
                     switch result {
                     case .success(let nftData):
                         DispatchQueue.main.async {
