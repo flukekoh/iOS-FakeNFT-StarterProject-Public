@@ -211,7 +211,8 @@ extension MyNFTViewController: UITableViewDataSource {
             markedFavorite: myNFT.markedFavorite,
             price: myNFT.price,
             author: myNFTViewModel.authorsSet[myNFT.author] ?? "",
-            rating: myNFT.rating)
+            rating: myNFT.rating,
+            id: myNFT.id)
         )
         return myNFTCell
     }

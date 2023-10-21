@@ -54,19 +54,19 @@ final class MyNFTViewModel {
 
             DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 3) { [weak self] in
                 self?.networkClient.send(request: GetNFTsRequest(id: id), type: NFTNetworkModel.self) { [weak self] result in
-//                    DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 3) { // без задержки все время получаю ошибку 429
-                        switch result {
-                        case .success(let nftData):
-                            DispatchQueue.main.async {
-                                self?.setupTableData(response: nftData)
-                            }
-                        case .failure(let error):
-                            DispatchQueue.main.async {
-                                self?.onError?(error)
-                            }
+                    //                    DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 3) { // без задержки все время получаю ошибку 429
+                    switch result {
+                    case .success(let nftData):
+                        DispatchQueue.main.async {
+                            self?.setupTableData(response: nftData)
                         }
-                        dispatchGroup.leave()
-//                    }
+                    case .failure(let error):
+                        DispatchQueue.main.async {
+                            self?.onError?(error)
+                        }
+                    }
+                    dispatchGroup.leave()
+                    //                    }
                 }
             }
         }
@@ -110,7 +110,8 @@ final class MyNFTViewModel {
             markedFavorite: likesIds.contains(response.id),
             price: response.price,
             author: response.author,
-            rating: response.rating
+            rating: response.rating,
+            id: response.id
         )
         )
     }

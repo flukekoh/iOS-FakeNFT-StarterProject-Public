@@ -217,7 +217,11 @@ extension ProfileViewController: UITableViewDelegate {
             let myNFTViewController = MyNFTViewController(myNFTViewModel: myNFTViewModel)
             navigationController?.pushViewController(myNFTViewController, animated: true)
         case 1: // Избранные NFT
-            let favoriteNFTViewController = FavoriteNFTViewController()
+            let favoriteNFTViewModel = FavoriteNFTViewModel(
+                nftsIds: profileViewModel.profile?.nfts,
+                likesIds: profileViewModel.profile?.likes
+            )
+            let favoriteNFTViewController = FavoriteNFTViewController(favoriteNFTViewModel: favoriteNFTViewModel, profileViewModel: profileViewModel)
             navigationController?.pushViewController(favoriteNFTViewController, animated: true)
         case 2: // О Разработчике
             let aboutDeveloperViewController = AboutDeveloperViewController(

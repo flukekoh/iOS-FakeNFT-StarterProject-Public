@@ -23,7 +23,7 @@ final class MyNFTCell: UITableViewCell {
     private let onLikeImage: UIImageView = {
         let onLikeImage = UIImageView()
         onLikeImage.translatesAutoresizingMaskIntoConstraints = false
-        onLikeImage.image = UIImage(named: "dislike")
+        onLikeImage.image = UIImage(named: "Like")
 
         return onLikeImage
     }()
@@ -31,7 +31,7 @@ final class MyNFTCell: UITableViewCell {
     private let offLikeImage: UIImageView = {
         let offLikeImage = UIImageView()
         offLikeImage.translatesAutoresizingMaskIntoConstraints = false
-        offLikeImage.image = UIImage(named: "Like")
+        offLikeImage.image = UIImage(named: "dislike")
 
         return offLikeImage
     }()

@@ -256,9 +256,6 @@
 			children = (
 				A226A8922AD2D4A400E782E3 /* ProfileModel.swift */,
 				A26250B82AD83876008B19A9 /* NFTModel.swift */,
-				A226A8942AD2D4E500E782E3 /* ProfileNetworkModel.swift */,
-				A26250BC2ADA865B008B19A9 /* NFTsNetworkModel.swift */,
-				A26250C02ADD7272008B19A9 /* UserNetworkModel.swift */,
 				3F6806D829CC979D00B4F915 /* Network */,
 			);
 			path = Models;
@@ -287,11 +284,10 @@
 		3F6806D829CC979D00B4F915 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				A226A8942AD2D4E500E782E3 /* ProfileNetworkModel.swift */,
+				A26250BC2ADA865B008B19A9 /* NFTsNetworkModel.swift */,
+				A26250C02ADD7272008B19A9 /* UserNetworkModel.swift */,
 				3F6806CA29CBBCC700B4F915 /* ExampleNetworkModel.swift */,
-				A288C36F2AD7DC5900AE26F2 /* GetProfileRequest.swift */,
-				A288C3712AD7DC7A00AE26F2 /* PutProfileRequest.swift */,
-				A26250BA2ADA85F2008B19A9 /* GetNFTsRequest.swift */,
-				A26250BE2ADD71E6008B19A9 /* GetUserRequest.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -300,6 +296,10 @@
 			isa = PBXGroup;
 			children = (
 				3FC8C39029D2453B0081F015 /* ExampleRequest.swift */,
+				A288C36F2AD7DC5900AE26F2 /* GetProfileRequest.swift */,
+				A288C3712AD7DC7A00AE26F2 /* PutProfileRequest.swift */,
+				A26250BA2ADA85F2008B19A9 /* GetNFTsRequest.swift */,
+				A26250BE2ADD71E6008B19A9 /* GetUserRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";

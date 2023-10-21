@@ -45,7 +45,7 @@ class ProfileViewModel {
         }
     }
 
-    func putProfile(name: String, avatar: String, description: String, website: String, likes: [String]) {
+    func putProfile(name: String?, avatar: String?, description: String?, website: String?, likes: [String]?) {
         let request = PutProfileRequest(
             name: name,
             avatar: avatar,
