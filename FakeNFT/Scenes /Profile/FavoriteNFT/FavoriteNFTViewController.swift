@@ -90,8 +90,7 @@ extension FavoriteNFTViewController: UICollectionViewDataSource {
         }
         let currentNFT = collectionData[indexPath.row]
         cell.configure(nft: currentNFT)
-        //        cell.delegate = self
-
+        
         return cell
     }
 }
