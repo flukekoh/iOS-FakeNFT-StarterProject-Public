@@ -13,17 +13,15 @@ enum SortingMethod: Codable {
     case name
 }
 
-class MyNFTViewModel {
+final class MyNFTViewModel {
     var onTableDataLoad: (([NFTModel]) -> Void)?
     var onError: ((Error) -> Void)?
 
-    private var networkClient: NetworkClient = DefaultNetworkClient()
-    private var error: Error?
-    private var nftsIds: [String]
-    private var likesIds: [String]
-    var authorsSet: [String: String] = [:]
-
-    var tableData: [NFTModel] = []
+    var tableData: [NFTModel] = [] {
+        didSet {
+            onTableDataLoad?(tableData)
+        }
+    }
 
     var sorting: SortingMethod? {
         didSet {
@@ -31,6 +29,14 @@ class MyNFTViewModel {
             sort(by: sorting)
         }
     }
+    var authorsSet: [String: String] = [:]
+
+    private var networkClient: NetworkClient = DefaultNetworkClient()
+    private var error: Error?
+    private var nftsIds: [String]
+    private var likesIds: [String]
+
+
     init(nftsIds: [String]?, likesIds: [String]?) {
         self.nftsIds = nftsIds ?? []
         self.likesIds = likesIds ?? []
@@ -46,16 +52,16 @@ class MyNFTViewModel {
         for id in nftsIds {
             dispatchGroup.enter()
 
-            networkClient.send(request: GetNFTsRequest(id: id), type: NFTNetworkModel.self) { [self] result in
+            networkClient.send(request: GetNFTsRequest(id: id), type: NFTNetworkModel.self) { [weak self] result in
                 DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 3) { // без задержки все время получаю ошибку 429
                     switch result {
                     case .success(let nftData):
                         DispatchQueue.main.async {
-                            self.setupTableData(response: nftData)
+                            self?.setupTableData(response: nftData)
                         }
                     case .failure(let error):
                         DispatchQueue.main.async {
-                            self.onError?(error)
+                            self?.onError?(error)
                         }
                     }
                     dispatchGroup.leave()
@@ -72,16 +78,16 @@ class MyNFTViewModel {
         let dispatchGroup = DispatchGroup()
         for nft in loadedNFTS {
             dispatchGroup.enter()
-            networkClient.send(request: GetUserRequest(id: nft.author), type: UserNetworkModel.self) { [self] result in
+            networkClient.send(request: GetUserRequest(id: nft.author), type: UserNetworkModel.self) { [weak self] result in
                 DispatchQueue.global(qos: .background).async {
                     switch result {
                     case .success(let authorData):
                         DispatchQueue.main.async {
-                            self.setupAuthor(response: authorData)
+                            self?.setupAuthor(response: authorData)
                         }
                     case .failure(let error):
                         DispatchQueue.main.async {
-                            self.onError?(error)
+                            self?.onError?(error)
                         }
                     }
                     dispatchGroup.leave()
@@ -97,7 +103,7 @@ class MyNFTViewModel {
 
     func setupTableData(response: NFTNetworkModel) {
         tableData.append(NFTModel(
-            nftImage: response.images[0],
+            nftImage: response.images.first ?? "",
             name: response.name,
             markedFavorite: likesIds.contains(response.id),
             price: response.price,

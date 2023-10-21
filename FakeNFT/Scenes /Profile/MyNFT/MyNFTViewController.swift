@@ -147,7 +147,7 @@ final class MyNFTViewController: UIViewController {
     }
 
     @objc
-    func goBack() {
+    private func goBack() {
         navigationController?.popViewController(animated: true)
     }
 

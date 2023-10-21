@@ -79,8 +79,13 @@ final class MyNFTCell: UITableViewCell {
         return stackView
     }()
 
+    let numberFormatter = NumberFormatter()
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.locale = Locale(identifier: "ru_RU")
 
         setupHierarchy()
         setupLayout()
@@ -154,7 +159,10 @@ final class MyNFTCell: UITableViewCell {
 
         titleLabel.text = nft.name
         authorLabel.text = nft.author
-        priceLabel.text = "\(nft.price) ETH"
+
+        if let formattedString = numberFormatter.string(from: NSNumber(value: nft.price)) {
+            priceLabel.text = "\(formattedString) ETH"
+        }
 
         for viewNumber in 0...4 {
             if let currentImageView = stackView.arrangedSubviews[viewNumber] as? UIImageView {
