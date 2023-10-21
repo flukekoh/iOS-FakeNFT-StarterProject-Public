@@ -52,19 +52,21 @@ final class MyNFTViewModel {
         for id in nftsIds {
             dispatchGroup.enter()
 
-            networkClient.send(request: GetNFTsRequest(id: id), type: NFTNetworkModel.self) { [weak self] result in
-                DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 3) { // без задержки все время получаю ошибку 429
-                    switch result {
-                    case .success(let nftData):
-                        DispatchQueue.main.async {
-                            self?.setupTableData(response: nftData)
+            DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 3) { [weak self] in
+                self?.networkClient.send(request: GetNFTsRequest(id: id), type: NFTNetworkModel.self) { [weak self] result in
+//                    DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 3) { // без задержки все время получаю ошибку 429
+                        switch result {
+                        case .success(let nftData):
+                            DispatchQueue.main.async {
+                                self?.setupTableData(response: nftData)
+                            }
+                        case .failure(let error):
+                            DispatchQueue.main.async {
+                                self?.onError?(error)
+                            }
                         }
-                    case .failure(let error):
-                        DispatchQueue.main.async {
-                            self?.onError?(error)
-                        }
-                    }
-                    dispatchGroup.leave()
+                        dispatchGroup.leave()
+//                    }
                 }
             }
         }
