@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class MyNFTCell: UITableViewCell {
     static let identifier = "MyNFTCell"
@@ -13,7 +14,8 @@ final class MyNFTCell: UITableViewCell {
     private var nftImage: UIImageView = {
         let nftImage = UIImageView()
         nftImage.translatesAutoresizingMaskIntoConstraints = false
-        nftImage.image = UIImage(named: "MockUserPic")
+        nftImage.layer.cornerRadius = 12
+        nftImage.layer.masksToBounds = true
 
         return nftImage
     }()
@@ -46,7 +48,7 @@ final class MyNFTCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        label.font = .caption1
         return label
     }()
 
@@ -55,7 +57,7 @@ final class MyNFTCell: UITableViewCell {
         label.text = "Цена"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        label.font = .caption2
         return label
     }()
 
@@ -67,16 +69,23 @@ final class MyNFTCell: UITableViewCell {
         return label
     }()
 
-    private let ratingImage: UIImageView = {
-        let ratingImage = UIImageView()
-        ratingImage.translatesAutoresizingMaskIntoConstraints = false
-        ratingImage.image = UIImage(named: "star_yellow")
-
-        return ratingImage
+    let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 2
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
     }()
+
+    let numberFormatter = NumberFormatter()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.locale = Locale(identifier: "ru_RU")
 
         setupHierarchy()
         setupLayout()
@@ -88,13 +97,21 @@ final class MyNFTCell: UITableViewCell {
 
     func setupHierarchy() {
         selectionStyle = .none
+
+        for _ in 1...5 {
+            let imageView = UIImageView(image: UIImage(named: "star"))
+            imageView.contentMode = .scaleAspectFit
+
+            stackView.addArrangedSubview(imageView)
+        }
+
         contentView.addSubview(nftImage)
         contentView.addSubview(onLikeImage)
         contentView.addSubview(titleLabel)
         contentView.addSubview(authorLabel)
         contentView.addSubview(titlePriceLabel)
         contentView.addSubview(priceLabel)
-        contentView.addSubview(ratingImage)
+        contentView.addSubview(stackView)
     }
 
     func setupLayout() {
@@ -112,39 +129,49 @@ final class MyNFTCell: UITableViewCell {
             titleLabel.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: 20),
             titleLabel.topAnchor.constraint(equalTo: nftImage.topAnchor, constant: 23),
             titleLabel.heightAnchor.constraint(equalToConstant: 22),
-            //            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 
             authorLabel.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: 20),
             authorLabel.bottomAnchor.constraint(equalTo: nftImage.bottomAnchor, constant: -23),
             authorLabel.heightAnchor.constraint(equalToConstant: 20),
-            //            authorLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 
             titlePriceLabel.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: 137),
             titlePriceLabel.topAnchor.constraint(equalTo: nftImage.topAnchor, constant: 33),
             titlePriceLabel.heightAnchor.constraint(equalToConstant: 18),
-            //            titlePriceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 
             priceLabel.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: 137),
-            priceLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 53),
+            priceLabel.topAnchor.constraint(equalTo: titlePriceLabel.bottomAnchor, constant: 2),
             priceLabel.heightAnchor.constraint(equalToConstant: 22),
-            //            priceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 
-            ratingImage.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: 20),
-            ratingImage.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
-            //            ratingImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            ratingImage.heightAnchor.constraint(equalToConstant: 12)
+            stackView.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: 20),
+            stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
+            stackView.widthAnchor.constraint(equalToConstant: 68),
+            stackView.heightAnchor.constraint(equalToConstant: 12)
         ])
     }
     func configure(nft: NFTModel) {
-        nftImage.image = nft.nftImage
+        nftImage.kf.setImage(with: URL(string: nft.nftImage))
+
         if nft.markedFavorite {
             onLikeImage.image = onLikeImage.image
         } else {
             onLikeImage.image = offLikeImage.image
         }
 
-        titleLabel.text = nft.title
+        titleLabel.text = nft.name
         authorLabel.text = nft.author
-        priceLabel.text = "\(nft.price)"
+
+        if let formattedString = numberFormatter.string(from: NSNumber(value: nft.price)) {
+            priceLabel.text = "\(formattedString) ETH"
+        }
+
+        for viewNumber in 0...4 {
+            if let currentImageView = stackView.arrangedSubviews[viewNumber] as? UIImageView {
+                if viewNumber < nft.rating {
+                    currentImageView.image = UIImage(named: "star_yellow")
+                } else {
+                    currentImageView.image = UIImage(named: "star")
+                }
+            }
+        }
     }
 }

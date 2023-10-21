@@ -210,7 +210,11 @@ extension ProfileViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         switch indexPath.row {
         case 0: // Мои NFT
-            let myNFTViewController = MyNFTViewController()
+            let myNFTViewModel = MyNFTViewModel(
+                nftsIds: profileViewModel.profile?.nfts,
+                likesIds: profileViewModel.profile?.likes
+            )
+            let myNFTViewController = MyNFTViewController(myNFTViewModel: myNFTViewModel)
             navigationController?.pushViewController(myNFTViewController, animated: true)
         case 1: // Избранные NFT
             let favoriteNFTViewController = FavoriteNFTViewController()
