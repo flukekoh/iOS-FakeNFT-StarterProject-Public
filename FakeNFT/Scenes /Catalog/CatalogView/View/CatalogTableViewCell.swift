@@ -2,6 +2,9 @@ import UIKit
 import Kingfisher
 
 final class CatalogTableViewCell: UITableViewCell {
+
+    // MARK: - Properties
+
     static let identifier = "CatalogTableViewCell"
 
     private lazy var imageCategory: UIImageView = {
@@ -22,6 +25,8 @@ final class CatalogTableViewCell: UITableViewCell {
         return label
     }()
 
+    // MARK: - Init
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: CatalogTableViewCell.identifier)
 
@@ -29,9 +34,16 @@ final class CatalogTableViewCell: UITableViewCell {
         setupLayout()
     }
 
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Private Func
+
     private func setupView() {
         self.contentView.addSubview(imageCategory)
         self.contentView.addSubview(label)
+        self.contentView.backgroundColor = .background
     }
 
     private func setupLayout() {
@@ -48,9 +60,7 @@ final class CatalogTableViewCell: UITableViewCell {
         ])
     }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    // MARK: - Func
 
     func configure(image: URL, title: String) {
         imageCategory.kf.setImage(with: image)

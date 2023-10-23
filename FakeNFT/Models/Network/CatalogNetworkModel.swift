@@ -10,6 +10,6 @@ struct CatalogNetworkModel: Codable {
     let id: String
 
     var displayName: String {
-        name + "(\(nfts.count))"
+        name + " (\(nfts.count))"
     }
 }

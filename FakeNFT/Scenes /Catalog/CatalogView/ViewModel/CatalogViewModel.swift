@@ -2,6 +2,8 @@ import Foundation
 
 final class CatalogViewModel: NSObject {
 
+    // MARK: - Properties
+
     private let sortManager = SortManager()
     private(set) var collections: [CatalogNetworkModel] = []
     var onChange: (() -> Void)?
@@ -9,13 +11,13 @@ final class CatalogViewModel: NSObject {
     var onLoadingStarted: (() -> Void)?
     var onLoadingFinished: (() -> Void)?
 
+    // MARK: - Init
+
     override init() {
         super.init()
     }
 
-    func updateData() {
-        loadData()
-    }
+    // MARK: - Private Func
 
     private func loadData() {
         let sort = sortManager.getSortValue()
@@ -44,6 +46,12 @@ final class CatalogViewModel: NSObject {
                 }
             }
         }
+    }
+
+    // MARK: - Func
+
+    func updateData() {
+        loadData()
     }
 
     func sortByName() {
