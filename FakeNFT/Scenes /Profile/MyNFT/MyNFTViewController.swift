@@ -48,7 +48,7 @@ final class MyNFTViewController: UIViewController {
     private let noNFTLabel: UILabel = {
         let noNFTLabel = UILabel()
         noNFTLabel.text = "У Вас ещё нет NFT"
-        noNFTLabel.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        noNFTLabel.font = .bodyBold
         noNFTLabel.translatesAutoresizingMaskIntoConstraints = false
         noNFTLabel.textColor = .black
 
@@ -69,14 +69,14 @@ final class MyNFTViewController: UIViewController {
             guard let self else { return }
 
             self.setupTableData(tableData: tableData)
-            ProgressHUD.dismiss()
+//            ProgressHUD.dismiss()
         }
 
         myNFTViewModel.onError = { [weak self] error in
             guard let self else { return }
             self.showAlert(title: "Ошибка", message: error.localizedDescription)
 
-            ProgressHUD.dismiss()
+//            ProgressHUD.dismiss()
         }
     }
 
@@ -110,6 +110,7 @@ final class MyNFTViewController: UIViewController {
 
             navigationItem.rightBarButtonItem = sortButton
             noNFTLabel.isHidden = true
+            ProgressHUD.dismiss()
         }
     }
 

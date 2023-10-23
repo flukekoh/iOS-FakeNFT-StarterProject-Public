@@ -30,7 +30,7 @@ final class FavoriteNFTViewModel {
         self.nftsIds = nftsIds ?? []
         self.likesIds = likesIds ?? []
 
-        nftNetworkSevice = NFTNetworkSevice(nftsIds: self.nftsIds, likesIds: self.likesIds)
+        nftNetworkSevice = NFTNetworkSevice(nftsIds: self.nftsIds, likesIds: self.likesIds, authorInfoNeeded: false)
         nftNetworkSevice?.delegate = self
     }
 

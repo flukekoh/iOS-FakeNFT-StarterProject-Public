@@ -32,7 +32,7 @@ final class ProfileViewController: UIViewController {
     private let profileNameLabel: UILabel = {
         let profileNameLabel = UILabel()
         profileNameLabel.text = ""
-        profileNameLabel.font = UIFont.systemFont(ofSize: 22, weight: .bold)
+        profileNameLabel.font = .headline3
         profileNameLabel.translatesAutoresizingMaskIntoConstraints = false
 
         return profileNameLabel
@@ -44,7 +44,7 @@ final class ProfileViewController: UIViewController {
         descriptionLabel.lineBreakMode = .byWordWrapping
         descriptionLabel.numberOfLines = 0
         descriptionLabel.sizeToFit()
-        descriptionLabel.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        descriptionLabel.font = .caption2
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 
         return descriptionLabel
@@ -53,10 +53,8 @@ final class ProfileViewController: UIViewController {
     private let profileLinkLabel: UILabel = {
         let profileLinkLabel = UILabel()
         profileLinkLabel.text = ""
-        profileLinkLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         profileLinkLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        profileLinkLabel.font = UIFont.systemFont(ofSize: 15)
+        profileLinkLabel.font = .caption1
         profileLinkLabel.textColor = UIColor(named: "iconBlue")
         return profileLinkLabel
     }()

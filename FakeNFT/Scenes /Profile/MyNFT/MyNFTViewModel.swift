@@ -7,11 +7,6 @@
 
 import Foundation
 
-enum SortingMethod: Codable {
-    case price
-    case rating
-    case name
-}
 
 final class MyNFTViewModel {
     var onTableDataLoad: (([NFTModel]) -> Void)?
@@ -43,7 +38,7 @@ final class MyNFTViewModel {
         self.nftsIds = nftsIds ?? []
         self.likesIds = likesIds ?? []
 
-        nftNetworkSevice = NFTNetworkSevice(nftsIds: self.nftsIds, likesIds: self.likesIds)
+        nftNetworkSevice = NFTNetworkSevice(nftsIds: self.nftsIds, likesIds: self.likesIds, authorInfoNeeded: true)
         nftNetworkSevice?.delegate = self
     }
 

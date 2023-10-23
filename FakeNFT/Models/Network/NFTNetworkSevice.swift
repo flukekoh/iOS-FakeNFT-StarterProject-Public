@@ -7,6 +7,12 @@
 
 import Foundation
 
+enum SortingMethod: Codable {
+    case price
+    case rating
+    case name
+}
+
 protocol NFTNetworkSeviceDelegate {
     func updateData(loadedData: [NFTModel])
     func updateAuthors(authors: [String: String])
@@ -14,90 +20,88 @@ protocol NFTNetworkSeviceDelegate {
 }
 
 final class NFTNetworkSevice {
-    private var networkClient: NetworkClient = DefaultNetworkClient()
-    private var nftsIds: [String]
-    private var likesIds: [String]
+    
     var authorsSet: [String: String] = [:]
-
-    var tableData: [NFTModel] = [] {
-        didSet {
-            self.delegate?.updateData(loadedData: tableData)
-//            onTableDataLoad?(tableData)
-        }
-    }
-
+    var tableData: [NFTModel] = []
     var delegate: NFTNetworkSeviceDelegate?
-
     var sorting: SortingMethod? {
         didSet {
             guard let sorting else { return }
             sort(by: sorting)
         }
     }
-
-    init(nftsIds: [String], likesIds: [String]) {
+    
+    private var networkClient: NetworkClient = DefaultNetworkClient()
+    private var nftsIds: [String]
+    private var likesIds: [String]
+    private var authorInfoNeeded: Bool
+    
+    init(nftsIds: [String], likesIds: [String], authorInfoNeeded: Bool) {
         self.nftsIds = nftsIds
         self.likesIds = likesIds
+        self.authorInfoNeeded = authorInfoNeeded
     }
-
+    
     func getDataByType(arrayOfIDs: [String]) {
-        let dispatchGroup = DispatchGroup()
-
+        let group = DispatchGroup()
+        
         for id in arrayOfIDs {
-            dispatchGroup.enter()
-
-            DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 3) { [weak self] in
-                self?.networkClient.send(request: GetNFTsRequest(id: id), type: NFTNetworkModel.self) { [weak self] result in
-                    //                    DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 3) { // без задержки все время получаю ошибку 429
+            group.enter()
+            self.networkClient.send(request: GetNFTsRequest(id: id), type: NFTNetworkModel.self) { [weak self] result in
+                DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 3) { // без задержки все время получаю ошибку 429
                     switch result {
                     case .success(let nftData):
                         DispatchQueue.main.async {
                             self?.setupTableData(response: nftData)
+                            group.leave()
                         }
                     case .failure(let error):
                         DispatchQueue.main.async {
                             self?.delegate?.catchError(error: error)
+                            group.leave()
                         }
                     }
-                    dispatchGroup.leave()
-                    //                    }
                 }
             }
         }
-
-        dispatchGroup.notify(queue: .main) {
-            self.getAuthors(loadedNFTS: self.tableData)
+        
+        group.notify(queue: .main) {
+            if self.authorInfoNeeded {
+                self.getAuthors(loadedNFTS: self.tableData)
+            } else {
+                self.sort(by: self.sorting ?? .rating)
+            }
         }
     }
-
+    
     func getAuthors(loadedNFTS: [NFTModel]) {
-        let dispatchGroup = DispatchGroup()
+        let group = DispatchGroup()
         for nft in loadedNFTS {
-            dispatchGroup.enter()
-            networkClient.send(request: GetUserRequest(id: nft.author), type: UserNetworkModel.self) { [weak self] result in
+            group.enter()
+            self.networkClient.send(request: GetUserRequest(id: nft.author), type: UserNetworkModel.self) { [weak self] result in
                 DispatchQueue.global(qos: .background).async {
                     switch result {
                     case .success(let authorData):
                         DispatchQueue.main.async {
                             self?.setupAuthor(response: authorData)
+                            group.leave()
                         }
                     case .failure(let error):
                         DispatchQueue.main.async {
                             self?.delegate?.catchError(error: error)
+                            group.leave()
                         }
                     }
-                    dispatchGroup.leave()
                 }
             }
         }
-
-        dispatchGroup.notify(queue: .main) {
+        
+        group.notify(queue: .main) {
+            self.delegate?.updateAuthors(authors: self.authorsSet)
             self.sort(by: self.sorting ?? .rating)
-//            self.onTableDataLoad?(self.tableData)
-            self.delegate?.updateData(loadedData: self.tableData)
         }
     }
-
+    
     func setupTableData(response: NFTNetworkModel) {
         tableData.append(NFTModel(
             nftImage: response.images.first ?? "",
@@ -110,12 +114,11 @@ final class NFTNetworkSevice {
         )
         )
     }
-
+    
     func setupAuthor(response: UserNetworkModel) {
         authorsSet.updateValue(response.name, forKey: response.id)
-        delegate?.updateAuthors(authors: authorsSet)
     }
-
+    
     private func sort(by sortingMethod: SortingMethod) {
         switch sortingMethod {
         case .price:
@@ -125,5 +128,7 @@ final class NFTNetworkSevice {
         case .name:
             tableData = tableData.sorted(by: { $0.name < $1.name })
         }
+        
+        delegate?.updateData(loadedData: tableData)
     }
 }

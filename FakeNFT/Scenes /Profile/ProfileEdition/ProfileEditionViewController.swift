@@ -58,7 +58,7 @@ final class ProfileEditionViewController: UIViewController {
     private let profileImageLinkLabel: UILabel = {
         let profileImageLinkLabel = UILabel()
         profileImageLinkLabel.text = "Загрузить изображение"
-        profileImageLinkLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        profileImageLinkLabel.font = .bodyRegular
         profileImageLinkLabel.translatesAutoresizingMaskIntoConstraints = false
         profileImageLinkLabel.isHidden = true
 
@@ -68,7 +68,7 @@ final class ProfileEditionViewController: UIViewController {
     private let nameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.text = "Имя"
-        nameLabel.font = UIFont.systemFont(ofSize: 22, weight: .bold)
+        nameLabel.font = .headline3
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
 
         return nameLabel
@@ -90,7 +90,7 @@ final class ProfileEditionViewController: UIViewController {
     private let descriptionLabel: UILabel = {
         let descriptionLabel = UILabel()
         descriptionLabel.text = "Описание"
-        descriptionLabel.font = UIFont.systemFont(ofSize: 22, weight: .bold)
+        descriptionLabel.font = .headline3
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 
         return descriptionLabel
@@ -112,7 +112,7 @@ final class ProfileEditionViewController: UIViewController {
     private let websiteLabel: UILabel = {
         let websiteLabel = UILabel()
         websiteLabel.text = "Сайт"
-        websiteLabel.font = UIFont.systemFont(ofSize: 22, weight: .bold)
+        websiteLabel.font = .headline3
         websiteLabel.translatesAutoresizingMaskIntoConstraints = false
 
         return websiteLabel

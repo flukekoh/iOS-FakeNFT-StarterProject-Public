@@ -39,8 +39,8 @@ final class FavoriteNFTViewController: UIViewController {
 
     private let noNFTLabel: UILabel = {
         let noNFTLabel = UILabel()
-        noNFTLabel.text = "У Вас ещё нет NFT"
-        noNFTLabel.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        noNFTLabel.text = "У Вас ещё нет избранных NFT"
+        noNFTLabel.font = .bodyBold
         noNFTLabel.translatesAutoresizingMaskIntoConstraints = false
         noNFTLabel.textColor = .black
 
@@ -95,6 +95,7 @@ final class FavoriteNFTViewController: UIViewController {
 
     private func setupHierarchy() {
         view.addSubview(collectionView)
+        view.addSubview(noNFTLabel)
     }
 
     private func setupLayout() {
@@ -102,7 +103,10 @@ final class FavoriteNFTViewController: UIViewController {
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+
+            noNFTLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            noNFTLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
 
