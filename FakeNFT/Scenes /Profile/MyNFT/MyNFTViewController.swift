@@ -11,7 +11,7 @@ import ProgressHUD
 final class MyNFTViewController: UIViewController {
     private var myNFTViewModel: MyNFTViewModel
     private let profileViewModel: ProfileViewModel
-    
+
     private lazy var customBackButton: UIBarButtonItem = {
         let uiBarButtonItem = UIBarButtonItem(
             image: UIImage(named: "BackButton"),
@@ -21,7 +21,7 @@ final class MyNFTViewController: UIViewController {
         )
         return uiBarButtonItem
     }()
-    
+
     private lazy var sortButton: UIBarButtonItem = {
         let uiBarButtonItem = UIBarButtonItem(
             image: UIImage(named: "sortButton"),
@@ -31,10 +31,10 @@ final class MyNFTViewController: UIViewController {
         )
         return uiBarButtonItem
     }()
-    
+
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
-        
+
         tableView.backgroundColor = .background
         tableView.layer.cornerRadius = 16
         tableView.delegate = self
@@ -45,46 +45,47 @@ final class MyNFTViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
-    
+
     private let noNFTLabel: UILabel = {
         let noNFTLabel = UILabel()
         noNFTLabel.text = "У Вас ещё нет NFT"
         noNFTLabel.font = .bodyBold
         noNFTLabel.translatesAutoresizingMaskIntoConstraints = false
         noNFTLabel.textColor = .black
-        
+        noNFTLabel.isHidden = true
+
         return noNFTLabel
     }()
-    
+
     private let tableCellHeight: CGFloat = 140
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupView()
         ProgressHUD.show()
         setupHierarchy()
         setupLayout()
-        
+
         myNFTViewModel.onTableDataLoad = { [weak self] tableData in
             guard let self else { return }
-            
+
             self.setupTableData(tableData: tableData)
             //            ProgressHUD.dismiss()
         }
-        
+
         myNFTViewModel.onError = { [weak self] error in
             guard let self else { return }
             self.showAlert(title: "Ошибка", message: error.localizedDescription)
-            
-            //            ProgressHUD.dismiss()
+            tableData = [] // Решил обнулить тейблдату если она целиком не загрузилась
+            setupNoNFT()
         }
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         myNFTViewModel.viewWillAppear()
-        
+
         if let sortingMethod = UserDefaults.standard.data(forKey: "sortingMethod") {
             let sortingMethod = try? PropertyListDecoder().decode(SortingMethod.self, from: sortingMethod)
             self.myNFTViewModel.sorting = sortingMethod
@@ -92,68 +93,70 @@ final class MyNFTViewController: UIViewController {
             self.myNFTViewModel.sorting = .rating
         }
     }
-    
+
     private var tableData: [NFTModel] = []
-    
-    
+
+
     private func setupView() {
         view.backgroundColor = .background
-        
+
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.leftBarButtonItem = customBackButton
     }
-    
+
     private func setupNoNFT() {
         if tableData.isEmpty {
             noNFTLabel.isHidden = false
         } else {
             title = "Мои NFT"
-            
+
             navigationItem.rightBarButtonItem = sortButton
             noNFTLabel.isHidden = true
-            ProgressHUD.dismiss()
+//            ProgressHUD.dismiss()
         }
+        tableView.reloadData()
+        ProgressHUD.dismiss()
     }
-    
+
     private func setupHierarchy() {
         view.addSubview(tableView)
         view.addSubview(noNFTLabel)
     }
-    
+
     private func setupLayout() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            
+
             noNFTLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             noNFTLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
-    
+
     init(myNFTViewModel: MyNFTViewModel, profileViewModel: ProfileViewModel) {
         self.myNFTViewModel = myNFTViewModel
         self.profileViewModel = profileViewModel
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func setupTableData(tableData: [NFTModel]) {
         self.tableData = tableData
         tableView.reloadData()
-        
+
         setupNoNFT()
     }
-    
+
     @objc
     private func goBack() {
         navigationController?.popViewController(animated: true)
     }
-    
+
     @objc
     private func sortTable() {
         let alert = UIAlertController(
@@ -161,7 +164,7 @@ final class MyNFTViewController: UIViewController {
             message: "Сортировка",
             preferredStyle: .actionSheet
         )
-        
+
         let sortByPriceAction = UIAlertAction(title: "По цене", style: .default) { [weak self] _ in
             self?.myNFTViewModel.sorting = .price
             self?.saveSortingOrder(sortingMethod: .price)
@@ -175,20 +178,20 @@ final class MyNFTViewController: UIViewController {
             self?.saveSortingOrder(sortingMethod: .name)
         }
         let closeAction = UIAlertAction(title: "Закрыть", style: .cancel)
-        
+
         alert.addAction(sortByPriceAction)
         alert.addAction(sortByRatingAction)
         alert.addAction(sortByNameAction)
         alert.addAction(closeAction)
-        
+
         present(alert, animated: true)
     }
-    
+
     private func saveSortingOrder(sortingMethod: SortingMethod) {
         let data = try? PropertyListEncoder().encode(sortingMethod)
         UserDefaults.standard.set(data, forKey: "sortingMethod")
     }
-    
+
     private func showAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -201,16 +204,18 @@ extension MyNFTViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         tableData.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let myNFTCell = tableView.dequeueReusableCell(withIdentifier: MyNFTCell.identifier) as? MyNFTCell
         else { return UITableViewCell() }
-        
+
         myNFTCell.myNFTViewModel = myNFTViewModel
         myNFTCell.profileViewModel = profileViewModel
-        
+
+        myNFTCell.delegate = self
+
         let myNFT = tableData[indexPath.row]
-        
+
         myNFTCell.currentNFT = NFTModel(
             nftImage: myNFT.nftImage,
             name: myNFT.name,
@@ -219,9 +224,9 @@ extension MyNFTViewController: UITableViewDataSource {
             author: myNFTViewModel.authorsSet[myNFT.author] ?? "",
             rating: myNFT.rating,
             id: myNFT.id)
-        
+
         myNFTCell.configure()
-        
+
         return myNFTCell
     }
 }
@@ -229,5 +234,11 @@ extension MyNFTViewController: UITableViewDataSource {
 extension MyNFTViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         tableCellHeight
+    }
+}
+
+extension MyNFTViewController: MyNFTCellDelegate {
+    func updateTable() {
+        myNFTViewModel.viewWillAppear()
     }
 }

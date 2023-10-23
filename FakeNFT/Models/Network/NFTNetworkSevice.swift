@@ -29,21 +29,21 @@ final class NFTNetworkSevice {
             sort(by: sorting)
         }
     }
-    
+
     private var networkClient: NetworkClient = DefaultNetworkClient()
     private var nftsIds: [String]
     private var likesIds: [String]
     private var authorInfoNeeded: Bool
-    
+
     init(nftsIds: [String], likesIds: [String], authorInfoNeeded: Bool) {
         self.nftsIds = nftsIds
         self.likesIds = likesIds
         self.authorInfoNeeded = authorInfoNeeded
     }
-    
+
     func getDataByType(arrayOfIDs: [String]) {
         let group = DispatchGroup()
-        
+
         for id in arrayOfIDs {
             group.enter()
             self.networkClient.send(request: GetNFTsRequest(id: id), type: NFTNetworkModel.self) { [weak self] result in
@@ -63,16 +63,18 @@ final class NFTNetworkSevice {
                 }
             }
         }
-        
+
         group.notify(queue: .main) {
             if self.authorInfoNeeded {
                 self.getAuthors(loadedNFTS: self.tableData)
             } else {
                 self.sort(by: self.sorting ?? .rating)
             }
+
+            self.delegate?.updateData(loadedData: self.tableData)
         }
     }
-    
+
     func getAuthors(loadedNFTS: [NFTModel]) {
         let group = DispatchGroup()
         for nft in loadedNFTS {
@@ -94,13 +96,13 @@ final class NFTNetworkSevice {
                 }
             }
         }
-        
+
         group.notify(queue: .main) {
             self.delegate?.updateAuthors(authors: self.authorsSet)
             self.sort(by: self.sorting ?? .rating)
         }
     }
-    
+
     func setupTableData(response: NFTNetworkModel) {
         tableData.append(NFTModel(
             nftImage: response.images.first ?? "",
@@ -113,11 +115,11 @@ final class NFTNetworkSevice {
         )
         )
     }
-    
+
     func setupAuthor(response: UserNetworkModel) {
         authorsSet.updateValue(response.name, forKey: response.id)
     }
-    
+
     private func sort(by sortingMethod: SortingMethod) {
         switch sortingMethod {
         case .price:
@@ -127,7 +129,5 @@ final class NFTNetworkSevice {
         case .name:
             tableData = tableData.sorted(by: { $0.name < $1.name })
         }
-        
-        delegate?.updateData(loadedData: tableData)
     }
 }
