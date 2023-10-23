@@ -43,6 +43,7 @@ final class CatalogTableViewCell: UITableViewCell {
     private func setupView() {
         self.contentView.addSubview(imageCategory)
         self.contentView.addSubview(label)
+        self.contentView.backgroundColor = .background
     }
 
     private func setupLayout() {

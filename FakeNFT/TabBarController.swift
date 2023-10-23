@@ -13,6 +13,7 @@ final class TabBarController: UITabBarController {
         super.viewDidLoad()
 
         tabBar.backgroundColor = .background
+        tabBar.barTintColor = .background
         tabBar.tintColor = .ypBlue
         tabBar.unselectedItemTintColor = .ypLightGrey
         tabBar.isTranslucent = false
