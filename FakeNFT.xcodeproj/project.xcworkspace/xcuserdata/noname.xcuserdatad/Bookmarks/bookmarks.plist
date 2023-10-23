@@ -10,15 +10,15 @@
 				<key>location-parameters</key>
 				<dict>
 					<key>EndingColumnNumber</key>
-					<string>8</string>
+					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>58</string>
+					<string>12</string>
 					<key>StartingColumnNumber</key>
 					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>58</string>
+					<string>12</string>
 					<key>Timestamp</key>
-					<string>719351171.42992</string>
+					<string>719779977.02505</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -34,16 +34,13 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>        </string>
+				<string></string>
 				<key>leading</key>
-				<string>        profileLinkLabel.translatesAutoresizingMaskIntoConstraints = false
-
+				<string>    var profileViewModel: ProfileViewModel?
+}
 </string>
 				<key>trailing</key>
-				<string>profileLinkLabel.font = UIFont.systemFont(ofSize: 15)
-        profileLinkLabel.textColor = UIColor(named: "iconBlue")
-        return profileLinkLabel
-</string>
+				<string></string>
 			</dict>
 			<key>type</key>
 			<string>bookmark</string>
