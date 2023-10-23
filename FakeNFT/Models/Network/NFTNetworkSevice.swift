@@ -20,7 +20,6 @@ protocol NFTNetworkSeviceDelegate {
 }
 
 final class NFTNetworkSevice {
-    
     var authorsSet: [String: String] = [:]
     var tableData: [NFTModel] = []
     var delegate: NFTNetworkSeviceDelegate?
