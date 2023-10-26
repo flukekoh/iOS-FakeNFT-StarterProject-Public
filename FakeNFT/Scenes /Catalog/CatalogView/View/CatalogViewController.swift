@@ -98,8 +98,15 @@ final class CatalogViewController: UIViewController {
             message: error,
             preferredStyle: .alert
         )
-        alertController.addAction(UIAlertAction(title: "Не надо", style: .default, handler: nil))
-        alertController.addAction(UIAlertAction(title: "Повторить", style: .default, handler: { [weak self] _ in
+        alertController.addAction(UIAlertAction(
+            title: "Не надо",
+            style: .default,
+            handler: nil
+        ))
+        alertController.addAction(UIAlertAction(
+            title: "Повторить",
+            style: .default,
+            handler: { [weak self] _ in
             guard let self = self else { return }
             self.viewModel.updateData()
         }))

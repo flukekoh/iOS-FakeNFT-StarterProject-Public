@@ -157,7 +157,8 @@ extension NFTCollectionView: UICollectionViewDataSource {
                 subTitle: "Автор коллекции: ",
                 description: viewModel.collection.description,
                 buttonTitle: viewModel.user?.name ?? "",
-                buttonAction: linkAction)
+                buttonAction: linkAction
+            )
             return descriptionCell
         case .collection:
             var likeOrDislikeButton: String
