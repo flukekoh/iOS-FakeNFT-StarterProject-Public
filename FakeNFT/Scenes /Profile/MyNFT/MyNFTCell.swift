@@ -8,17 +8,11 @@
 import UIKit
 import Kingfisher
 
-protocol MyNFTCellDelegate {
-    func updateTable()
-}
-
 final class MyNFTCell: UITableViewCell {
     static let identifier = "MyNFTCell"
     var profileViewModel: ProfileViewModel?
     var myNFTViewModel: MyNFTViewModel?
     var currentNFT: NFTModel?
-
-    var delegate: MyNFTCellDelegate?
 
     private var nftImage: UIImageView = {
         let nftImage = UIImageView()
@@ -48,7 +42,7 @@ final class MyNFTCell: UITableViewCell {
     private var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
+        label.textColor = .ypBlack
         label.font = .bodyBold
         return label
     }()
@@ -56,7 +50,7 @@ final class MyNFTCell: UITableViewCell {
     private var authorLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
+        label.textColor = .ypBlack
         label.font = .caption1
         return label
     }()
@@ -65,7 +59,7 @@ final class MyNFTCell: UITableViewCell {
         let label = UILabel()
         label.text = "Цена"
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
+        label.textColor = .ypBlack
         label.font = .caption2
         return label
     }()
@@ -73,12 +67,12 @@ final class MyNFTCell: UITableViewCell {
     private let priceLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
+        label.textColor = .ypBlack
         label.font = .bodyBold
         return label
     }()
 
-    let stackView: UIStackView = {
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .center
@@ -88,7 +82,7 @@ final class MyNFTCell: UITableViewCell {
         return stackView
     }()
 
-    let numberFormatter = NumberFormatter()
+    private let numberFormatter = NumberFormatter()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -106,6 +100,7 @@ final class MyNFTCell: UITableViewCell {
 
     func setupHierarchy() {
         selectionStyle = .none
+        backgroundColor = .ypWhite
 
         for _ in 1...5 {
             let imageView = UIImageView(image: UIImage(named: "star"))
@@ -192,8 +187,10 @@ final class MyNFTCell: UITableViewCell {
 
         if currentNFT.markedFavorite {
             myNFTViewModel?.likesIds.removeAll { $0 == currentNFT.id }
+            likeButton.setImage(UIImage(named: "dislike"), for: .normal)
         } else {
             myNFTViewModel?.likesIds.append(currentNFT.id)
+            likeButton.setImage(UIImage(named: "Like"), for: .normal)
         }
 
         profileViewModel?.putProfile(
@@ -203,7 +200,5 @@ final class MyNFTCell: UITableViewCell {
             website: nil,
             likes: myNFTViewModel?.likesIds
         )
-
-        delegate?.updateTable()
     }
 }

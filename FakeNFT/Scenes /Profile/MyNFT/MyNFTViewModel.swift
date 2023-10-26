@@ -11,16 +11,8 @@ import Foundation
 final class MyNFTViewModel {
     var onTableDataLoad: (([NFTModel]) -> Void)?
     var onError: ((Error) -> Void)?
-
     var tableData: [NFTModel] = []
-//    {
-//        didSet {
-//            onTableDataLoad?(tableData)
-//        }
-//    }
-
     let nftNetworkSevice: NFTNetworkSevice?
-
     var sorting: SortingMethod? {
         didSet {
             guard let sorting else { return }
@@ -28,11 +20,10 @@ final class MyNFTViewModel {
         }
     }
     var authorsSet: [String: String] = [:]
+    var likesIds: [String]
 
     private var error: Error?
     private var nftsIds: [String]
-    var likesIds: [String]
-
 
     init(nftsIds: [String]?, likesIds: [String]?) {
         self.nftsIds = nftsIds ?? []
@@ -49,7 +40,8 @@ final class MyNFTViewModel {
 
 extension MyNFTViewModel: NFTNetworkSeviceDelegate {
     func updateData(loadedData: [NFTModel]) {
-        onTableDataLoad?(loadedData)
+        tableData = loadedData
+        onTableDataLoad?(tableData)
     }
 
     func updateAuthors(authors: [String: String]) {

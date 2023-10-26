@@ -19,6 +19,7 @@ final class MyNFTViewController: UIViewController {
             target: self,
             action: #selector(goBack)
         )
+        uiBarButtonItem.tintColor = .ypBlack
         return uiBarButtonItem
     }()
 
@@ -29,13 +30,15 @@ final class MyNFTViewController: UIViewController {
             target: self,
             action: #selector(sortTable)
         )
+        uiBarButtonItem.tintColor = .ypBlack
+
         return uiBarButtonItem
     }()
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
 
-        tableView.backgroundColor = .background
+        tableView.backgroundColor = .ypWhite
         tableView.layer.cornerRadius = 16
         tableView.delegate = self
         tableView.dataSource = self
@@ -71,13 +74,11 @@ final class MyNFTViewController: UIViewController {
             guard let self else { return }
 
             self.setupTableData(tableData: tableData)
-            //            ProgressHUD.dismiss()
         }
 
         myNFTViewModel.onError = { [weak self] error in
             guard let self else { return }
             self.showAlert(title: "Ошибка", message: error.localizedDescription)
-            tableData = [] // Решил обнулить тейблдату если она целиком не загрузилась
             setupNoNFT()
         }
     }
@@ -98,7 +99,7 @@ final class MyNFTViewController: UIViewController {
 
 
     private func setupView() {
-        view.backgroundColor = .background
+        view.backgroundColor = .ypWhite
 
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.leftBarButtonItem = customBackButton
@@ -112,7 +113,6 @@ final class MyNFTViewController: UIViewController {
 
             navigationItem.rightBarButtonItem = sortButton
             noNFTLabel.isHidden = true
-//            ProgressHUD.dismiss()
         }
         tableView.reloadData()
         ProgressHUD.dismiss()
@@ -153,7 +153,7 @@ final class MyNFTViewController: UIViewController {
     }
 
     @objc
-    private func goBack() {
+    final private func goBack() {
         navigationController?.popViewController(animated: true)
     }
 
@@ -212,8 +212,6 @@ extension MyNFTViewController: UITableViewDataSource {
         myNFTCell.myNFTViewModel = myNFTViewModel
         myNFTCell.profileViewModel = profileViewModel
 
-        myNFTCell.delegate = self
-
         let myNFT = tableData[indexPath.row]
 
         myNFTCell.currentNFT = NFTModel(
@@ -234,11 +232,5 @@ extension MyNFTViewController: UITableViewDataSource {
 extension MyNFTViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         tableCellHeight
-    }
-}
-
-extension MyNFTViewController: MyNFTCellDelegate {
-    func updateTable() {
-        myNFTViewModel.viewWillAppear()
     }
 }

@@ -10,26 +10,17 @@ import Foundation
 final class FavoriteNFTViewModel {
     var onCollectionDataLoad: (([NFTModel]) -> Void)?
     var onError: ((Error) -> Void)?
-
     var collectionData: [NFTModel] = []
-//    {
-//        didSet {
-//            
-//        }
-//    }
-
-    var authorsSet: [String: String] = [:]
-
-    private var networkClient: NetworkClient = DefaultNetworkClient()
-    private var error: Error?
-    private var nftsIds: [String]
     var likesIds: [String] {
         didSet {
-            onCollectionDataLoad?(collectionData)
+            onCollectionDataLoad?(collectionData.filter { likesIds.contains($0.id) })
         }
     }
+    var authorsSet: [String: String] = [:]
 
-    let nftNetworkSevice: NFTNetworkSevice?
+    private var error: Error?
+    private var nftsIds: [String]
+    private let nftNetworkSevice: NFTNetworkSevice?
 
     init(nftsIds: [String]?, likesIds: [String]?) {
         self.nftsIds = nftsIds ?? []
@@ -46,7 +37,8 @@ final class FavoriteNFTViewModel {
 
 extension FavoriteNFTViewModel: NFTNetworkSeviceDelegate {
     func updateData(loadedData: [NFTModel]) {
-        onCollectionDataLoad?(loadedData)
+        collectionData = loadedData
+        onCollectionDataLoad?(collectionData)
     }
 
     func updateAuthors(authors: [String: String]) {

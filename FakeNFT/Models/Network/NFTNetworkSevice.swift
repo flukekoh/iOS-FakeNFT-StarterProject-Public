@@ -30,7 +30,7 @@ final class NFTNetworkSevice {
         }
     }
 
-    private var networkClient: NetworkClient = DefaultNetworkClient()
+    private let networkClient: NetworkClient = DefaultNetworkClient()
     private var nftsIds: [String]
     private var likesIds: [String]
     private var authorInfoNeeded: Bool
@@ -46,8 +46,8 @@ final class NFTNetworkSevice {
 
         for id in arrayOfIDs {
             group.enter()
-            self.networkClient.send(request: GetNFTsRequest(id: id), type: NFTNetworkModel.self) { [weak self] result in
-                DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 3) { // без задержки все время получаю ошибку 429
+            DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 3) {
+                self.networkClient.send(request: GetNFTsRequest(id: id), type: NFTNetworkModel.self) { [weak self] result in
                     switch result {
                     case .success(let nftData):
                         DispatchQueue.main.async {
@@ -79,8 +79,8 @@ final class NFTNetworkSevice {
         let group = DispatchGroup()
         for nft in loadedNFTS {
             group.enter()
-            self.networkClient.send(request: GetUserRequest(id: nft.author), type: UserNetworkModel.self) { [weak self] result in
-                DispatchQueue.global(qos: .background).async {
+            DispatchQueue.global(qos: .background).async {
+                self.networkClient.send(request: GetUserRequest(id: nft.author), type: UserNetworkModel.self) { [weak self] result in
                     switch result {
                     case .success(let authorData):
                         DispatchQueue.main.async {

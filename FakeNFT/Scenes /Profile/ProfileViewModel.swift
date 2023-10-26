@@ -11,16 +11,14 @@ import UIKit
 class ProfileViewModel {
     var onProfileLoad: ((ProfileModel) -> Void)?
     var onError: ((Error) -> Void)?
-
-    private var networkClient: NetworkClient = DefaultNetworkClient()
-    private var error: Error?
-
     var profile: ProfileModel? {
         didSet {
             guard let profile = profile else { return}
             onProfileLoad?(profile)
         }
     }
+    private var networkClient: NetworkClient = DefaultNetworkClient()
+    private var error: Error?
 
     func viewWillAppear() {
         getProfile()
@@ -29,8 +27,8 @@ class ProfileViewModel {
     func getProfile() {
         let request = GetProfileRequest()
 
-        networkClient.send(request: request, type: ProfileNetworkModel.self) { [self] result in
-            DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .background).async {
+            self.networkClient.send(request: request, type: ProfileNetworkModel.self) { [self] result in
                 switch result {
                 case .success(let profile):
                     DispatchQueue.main.async {
@@ -60,8 +58,8 @@ class ProfileViewModel {
             likes: likes
         )
 
-        networkClient.send(request: request, type: ProfileNetworkModel.self) { [self] result in
-            DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .background).async {
+            self.networkClient.send(request: request, type: ProfileNetworkModel.self) { [self] result in
                 switch result {
                 case .success(let profile):
                     DispatchQueue.main.async {

@@ -24,7 +24,7 @@ final class ProfileEditionViewController: UIViewController {
             with: UIImage(named: "closeProfile") ?? UIImage(),
             target: self,
             action: #selector(didTapCloseProfileButton))
-        closeProfileButton.tintColor = .black
+        closeProfileButton.tintColor = .ypBlack
         closeProfileButton.translatesAutoresizingMaskIntoConstraints = false
 
         return closeProfileButton
@@ -79,7 +79,7 @@ final class ProfileEditionViewController: UIViewController {
         nameTextField.placeholder = "Введите имя"
         nameTextField.delegate = self
         nameTextField.layer.cornerRadius = 16
-        nameTextField.backgroundColor = .textFiledBackground
+        nameTextField.backgroundColor = .ypLightGrey
         nameTextField.clearButtonMode = .whileEditing
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         nameTextField.tintColor = UIColor(named: "iconBlue")
@@ -101,7 +101,7 @@ final class ProfileEditionViewController: UIViewController {
         descriptionTextField.placeholder = "Введите описание"
         descriptionTextField.delegate = self
         descriptionTextField.layer.cornerRadius = 16
-        descriptionTextField.backgroundColor = .textFiledBackground
+        descriptionTextField.backgroundColor = .ypLightGrey
         descriptionTextField.clearButtonMode = .whileEditing
         descriptionTextField.translatesAutoresizingMaskIntoConstraints = false
         descriptionTextField.tintColor = UIColor(named: "iconBlue")
@@ -123,7 +123,7 @@ final class ProfileEditionViewController: UIViewController {
         websiteTextField.placeholder = "Укажите ссылку"
         websiteTextField.delegate = self
         websiteTextField.layer.cornerRadius = 16
-        websiteTextField.backgroundColor = .textFiledBackground
+        websiteTextField.backgroundColor = .ypLightGrey
         websiteTextField.clearButtonMode = .whileEditing
         websiteTextField.translatesAutoresizingMaskIntoConstraints = false
         websiteTextField.tintColor = UIColor(named: "iconBlue")
@@ -167,7 +167,7 @@ final class ProfileEditionViewController: UIViewController {
         changePictureLabel.addGestureRecognizer(tapGesture)
         changePictureLabel.isUserInteractionEnabled = true
 
-        view.backgroundColor = UIColor(named: "ypWhite")
+        view.backgroundColor = .ypWhite
         self.navigationController?.navigationBar.isHidden = true
         guard let currentProfile = viewModel.profile else { return }
 
@@ -320,7 +320,7 @@ final class ProfileEditionViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
 
-    func showInvalidURLAlert() {
+    private func showInvalidURLAlert() {
         let alertController = UIAlertController(
             title: "Неверный формат ссылки",
             message: "Пожалуйста, введите правильную ссылку на изображение.",
@@ -331,7 +331,7 @@ final class ProfileEditionViewController: UIViewController {
     }
 
     @objc
-    func keyboardWillShow(notification: Notification) {
+    private func keyboardWillShow(notification: Notification) {
         if let keyboardSize = (
             notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
         )?.cgRectValue {
@@ -340,7 +340,7 @@ final class ProfileEditionViewController: UIViewController {
     }
 
     @objc
-    func keyboardWillHide(notification: Notification) {
+    private func keyboardWillHide(notification: Notification) {
         scrollView.contentInset = UIEdgeInsets.zero
     }
 }

@@ -12,12 +12,16 @@ import ProgressHUD
 final class ProfileViewController: UIViewController {
     private var profileViewModel: ProfileViewModel
 
-    private lazy var editProfileButton = UIBarButtonItem(
-        image: UIImage(named: "editProfile") ?? UIImage(),
-        style: .plain,
-        target: self,
-        action: #selector(didTapEditProfileButton)
-    )
+    private lazy var editProfileButton: UIBarButtonItem = {
+        let uiBarButtonItem = UIBarButtonItem(
+            image: UIImage(named: "editProfile"),
+            style: .plain,
+            target: self,
+            action: #selector(didTapEditProfileButton)
+        )
+        uiBarButtonItem.tintColor = .ypBlack
+        return uiBarButtonItem
+    }()
 
     private let profilePictureImage: UIImageView = {
         let profilePictureImage = UIImageView()
@@ -66,7 +70,7 @@ final class ProfileViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
 
-        tableView.backgroundColor = .tableViewBackground
+        tableView.backgroundColor = .ypWhite
         tableView.layer.cornerRadius = 16
 
         tableView.delegate = self
@@ -140,7 +144,7 @@ final class ProfileViewController: UIViewController {
         profileLinkLabel.addGestureRecognizer(tapGesture)
         profileLinkLabel.isUserInteractionEnabled = true
 
-        view.backgroundColor = UIColor(named: "ypWhite")
+        view.backgroundColor = .ypWhite
 
         navigationController?.navigationBar.tintColor = .black
         navigationItem.rightBarButtonItem = editProfileButton

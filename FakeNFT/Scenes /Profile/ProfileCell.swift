@@ -13,7 +13,7 @@ final class ProfileCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
+        label.textColor = .ypBlack
         label.font = .bodyBold
         return label
     }()
@@ -39,6 +39,7 @@ final class ProfileCell: UITableViewCell {
 
     func setupHierarchy() {
         selectionStyle = .none
+        backgroundColor = .ypWhite
         contentView.addSubview(titleLabel)
         contentView.addSubview(chooseButton)
     }
