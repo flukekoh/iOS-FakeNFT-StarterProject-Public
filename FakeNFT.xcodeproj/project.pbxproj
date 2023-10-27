@@ -350,8 +350,8 @@
 				3F6806CA29CBBCC700B4F915 /* ExampleNetworkModel.swift */,
 				30C46ED02AD70F7400C11460 /* CatalogNetworkModel.swift */,
 				300C45E72ADECDF300D00B8E /* UserNetworkModel.swift */,
-				300C45E92ADECF0200D00B8E /* OrderNetworkModel.swift */,
 				300C45EB2ADED00300D00B8E /* ProfileNetworkModel.swift */,
+				300C45E92ADECF0200D00B8E /* OrderNetworkModel.swift */,
 				300C45ED2ADED08100D00B8E /* NFTNetworkModel.swift */,
 			);
 			path = Network;
