@@ -27,7 +27,6 @@
 		3FC8C38B29D242E90081F015 /* ProductDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC8C38A29D242E90081F015 /* ProductDetailsTableViewCell.swift */; };
 		3FC8C39129D2453B0081F015 /* ExampleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC8C39029D2453B0081F015 /* ExampleRequest.swift */; };
 		3FC8C39329D246BA0081F015 /* DateFormatters+Presets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC8C39229D246BA0081F015 /* DateFormatters+Presets.swift */; };
-		A226A86B2ACFECE500E782E3 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A226A86A2ACFECE500E782E3 /* CatalogViewController.swift */; };
 		A226A86F2ACFF2A900E782E3 /* ShoppingCartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A226A86E2ACFF2A900E782E3 /* ShoppingCartViewController.swift */; };
 		A226A8712ACFF2BA00E782E3 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A226A8702ACFF2BA00E782E3 /* StatisticsViewController.swift */; };
 		A226A8732ACFF4B500E782E3 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A226A8722ACFF4B500E782E3 /* TabBarController.swift */; };
@@ -96,7 +95,6 @@
 		3FC8C38A29D242E90081F015 /* ProductDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		3FC8C39029D2453B0081F015 /* ExampleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleRequest.swift; sourceTree = "<group>"; };
 		3FC8C39229D246BA0081F015 /* DateFormatters+Presets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatters+Presets.swift"; sourceTree = "<group>"; };
-		A226A86A2ACFECE500E782E3 /* CatalogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
 		A226A86E2ACFF2A900E782E3 /* ShoppingCartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCartViewController.swift; sourceTree = "<group>"; };
 		A226A8702ACFF2BA00E782E3 /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
 		A226A8722ACFF4B500E782E3 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -302,7 +300,6 @@
 		A226A8692ACFECE500E782E3 /* Catalog */ = {
 			isa = PBXGroup;
 			children = (
-				A226A86A2ACFECE500E782E3 /* CatalogViewController.swift */,
 			);
 			path = Catalog;
 			sourceTree = "<group>";
@@ -551,7 +548,6 @@
 				A226A8732ACFF4B500E782E3 /* TabBarController.swift in Sources */,
 				A26250BB2ADA85F2008B19A9 /* GetNFTsRequest.swift in Sources */,
 				3FC8C39329D246BA0081F015 /* DateFormatters+Presets.swift in Sources */,
-				A226A86B2ACFECE500E782E3 /* CatalogViewController.swift in Sources */,
 				A2D5203D2ACF2B210083FAA7 /* ProfileViewController.swift in Sources */,
 				A226A8832AD1300500E782E3 /* MyNFTViewController.swift in Sources */,
 				A226A8932AD2D4A400E782E3 /* ProfileModel.swift in Sources */,
