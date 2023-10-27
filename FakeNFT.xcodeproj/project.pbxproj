@@ -32,7 +32,6 @@
 		A226A8712ACFF2BA00E782E3 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A226A8702ACFF2BA00E782E3 /* StatisticsViewController.swift */; };
 		A226A8732ACFF4B500E782E3 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A226A8722ACFF4B500E782E3 /* TabBarController.swift */; };
 		A226A8752ACFF69B00E782E3 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A226A8742ACFF69B00E782E3 /* ProfileViewModel.swift */; };
-		A226A8772ACFF72500E782E3 /* CatalogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A226A8762ACFF72500E782E3 /* CatalogViewModel.swift */; };
 		A226A8792ACFF76900E782E3 /* ShoppingCartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A226A8782ACFF76900E782E3 /* ShoppingCartViewModel.swift */; };
 		A226A87B2ACFF78900E782E3 /* StatisticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A226A87A2ACFF78900E782E3 /* StatisticsViewModel.swift */; };
 		A226A87D2AD03FDC00E782E3 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A226A87C2AD03FDC00E782E3 /* ProfileCell.swift */; };
@@ -50,7 +49,6 @@
 		A26250BB2ADA85F2008B19A9 /* GetNFTsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26250BA2ADA85F2008B19A9 /* GetNFTsRequest.swift */; };
 		A26250BD2ADA865B008B19A9 /* NFTsNetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26250BC2ADA865B008B19A9 /* NFTsNetworkModel.swift */; };
 		A26250BF2ADD71E6008B19A9 /* GetUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26250BE2ADD71E6008B19A9 /* GetUserRequest.swift */; };
-		A26250C12ADD7272008B19A9 /* UserNetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26250C02ADD7272008B19A9 /* UserNetworkModel.swift */; };
 		A288C36E2AD7D91400AE26F2 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A288C36D2AD7D91400AE26F2 /* TextField.swift */; };
 		A288C3702AD7DC5900AE26F2 /* GetProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A288C36F2AD7DC5900AE26F2 /* GetProfileRequest.swift */; };
 		A288C3722AD7DC7A00AE26F2 /* PutProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A288C3712AD7DC7A00AE26F2 /* PutProfileRequest.swift */; };
@@ -103,7 +101,6 @@
 		A226A8702ACFF2BA00E782E3 /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
 		A226A8722ACFF4B500E782E3 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		A226A8742ACFF69B00E782E3 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
-		A226A8762ACFF72500E782E3 /* CatalogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewModel.swift; sourceTree = "<group>"; };
 		A226A8782ACFF76900E782E3 /* ShoppingCartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCartViewModel.swift; sourceTree = "<group>"; };
 		A226A87A2ACFF78900E782E3 /* StatisticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewModel.swift; sourceTree = "<group>"; };
 		A226A87C2AD03FDC00E782E3 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
@@ -121,7 +118,6 @@
 		A26250BA2ADA85F2008B19A9 /* GetNFTsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNFTsRequest.swift; sourceTree = "<group>"; };
 		A26250BC2ADA865B008B19A9 /* NFTsNetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTsNetworkModel.swift; sourceTree = "<group>"; };
 		A26250BE2ADD71E6008B19A9 /* GetUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserRequest.swift; sourceTree = "<group>"; };
-		A26250C02ADD7272008B19A9 /* UserNetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetworkModel.swift; sourceTree = "<group>"; };
 		A288C36D2AD7D91400AE26F2 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		A288C36F2AD7DC5900AE26F2 /* GetProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProfileRequest.swift; sourceTree = "<group>"; };
 		A288C3712AD7DC7A00AE26F2 /* PutProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutProfileRequest.swift; sourceTree = "<group>"; };
@@ -285,7 +281,6 @@
 			isa = PBXGroup;
 			children = (
 				A26250BC2ADA865B008B19A9 /* NFTsNetworkModel.swift */,
-				A26250C02ADD7272008B19A9 /* UserNetworkModel.swift */,
 				3F6806CA29CBBCC700B4F915 /* ExampleNetworkModel.swift */,
 				A2585D1A2AE54B7B002E0493 /* NFTNetworkSevice.swift */,
 			);
@@ -308,7 +303,6 @@
 			isa = PBXGroup;
 			children = (
 				A226A86A2ACFECE500E782E3 /* CatalogViewController.swift */,
-				A226A8762ACFF72500E782E3 /* CatalogViewModel.swift */,
 			);
 			path = Catalog;
 			sourceTree = "<group>";
@@ -559,7 +553,6 @@
 				3FC8C39329D246BA0081F015 /* DateFormatters+Presets.swift in Sources */,
 				A226A86B2ACFECE500E782E3 /* CatalogViewController.swift in Sources */,
 				A2D5203D2ACF2B210083FAA7 /* ProfileViewController.swift in Sources */,
-				A226A8772ACFF72500E782E3 /* CatalogViewModel.swift in Sources */,
 				A226A8832AD1300500E782E3 /* MyNFTViewController.swift in Sources */,
 				A226A8932AD2D4A400E782E3 /* ProfileModel.swift in Sources */,
 				3F68069B29CBBAF100B4F915 /* ProductDetailsTableViewController.swift in Sources */,
@@ -577,7 +570,6 @@
 				3F6806D729CBC50A00B4F915 /* CellsReusingUtils.swift in Sources */,
 				3F6806D329CBBE9600B4F915 /* NetworkRequest.swift in Sources */,
 				3F6806CB29CBBCC700B4F915 /* ExampleNetworkModel.swift in Sources */,
-				A26250C12ADD7272008B19A9 /* UserNetworkModel.swift in Sources */,
 				A226A88D2AD17F4A00E782E3 /* FavoriteNFTCell.swift in Sources */,
 				A26250BF2ADD71E6008B19A9 /* GetUserRequest.swift in Sources */,
 				A226A86F2ACFF2A900E782E3 /* ShoppingCartViewController.swift in Sources */,
