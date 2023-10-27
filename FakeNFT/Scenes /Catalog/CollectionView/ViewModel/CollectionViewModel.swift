@@ -1,7 +1,6 @@
 import Foundation
 
 final class CollectionViewModel: NSObject {
-
     // MARK: - Properties
 
     let collection: CatalogNetworkModel
@@ -61,7 +60,7 @@ final class CollectionViewModel: NSObject {
 
     // MARK: - Private Func
 
-    
+
     private func loadAuthorData(id: String) {
         DispatchQueue.global(qos: .background).async {
             DefaultNetworkClient().send(
@@ -78,7 +77,7 @@ final class CollectionViewModel: NSObject {
                             self?.onError?(error.localizedDescription)
                         }
                     }
-                }
+            }
         }
     }
 
@@ -98,7 +97,7 @@ final class CollectionViewModel: NSObject {
                             self?.onError?(error.localizedDescription)
                         }
                     }
-                }
+            }
         }
     }
 
@@ -118,7 +117,7 @@ final class CollectionViewModel: NSObject {
                             self?.onError?(error.localizedDescription)
                         }
                     }
-                }
+            }
         }
     }
 
@@ -138,7 +137,7 @@ final class CollectionViewModel: NSObject {
                             self?.onError?(error.localizedDescription)
                         }
                     }
-                }
+            }
         }
     }
 
@@ -158,7 +157,7 @@ final class CollectionViewModel: NSObject {
                             self?.onError?(error.localizedDescription)
                         }
                     }
-                }
+            }
         }
     }
 
@@ -178,7 +177,7 @@ final class CollectionViewModel: NSObject {
                             self?.onError?(error.localizedDescription)
                         }
                     }
-                }
+            }
         }
     }
 }

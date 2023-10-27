@@ -2,7 +2,6 @@ import UIKit
 import Kingfisher
 
 final class CatalogTableViewCell: UITableViewCell {
-
     // MARK: - Properties
 
     static let identifier = "CatalogTableViewCell"

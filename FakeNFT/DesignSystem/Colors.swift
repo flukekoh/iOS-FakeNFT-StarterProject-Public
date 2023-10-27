@@ -53,5 +53,4 @@ extension UIColor {
 
     static let tableViewBackground = UIColor(red: 0.902, green: 0.91, blue: 0.922, alpha: 0.3)
     static let textFiledBackground = UIColor(red: 0.902, green: 0.91, blue: 0.922, alpha: 0.3)
-
 }

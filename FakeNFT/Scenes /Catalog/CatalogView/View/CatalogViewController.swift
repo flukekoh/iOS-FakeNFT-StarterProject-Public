@@ -1,7 +1,6 @@
 import UIKit
 
 final class CatalogViewController: UIViewController {
-
     // MARK: - Private Properties
 
     private var collections: [CatalogNetworkModel] {
@@ -109,7 +108,7 @@ final class CatalogViewController: UIViewController {
             handler: { [weak self] _ in
             guard let self = self else { return }
             self.viewModel.updateData()
-        }))
+            }))
         present(alertController, animated: true, completion: nil)
     }
 

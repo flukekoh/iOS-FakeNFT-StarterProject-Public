@@ -1,7 +1,6 @@
 import Foundation
 
 final class CatalogViewModel: NSObject {
-
     // MARK: - Properties
 
     private let sortManager = SortManager()

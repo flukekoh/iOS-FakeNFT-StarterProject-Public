@@ -2,7 +2,6 @@ import UIKit
 import WebKit
 
 final class WebViewView: UIViewController {
-
     // MARK: - Properties
 
     var url: URL?

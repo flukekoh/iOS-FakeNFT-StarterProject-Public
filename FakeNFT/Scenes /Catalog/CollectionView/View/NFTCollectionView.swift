@@ -1,7 +1,6 @@
 import UIKit
 
 final class NFTCollectionView: UIViewController {
-
     // MARK: - Private Properties
 
     private let viewModel: CollectionViewModel

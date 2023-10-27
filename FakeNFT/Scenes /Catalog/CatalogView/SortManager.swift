@@ -6,7 +6,6 @@ enum SortType: String {
 }
 
 final class SortManager {
-
     private let userDefaults = UserDefaults.standard
 
     func getSortValue() -> String {

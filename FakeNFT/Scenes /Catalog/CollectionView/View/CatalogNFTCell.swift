@@ -1,7 +1,6 @@
 import UIKit
 
 final class CatalogNFTCell: UICollectionViewCell {
-
     // MARK: - Properties
 
     static let identifier = "CatalogNFTCell"

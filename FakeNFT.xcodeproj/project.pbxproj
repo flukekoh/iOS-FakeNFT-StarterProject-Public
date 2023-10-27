@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		300C45E12ADECC6800D00B8E /* NFTCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300C45E02ADECC6800D00B8E /* NFTCollectionView.swift */; };
-		300C45E32ADECCA700D00B8E /* CollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300C45E22ADECCA700D00B8E /* CollectionViewModel.swift */; };
-		300C45E52ADECD4300D00B8E /* CollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300C45E42ADECD4300D00B8E /* CollectionModel.swift */; };
 		300C45EA2ADECF0200D00B8E /* OrderNetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300C45E92ADECF0200D00B8E /* OrderNetworkModel.swift */; };
 		300C45EE2ADED08100D00B8E /* NFTNetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300C45ED2ADED08100D00B8E /* NFTNetworkModel.swift */; };
 		300C45F02ADED29200D00B8E /* UserByIdRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300C45EF2ADED29200D00B8E /* UserByIdRequest.swift */; };
@@ -18,14 +15,8 @@
 		300C45F62ADED7CB00D00B8E /* ProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300C45F52ADED7CB00D00B8E /* ProfileRequest.swift */; };
 		300C45F82ADFF99500D00B8E /* ProfileUpdateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300C45F72ADFF99500D00B8E /* ProfileUpdateRequest.swift */; };
 		300C45FA2ADFFCE200D00B8E /* OrderUpdateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300C45F92ADFFCE200D00B8E /* OrderUpdateRequest.swift */; };
-		300C45FC2AE009CF00D00B8E /* ImageCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300C45FB2AE009CF00D00B8E /* ImageCollectionCell.swift */; };
-		300C45FE2AE00BAA00D00B8E /* DescriptionCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300C45FD2AE00BAA00D00B8E /* DescriptionCollectionCell.swift */; };
-		300C46002AE0156C00D00B8E /* CatalogNFTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300C45FF2AE0156C00D00B8E /* CatalogNFTCell.swift */; };
-		300C46022AE0221900D00B8E /* WebViewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300C46012AE0221900D00B8E /* WebViewView.swift */; };
 		30C46ED12AD70F7400C11460 /* CatalogNetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C46ED02AD70F7400C11460 /* CatalogNetworkModel.swift */; };
-		30C46ED32AD7124A00C11460 /* SortManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C46ED22AD7124A00C11460 /* SortManager.swift */; };
 		30C46ED52AD713C500C11460 /* CollectionsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C46ED42AD713C500C11460 /* CollectionsRequest.swift */; };
-		30C46ED72AD7177200C11460 /* CatalogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C46ED62AD7177200C11460 /* CatalogTableViewCell.swift */; };
 		3F478ECF29DB474E00F6D39E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F478ECE29DB474E00F6D39E /* Colors.swift */; };
 		3F478ED129DB476500F6D39E /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F478ED029DB476500F6D39E /* Fonts.swift */; };
 		3F603CCD29DB4A53000C43D7 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 3F603CCC29DB4A53000C43D7 /* ProgressHUD */; };
@@ -694,14 +685,11 @@
 				300C45FA2ADFFCE200D00B8E /* OrderUpdateRequest.swift in Sources */,
 				A2747B7D2AEBF056003A72D2 /* ImageCollectionCell.swift in Sources */,
 				300C45F02ADED29200D00B8E /* UserByIdRequest.swift in Sources */,
-				300C45FC2AE009CF00D00B8E /* ImageCollectionCell.swift in Sources */,
-				300C46002AE0156C00D00B8E /* CatalogNFTCell.swift in Sources */,
 				3FC8C38B29D242E90081F015 /* ProductDetailsTableViewCell.swift in Sources */,
 				A288C3722AD7DC7A00AE26F2 /* PutProfileRequest.swift in Sources */,
 				A226A8912AD2AFB200E782E3 /* FavoriteNFTViewModel.swift in Sources */,
 				A226A8752ACFF69B00E782E3 /* ProfileViewModel.swift in Sources */,
 				A226A8792ACFF76900E782E3 /* ShoppingCartViewModel.swift in Sources */,
-				30C46ED72AD7177200C11460 /* CatalogTableViewCell.swift in Sources */,
 				A226A88F2AD2AF6D00E782E3 /* MyNFTViewModel.swift in Sources */,
 				A226A87D2AD03FDC00E782E3 /* ProfileCell.swift in Sources */,
 				A2747B7C2AEBF056003A72D2 /* NFTCollectionView.swift in Sources */,
@@ -711,11 +699,9 @@
 				3F478ED129DB476500F6D39E /* Fonts.swift in Sources */,
 				300C45F62ADED7CB00D00B8E /* ProfileRequest.swift in Sources */,
 				300C45EE2ADED08100D00B8E /* NFTNetworkModel.swift in Sources */,
-				300C46022AE0221900D00B8E /* WebViewView.swift in Sources */,
 				A226A8732ACFF4B500E782E3 /* TabBarController.swift in Sources */,
 				300C45F42ADED5E400D00B8E /* OrderRequest.swift in Sources */,
 				3FC8C39329D246BA0081F015 /* DateFormatters+Presets.swift in Sources */,
-				300C45E12ADECC6800D00B8E /* NFTCollectionView.swift in Sources */,
 				A26250BB2ADA85F2008B19A9 /* GetNFTsRequest.swift in Sources */,
 				3FC8C39329D246BA0081F015 /* DateFormatters+Presets.swift in Sources */,
 				A2D5203D2ACF2B210083FAA7 /* ProfileViewController.swift in Sources */,
@@ -732,13 +718,10 @@
 				300C45F22ADED48500D00B8E /* NFTRequest.swift in Sources */,
 				A2747B882AEBF1C0003A72D2 /* UserNetworkModel.swift in Sources */,
 				3F6806D529CBBEC700B4F915 /* NetworkTask.swift in Sources */,
-				300C45E32ADECCA700D00B8E /* CollectionViewModel.swift in Sources */,
 				3F68069729CBBAF100B4F915 /* AppDelegate.swift in Sources */,
-				300C45FE2AE00BAA00D00B8E /* DescriptionCollectionCell.swift in Sources */,
 				3F68069929CBBAF100B4F915 /* SceneDelegate.swift in Sources */,
 				A2747B812AEBF056003A72D2 /* CatalogViewModel.swift in Sources */,
 				300C45F82ADFF99500D00B8E /* ProfileUpdateRequest.swift in Sources */,
-				300C45E52ADECD4300D00B8E /* CollectionModel.swift in Sources */,
 				A226A8862AD130C400E782E3 /* FavoriteNFTViewController.swift in Sources */,
 				A2585D1B2AE54B7B002E0493 /* NFTNetworkSevice.swift in Sources */,
 				3F68069929CBBAF100B4F915 /* SceneDelegate.swift in Sources */,
@@ -754,7 +737,6 @@
 				A226A86F2ACFF2A900E782E3 /* ShoppingCartViewController.swift in Sources */,
 				3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */,
 				30C46ED12AD70F7400C11460 /* CatalogNetworkModel.swift in Sources */,
-				30C46ED32AD7124A00C11460 /* SortManager.swift in Sources */,
 				300C45EA2ADECF0200D00B8E /* OrderNetworkModel.swift in Sources */,
 				A226A8892AD1623A00E782E3 /* AboutDeveloperViewController.swift in Sources */,
 				A2747B862AEBF175003A72D2 /* ProfileNetworkModel.swift in Sources */,
