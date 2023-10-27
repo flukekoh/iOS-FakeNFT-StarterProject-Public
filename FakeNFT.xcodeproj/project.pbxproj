@@ -49,7 +49,6 @@
 		A26250BD2ADA865B008B19A9 /* NFTsNetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26250BC2ADA865B008B19A9 /* NFTsNetworkModel.swift */; };
 		A26250BF2ADD71E6008B19A9 /* GetUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26250BE2ADD71E6008B19A9 /* GetUserRequest.swift */; };
 		A288C36E2AD7D91400AE26F2 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A288C36D2AD7D91400AE26F2 /* TextField.swift */; };
-		A288C3702AD7DC5900AE26F2 /* GetProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A288C36F2AD7DC5900AE26F2 /* GetProfileRequest.swift */; };
 		A288C3722AD7DC7A00AE26F2 /* PutProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A288C3712AD7DC7A00AE26F2 /* PutProfileRequest.swift */; };
 		A288C3742AD7E00800AE26F2 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = A288C3732AD7E00800AE26F2 /* .swiftlint.yml */; };
 		A2D5203D2ACF2B210083FAA7 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D5203C2ACF2B210083FAA7 /* ProfileViewController.swift */; };
@@ -117,7 +116,6 @@
 		A26250BC2ADA865B008B19A9 /* NFTsNetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTsNetworkModel.swift; sourceTree = "<group>"; };
 		A26250BE2ADD71E6008B19A9 /* GetUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserRequest.swift; sourceTree = "<group>"; };
 		A288C36D2AD7D91400AE26F2 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
-		A288C36F2AD7DC5900AE26F2 /* GetProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProfileRequest.swift; sourceTree = "<group>"; };
 		A288C3712AD7DC7A00AE26F2 /* PutProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutProfileRequest.swift; sourceTree = "<group>"; };
 		A288C3732AD7E00800AE26F2 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		A2D5203C2ACF2B210083FAA7 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -288,7 +286,6 @@
 			isa = PBXGroup;
 			children = (
 				3FC8C39029D2453B0081F015 /* ExampleRequest.swift */,
-				A288C36F2AD7DC5900AE26F2 /* GetProfileRequest.swift */,
 				A288C3712AD7DC7A00AE26F2 /* PutProfileRequest.swift */,
 				A26250BA2ADA85F2008B19A9 /* GetNFTsRequest.swift */,
 				A26250BE2ADD71E6008B19A9 /* GetUserRequest.swift */,
@@ -545,7 +542,6 @@
 				A226A8932AD2D4A400E782E3 /* ProfileModel.swift in Sources */,
 				3F68069B29CBBAF100B4F915 /* ProductDetailsTableViewController.swift in Sources */,
 				A226A8712ACFF2BA00E782E3 /* StatisticsViewController.swift in Sources */,
-				A288C3702AD7DC5900AE26F2 /* GetProfileRequest.swift in Sources */,
 				3F6806D529CBBEC700B4F915 /* NetworkTask.swift in Sources */,
 				3F68069729CBBAF100B4F915 /* AppDelegate.swift in Sources */,
 				A226A8862AD130C400E782E3 /* FavoriteNFTViewController.swift in Sources */,
