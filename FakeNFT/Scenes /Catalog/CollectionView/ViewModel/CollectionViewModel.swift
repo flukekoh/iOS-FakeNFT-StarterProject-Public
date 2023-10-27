@@ -124,7 +124,7 @@ final class CollectionViewModel: NSObject {
     private func loadProfileData() {
         DispatchQueue.global(qos: .background).async {
             DefaultNetworkClient().send(
-                request: ProfileRequest(),
+                request: GetProfileRequest(),
                 type: ProfileNetworkModel.self) { [weak self] result in
                     switch result {
                     case .success(let data):

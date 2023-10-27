@@ -1,6 +1,6 @@
 import Foundation
 
-struct ProfileRequest: NetworkRequest {
+struct GetProfileRequest: NetworkRequest {
     var endpoint: URL? {
         baseURL.appendingPathComponent("profile/1")
     }

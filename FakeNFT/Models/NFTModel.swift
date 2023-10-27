@@ -11,7 +11,7 @@ struct NFTModel {
     let nftImage: String
     let name: String
     let markedFavorite: Bool
-    let price: Double
+    let price: Float
     let author: String
     let rating: Int
     let id: String

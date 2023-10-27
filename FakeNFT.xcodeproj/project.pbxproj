@@ -12,7 +12,7 @@
 		300C45F02ADED29200D00B8E /* UserByIdRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300C45EF2ADED29200D00B8E /* UserByIdRequest.swift */; };
 		300C45F22ADED48500D00B8E /* NFTRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300C45F12ADED48500D00B8E /* NFTRequest.swift */; };
 		300C45F42ADED5E400D00B8E /* OrderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300C45F32ADED5E400D00B8E /* OrderRequest.swift */; };
-		300C45F62ADED7CB00D00B8E /* ProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300C45F52ADED7CB00D00B8E /* ProfileRequest.swift */; };
+		300C45F62ADED7CB00D00B8E /* GetProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300C45F52ADED7CB00D00B8E /* GetProfileRequest.swift */; };
 		300C45F82ADFF99500D00B8E /* ProfileUpdateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300C45F72ADFF99500D00B8E /* ProfileUpdateRequest.swift */; };
 		300C45FA2ADFFCE200D00B8E /* OrderUpdateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300C45F92ADFFCE200D00B8E /* OrderUpdateRequest.swift */; };
 		30C46ED12AD70F7400C11460 /* CatalogNetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C46ED02AD70F7400C11460 /* CatalogNetworkModel.swift */; };
@@ -102,7 +102,7 @@
 		300C45EF2ADED29200D00B8E /* UserByIdRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserByIdRequest.swift; sourceTree = "<group>"; };
 		300C45F12ADED48500D00B8E /* NFTRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTRequest.swift; sourceTree = "<group>"; };
 		300C45F32ADED5E400D00B8E /* OrderRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderRequest.swift; sourceTree = "<group>"; };
-		300C45F52ADED7CB00D00B8E /* ProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRequest.swift; sourceTree = "<group>"; };
+		300C45F52ADED7CB00D00B8E /* GetProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProfileRequest.swift; sourceTree = "<group>"; };
 		300C45F72ADFF99500D00B8E /* ProfileUpdateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUpdateRequest.swift; sourceTree = "<group>"; };
 		300C45F92ADFFCE200D00B8E /* OrderUpdateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderUpdateRequest.swift; sourceTree = "<group>"; };
 		300C45FB2AE009CF00D00B8E /* ImageCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionCell.swift; sourceTree = "<group>"; };
@@ -349,7 +349,7 @@
 				300C45EF2ADED29200D00B8E /* UserByIdRequest.swift */,
 				300C45F12ADED48500D00B8E /* NFTRequest.swift */,
 				300C45F32ADED5E400D00B8E /* OrderRequest.swift */,
-				300C45F52ADED7CB00D00B8E /* ProfileRequest.swift */,
+				300C45F52ADED7CB00D00B8E /* GetProfileRequest.swift */,
 				300C45F72ADFF99500D00B8E /* ProfileUpdateRequest.swift */,
 				300C45F92ADFFCE200D00B8E /* OrderUpdateRequest.swift */,
 				A288C3712AD7DC7A00AE26F2 /* PutProfileRequest.swift */,
@@ -697,7 +697,7 @@
 				A226A8802AD0416400E782E3 /* ProfileEditionViewController.swift in Sources */,
 				A2747B7E2AEBF056003A72D2 /* DescriptionCollectionCell.swift in Sources */,
 				3F478ED129DB476500F6D39E /* Fonts.swift in Sources */,
-				300C45F62ADED7CB00D00B8E /* ProfileRequest.swift in Sources */,
+				300C45F62ADED7CB00D00B8E /* GetProfileRequest.swift in Sources */,
 				300C45EE2ADED08100D00B8E /* NFTNetworkModel.swift in Sources */,
 				A226A8732ACFF4B500E782E3 /* TabBarController.swift in Sources */,
 				300C45F42ADED5E400D00B8E /* OrderRequest.swift in Sources */,

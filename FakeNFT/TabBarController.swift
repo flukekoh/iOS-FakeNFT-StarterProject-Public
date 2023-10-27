@@ -18,16 +18,17 @@ final class TabBarController: UITabBarController {
         tabBar.isTranslucent = false
 
         // Профиль
-        let profileViewController = ProfileViewController()
-
         let profileViewModel = ProfileViewModel()
-        profileViewController.profileViewModel = profileViewModel
+        let profileVC = ProfileViewController(profileViewModel: profileViewModel)
+
+        let profileViewController = UINavigationController(
+            rootViewController: profileVC
+        )
 
         profileViewController.tabBarItem = UITabBarItem(
             title: "Профиль",
-            image: UIImage(systemName: "circle.fill"),
-            selectedImage: nil
-        )
+            image: UIImage(systemName: "person.crop.circle.fill"),
+            selectedImage: nil)
 
         // Каталог
         let catalogViewController = UINavigationController(

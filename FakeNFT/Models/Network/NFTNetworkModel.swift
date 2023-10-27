@@ -6,7 +6,7 @@ struct NFTNetworkModel: Codable {
     let images: [String]
     let rating: Int
     let description: String
-    let price: Double
+    let price: Float
     let author: String
     let id: String
 }
