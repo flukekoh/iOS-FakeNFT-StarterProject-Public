@@ -7,6 +7,7 @@
 
 import UIKit
 import WebKit
+import ProgressHUD
 
 final class AboutDeveloperViewController: UIViewController, WKNavigationDelegate {
     private var webView: WKWebView = {
@@ -42,6 +43,8 @@ final class AboutDeveloperViewController: UIViewController, WKNavigationDelegate
         super.viewDidLoad()
 
         setupView()
+
+        ProgressHUD.show()
         setupHierarchy()
         setupLayout()
 
@@ -76,5 +79,9 @@ final class AboutDeveloperViewController: UIViewController, WKNavigationDelegate
     @objc
     func goBack() {
         navigationController?.popViewController(animated: true)
+    }
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        ProgressHUD.dismiss()
     }
 }

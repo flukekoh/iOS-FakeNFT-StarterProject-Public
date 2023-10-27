@@ -39,7 +39,16 @@ final class FavoriteNFTViewController: UIViewController {
         view.dataSource = self
         view.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.refreshControl = refreshControl
+
         return view
+    }()
+
+    private let refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+
+        return refreshControl
     }()
 
     private let noNFTLabel: UILabel = {
@@ -47,7 +56,7 @@ final class FavoriteNFTViewController: UIViewController {
         noNFTLabel.text = "У Вас ещё нет избранных NFT"
         noNFTLabel.font = .bodyBold
         noNFTLabel.translatesAutoresizingMaskIntoConstraints = false
-        noNFTLabel.textColor = .textPrimary
+        noNFTLabel.textColor = .ypBlack
         noNFTLabel.isHidden = true
 
         return noNFTLabel
@@ -85,9 +94,19 @@ final class FavoriteNFTViewController: UIViewController {
         }
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        favoriteNFTViewModel.viewWillAppear()
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        favoriteNFTViewModel.viewWillAppear()
+//    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        refreshControl.beginRefreshing()
+        collectionView.setContentOffset(CGPoint(x: 0, y: -refreshControl.frame.size.height), animated: true)
+
+        // Вызовите метод refreshData для инициирования первоначальной загрузки данных
+        refreshData()
     }
 
     private var collectionData: [NFTModel] = []
@@ -122,7 +141,7 @@ final class FavoriteNFTViewController: UIViewController {
     }
 
     @objc
-    final private func goBack() {
+    private func goBack() {
         navigationController?.popViewController(animated: true)
     }
 
@@ -156,6 +175,12 @@ final class FavoriteNFTViewController: UIViewController {
         )
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
+    }
+
+    @objc
+    func refreshData() {
+        favoriteNFTViewModel.viewDidAppear()
+        refreshControl.endRefreshing()
     }
 }
 

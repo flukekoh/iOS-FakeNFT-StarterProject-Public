@@ -42,12 +42,14 @@ final class NFTNetworkSevice {
     }
 
     func getDataByType(arrayOfIDs: [String]) {
+        tableData = []
+
         let group = DispatchGroup()
 
         for id in arrayOfIDs {
             group.enter()
-            DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 3) {
-                self.networkClient.send(request: GetNFTsRequest(id: id), type: NFTNetworkModel.self) { [weak self] result in
+            DispatchQueue.global(qos: .background).asyncAfter(deadline: .now()) { [weak self] in
+                self?.networkClient.send(request: GetNFTsRequest(id: id), type: NFTNetworkModel.self) { result in
                     switch result {
                     case .success(let nftData):
                         DispatchQueue.main.async {
@@ -76,11 +78,13 @@ final class NFTNetworkSevice {
     }
 
     func getAuthors(loadedNFTS: [NFTModel]) {
+        authorsSet = [:]
+
         let group = DispatchGroup()
         for nft in loadedNFTS {
             group.enter()
-            DispatchQueue.global(qos: .background).async {
-                self.networkClient.send(request: GetUserRequest(id: nft.author), type: UserNetworkModel.self) { [weak self] result in
+            DispatchQueue.global(qos: .background).async { [weak self] in
+                self?.networkClient.send(request: GetUserRequest(id: nft.author), type: UserNetworkModel.self) { result in
                     switch result {
                     case .success(let authorData):
                         DispatchQueue.main.async {

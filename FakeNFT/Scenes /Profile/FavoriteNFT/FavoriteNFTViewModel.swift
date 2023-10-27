@@ -30,7 +30,7 @@ final class FavoriteNFTViewModel {
         nftNetworkSevice?.delegate = self
     }
 
-    func viewWillAppear() {
+    func viewDidAppear() {
         nftNetworkSevice?.getDataByType(arrayOfIDs: likesIds)
     }
 }

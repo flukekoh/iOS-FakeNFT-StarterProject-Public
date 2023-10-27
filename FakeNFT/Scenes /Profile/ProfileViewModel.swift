@@ -27,16 +27,16 @@ class ProfileViewModel {
     func getProfile() {
         let request = GetProfileRequest()
 
-        DispatchQueue.global(qos: .background).async {
-            self.networkClient.send(request: request, type: ProfileNetworkModel.self) { [self] result in
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.networkClient.send(request: request, type: ProfileNetworkModel.self) { result in
                 switch result {
                 case .success(let profile):
                     DispatchQueue.main.async {
-                        self.setupProfileModel(response: profile)
+                        self?.setupProfileModel(response: profile)
                     }
                 case .failure(let error):
                     DispatchQueue.main.async {
-                        self.onError?(error)
+                        self?.onError?(error)
                     }
                 }
             }
@@ -58,16 +58,16 @@ class ProfileViewModel {
             likes: likes
         )
 
-        DispatchQueue.global(qos: .background).async {
-            self.networkClient.send(request: request, type: ProfileNetworkModel.self) { [self] result in
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.networkClient.send(request: request, type: ProfileNetworkModel.self) { result in
                 switch result {
                 case .success(let profile):
                     DispatchQueue.main.async {
-                        self.setupProfileModel(response: profile)
+                        self?.setupProfileModel(response: profile)
                     }
                 case .failure(let error):
                     DispatchQueue.main.async {
-                        self.onError?(error)
+                        self?.onError?(error)
                     }
                 }
             }

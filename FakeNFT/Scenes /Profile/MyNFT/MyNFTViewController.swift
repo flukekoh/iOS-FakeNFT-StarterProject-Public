@@ -54,7 +54,7 @@ final class MyNFTViewController: UIViewController {
         noNFTLabel.text = "У Вас ещё нет NFT"
         noNFTLabel.font = .bodyBold
         noNFTLabel.translatesAutoresizingMaskIntoConstraints = false
-        noNFTLabel.textColor = .black
+        noNFTLabel.textColor = .ypBlack
         noNFTLabel.isHidden = true
 
         return noNFTLabel
@@ -153,7 +153,7 @@ final class MyNFTViewController: UIViewController {
     }
 
     @objc
-    final private func goBack() {
+    private func goBack() {
         navigationController?.popViewController(animated: true)
     }
 
