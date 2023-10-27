@@ -8,6 +8,7 @@
 import Foundation
 
 struct ProfileNetworkModel: Codable {
+    
     let name: String
     let avatar: String
     let description: String
