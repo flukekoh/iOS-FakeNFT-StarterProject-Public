@@ -61,6 +61,7 @@ final class CollectionViewModel: NSObject {
 
     // MARK: - Private Func
 
+    
     private func loadAuthorData(id: String) {
         DispatchQueue.global(qos: .background).async {
             DefaultNetworkClient().send(
