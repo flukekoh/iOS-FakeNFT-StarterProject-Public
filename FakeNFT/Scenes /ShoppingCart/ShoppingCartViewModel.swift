@@ -8,5 +8,8 @@
 import Foundation
 
 final class ShoppingCartViewModel {
+<<<<<<< HEAD
 
+=======
+>>>>>>> Profile
 }

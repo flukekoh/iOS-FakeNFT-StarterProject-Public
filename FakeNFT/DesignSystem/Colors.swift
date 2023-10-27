@@ -44,9 +44,23 @@ extension UIColor {
     static let ypRed = UIColor(named: "ypRed")
     static let ypWhite = UIColor(named: "ypWhite")
 
+    static let ypGreen = UIColor(named: "ypGreen")
+    static let ypLightGrey = UIColor(named: "ypLightGrey")
+    static let ypBlack = UIColor(named: "ypBlack")
+    static let ypBlue = UIColor(named: "ypBlue")
+    static let ypRed = UIColor(named: "ypRed")
+    static let ypWhite = UIColor(named: "ypWhite")
+
     // Text Colors
     static let textPrimary = UIColor(named: "ypBlack") ?? UIColor.black
     static let textSecondary = UIColor.gray
     static let textOnPrimary = UIColor.white
+<<<<<<< HEAD
     static let textOnSecondary = UIColor(named: "ypBlack") ?? UIColor.black
+=======
+    static let textOnSecondary = UIColor.black
+
+    static let tableViewBackground = UIColor(red: 0.902, green: 0.91, blue: 0.922, alpha: 0.3)
+    static let textFiledBackground = UIColor(red: 0.902, green: 0.91, blue: 0.922, alpha: 0.3)
+>>>>>>> Profile
 }
