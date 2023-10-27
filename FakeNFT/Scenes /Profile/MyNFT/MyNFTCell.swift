@@ -10,6 +10,9 @@ import Kingfisher
 
 final class MyNFTCell: UITableViewCell {
     static let identifier = "MyNFTCell"
+    var profileViewModel: ProfileViewModel?
+    var myNFTViewModel: MyNFTViewModel?
+    var currentNFT: NFTModel?
 
     private var nftImage: UIImageView = {
         let nftImage = UIImageView()
@@ -20,18 +23,18 @@ final class MyNFTCell: UITableViewCell {
         return nftImage
     }()
 
-    private let onLikeImage: UIImageView = {
-        let onLikeImage = UIImageView()
-        onLikeImage.translatesAutoresizingMaskIntoConstraints = false
-        onLikeImage.image = UIImage(named: "dislike")
+    private lazy var likeButton: UIButton = {
+        let likeButton = UIButton()
+        likeButton.addTarget(self, action: #selector(didTapLikeButton), for: .touchUpInside)
+        likeButton.translatesAutoresizingMaskIntoConstraints = false
 
-        return onLikeImage
+        return likeButton
     }()
 
     private let offLikeImage: UIImageView = {
         let offLikeImage = UIImageView()
         offLikeImage.translatesAutoresizingMaskIntoConstraints = false
-        offLikeImage.image = UIImage(named: "Like")
+        offLikeImage.image = UIImage(named: "dislike")
 
         return offLikeImage
     }()
@@ -39,15 +42,15 @@ final class MyNFTCell: UITableViewCell {
     private var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        label.textColor = .ypBlack
+        label.font = .bodyBold
         return label
     }()
 
     private var authorLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
+        label.textColor = .ypBlack
         label.font = .caption1
         return label
     }()
@@ -56,7 +59,7 @@ final class MyNFTCell: UITableViewCell {
         let label = UILabel()
         label.text = "Цена"
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
+        label.textColor = .ypBlack
         label.font = .caption2
         return label
     }()
@@ -64,12 +67,12 @@ final class MyNFTCell: UITableViewCell {
     private let priceLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        label.textColor = .ypBlack
+        label.font = .bodyBold
         return label
     }()
 
-    let stackView: UIStackView = {
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .center
@@ -79,7 +82,7 @@ final class MyNFTCell: UITableViewCell {
         return stackView
     }()
 
-    let numberFormatter = NumberFormatter()
+    private let numberFormatter = NumberFormatter()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -97,6 +100,7 @@ final class MyNFTCell: UITableViewCell {
 
     func setupHierarchy() {
         selectionStyle = .none
+        backgroundColor = .ypWhite
 
         for _ in 1...5 {
             let imageView = UIImageView(image: UIImage(named: "star"))
@@ -106,7 +110,7 @@ final class MyNFTCell: UITableViewCell {
         }
 
         contentView.addSubview(nftImage)
-        contentView.addSubview(onLikeImage)
+        contentView.addSubview(likeButton)
         contentView.addSubview(titleLabel)
         contentView.addSubview(authorLabel)
         contentView.addSubview(titlePriceLabel)
@@ -121,10 +125,10 @@ final class MyNFTCell: UITableViewCell {
             nftImage.heightAnchor.constraint(equalToConstant: 108),
             nftImage.widthAnchor.constraint(equalToConstant: 108),
 
-            onLikeImage.trailingAnchor.constraint(equalTo: nftImage.trailingAnchor),
-            onLikeImage.topAnchor.constraint(equalTo: nftImage.topAnchor),
-            onLikeImage.heightAnchor.constraint(equalToConstant: 40),
-            onLikeImage.widthAnchor.constraint(equalToConstant: 40),
+            likeButton.trailingAnchor.constraint(equalTo: nftImage.trailingAnchor),
+            likeButton.topAnchor.constraint(equalTo: nftImage.topAnchor),
+            likeButton.heightAnchor.constraint(equalToConstant: 40),
+            likeButton.widthAnchor.constraint(equalToConstant: 40),
 
             titleLabel.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: 20),
             titleLabel.topAnchor.constraint(equalTo: nftImage.topAnchor, constant: 23),
@@ -148,30 +152,53 @@ final class MyNFTCell: UITableViewCell {
             stackView.heightAnchor.constraint(equalToConstant: 12)
         ])
     }
-    func configure(nft: NFTModel) {
-        nftImage.kf.setImage(with: URL(string: nft.nftImage))
+    func configure() {
+        guard let currentNFT = currentNFT else { return }
 
-        if nft.markedFavorite {
-            onLikeImage.image = onLikeImage.image
+        nftImage.kf.setImage(with: URL(string: currentNFT.nftImage))
+
+        if currentNFT.markedFavorite {
+            likeButton.setImage(UIImage(named: "Like"), for: .normal)
         } else {
-            onLikeImage.image = offLikeImage.image
+            likeButton.setImage(UIImage(named: "dislike"), for: .normal)
         }
 
-        titleLabel.text = nft.name
-        authorLabel.text = nft.author
+        titleLabel.text = currentNFT.name
+        authorLabel.text = currentNFT.author
 
-        if let formattedString = numberFormatter.string(from: NSNumber(value: nft.price)) {
+        if let formattedString = numberFormatter.string(from: NSNumber(value: currentNFT.price)) {
             priceLabel.text = "\(formattedString) ETH"
         }
 
         for viewNumber in 0...4 {
             if let currentImageView = stackView.arrangedSubviews[viewNumber] as? UIImageView {
-                if viewNumber < nft.rating {
+                if viewNumber < currentNFT.rating {
                     currentImageView.image = UIImage(named: "star_yellow")
                 } else {
                     currentImageView.image = UIImage(named: "star")
                 }
             }
         }
+    }
+
+    @objc
+    private func didTapLikeButton() {
+        guard let currentNFT = currentNFT else { return }
+
+        if currentNFT.markedFavorite {
+            myNFTViewModel?.likesIds.removeAll { $0 == currentNFT.id }
+            likeButton.setImage(UIImage(named: "dislike"), for: .normal)
+        } else {
+            myNFTViewModel?.likesIds.append(currentNFT.id)
+            likeButton.setImage(UIImage(named: "Like"), for: .normal)
+        }
+
+        profileViewModel?.putProfile(
+            name: nil,
+            avatar: nil,
+            description: nil,
+            website: nil,
+            likes: myNFTViewModel?.likesIds
+        )
     }
 }

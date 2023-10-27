@@ -12,12 +12,16 @@ import ProgressHUD
 final class ProfileViewController: UIViewController {
     private var profileViewModel: ProfileViewModel
 
-    private lazy var editProfileButton = UIBarButtonItem(
-        image: UIImage(named: "editProfile") ?? UIImage(),
-        style: .plain,
-        target: self,
-        action: #selector(didTapEditProfileButton)
-    )
+    private lazy var editProfileButton: UIBarButtonItem = {
+        let uiBarButtonItem = UIBarButtonItem(
+            image: UIImage(named: "editProfile"),
+            style: .plain,
+            target: self,
+            action: #selector(didTapEditProfileButton)
+        )
+        uiBarButtonItem.tintColor = .ypBlack
+        return uiBarButtonItem
+    }()
 
     private let profilePictureImage: UIImageView = {
         let profilePictureImage = UIImageView()
@@ -32,7 +36,7 @@ final class ProfileViewController: UIViewController {
     private let profileNameLabel: UILabel = {
         let profileNameLabel = UILabel()
         profileNameLabel.text = ""
-        profileNameLabel.font = UIFont.systemFont(ofSize: 22, weight: .bold)
+        profileNameLabel.font = .headline3
         profileNameLabel.translatesAutoresizingMaskIntoConstraints = false
 
         return profileNameLabel
@@ -44,7 +48,7 @@ final class ProfileViewController: UIViewController {
         descriptionLabel.lineBreakMode = .byWordWrapping
         descriptionLabel.numberOfLines = 0
         descriptionLabel.sizeToFit()
-        descriptionLabel.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        descriptionLabel.font = .caption2
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 
         return descriptionLabel
@@ -53,10 +57,8 @@ final class ProfileViewController: UIViewController {
     private let profileLinkLabel: UILabel = {
         let profileLinkLabel = UILabel()
         profileLinkLabel.text = ""
-        profileLinkLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         profileLinkLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        profileLinkLabel.font = UIFont.systemFont(ofSize: 15)
+        profileLinkLabel.font = .caption1
         profileLinkLabel.textColor = UIColor(named: "iconBlue")
         return profileLinkLabel
     }()
@@ -68,7 +70,7 @@ final class ProfileViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
 
-        tableView.backgroundColor = .tableViewBackground
+        tableView.backgroundColor = .ypWhite
         tableView.layer.cornerRadius = 16
 
         tableView.delegate = self
@@ -142,7 +144,7 @@ final class ProfileViewController: UIViewController {
         profileLinkLabel.addGestureRecognizer(tapGesture)
         profileLinkLabel.isUserInteractionEnabled = true
 
-        view.backgroundColor = UIColor(named: "ypWhite")
+        view.backgroundColor = .ypWhite
 
         navigationController?.navigationBar.tintColor = .black
         navigationItem.rightBarButtonItem = editProfileButton
@@ -214,10 +216,15 @@ extension ProfileViewController: UITableViewDelegate {
                 nftsIds: profileViewModel.profile?.nfts,
                 likesIds: profileViewModel.profile?.likes
             )
-            let myNFTViewController = MyNFTViewController(myNFTViewModel: myNFTViewModel)
+            let myNFTViewController = MyNFTViewController(myNFTViewModel: myNFTViewModel,
+                                                          profileViewModel: profileViewModel)
             navigationController?.pushViewController(myNFTViewController, animated: true)
         case 1: // Избранные NFT
-            let favoriteNFTViewController = FavoriteNFTViewController()
+            let favoriteNFTViewModel = FavoriteNFTViewModel(
+                nftsIds: profileViewModel.profile?.nfts,
+                likesIds: profileViewModel.profile?.likes
+            )
+            let favoriteNFTViewController = FavoriteNFTViewController(favoriteNFTViewModel: favoriteNFTViewModel, profileViewModel: profileViewModel)
             navigationController?.pushViewController(favoriteNFTViewController, animated: true)
         case 2: // О Разработчике
             let aboutDeveloperViewController = AboutDeveloperViewController(

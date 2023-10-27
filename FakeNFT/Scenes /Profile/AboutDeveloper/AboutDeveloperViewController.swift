@@ -7,12 +7,13 @@
 
 import UIKit
 import WebKit
+import ProgressHUD
 
 final class AboutDeveloperViewController: UIViewController, WKNavigationDelegate {
     private var webView: WKWebView = {
         let webView = WKWebView()
         webView.translatesAutoresizingMaskIntoConstraints = false
-        webView.backgroundColor = UIColor(named: "ypWhite")
+        webView.backgroundColor = .ypWhite
         return webView
     }()
 
@@ -23,6 +24,7 @@ final class AboutDeveloperViewController: UIViewController, WKNavigationDelegate
             target: self,
             action: #selector(goBack)
         )
+        uiBarButtonItem.tintColor = .ypBlack
         return uiBarButtonItem
     }()
 
@@ -41,6 +43,8 @@ final class AboutDeveloperViewController: UIViewController, WKNavigationDelegate
         super.viewDidLoad()
 
         setupView()
+
+        ProgressHUD.show()
         setupHierarchy()
         setupLayout()
 
@@ -52,7 +56,7 @@ final class AboutDeveloperViewController: UIViewController, WKNavigationDelegate
     }
 
     private func setupView() {
-        view.backgroundColor = UIColor(named: "ypWhite")
+        view.backgroundColor = .ypWhite
         webView.navigationDelegate = self
 
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
@@ -75,5 +79,9 @@ final class AboutDeveloperViewController: UIViewController, WKNavigationDelegate
     @objc
     func goBack() {
         navigationController?.popViewController(animated: true)
+    }
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        ProgressHUD.dismiss()
     }
 }

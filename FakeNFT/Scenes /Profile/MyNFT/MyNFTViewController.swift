@@ -10,6 +10,7 @@ import ProgressHUD
 
 final class MyNFTViewController: UIViewController {
     private var myNFTViewModel: MyNFTViewModel
+    private let profileViewModel: ProfileViewModel
 
     private lazy var customBackButton: UIBarButtonItem = {
         let uiBarButtonItem = UIBarButtonItem(
@@ -18,6 +19,7 @@ final class MyNFTViewController: UIViewController {
             target: self,
             action: #selector(goBack)
         )
+        uiBarButtonItem.tintColor = .ypBlack
         return uiBarButtonItem
     }()
 
@@ -28,13 +30,15 @@ final class MyNFTViewController: UIViewController {
             target: self,
             action: #selector(sortTable)
         )
+        uiBarButtonItem.tintColor = .ypBlack
+
         return uiBarButtonItem
     }()
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
 
-        tableView.backgroundColor = .background
+        tableView.backgroundColor = .ypWhite
         tableView.layer.cornerRadius = 16
         tableView.delegate = self
         tableView.dataSource = self
@@ -48,9 +52,10 @@ final class MyNFTViewController: UIViewController {
     private let noNFTLabel: UILabel = {
         let noNFTLabel = UILabel()
         noNFTLabel.text = "У Вас ещё нет NFT"
-        noNFTLabel.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        noNFTLabel.font = .bodyBold
         noNFTLabel.translatesAutoresizingMaskIntoConstraints = false
-        noNFTLabel.textColor = .black
+        noNFTLabel.textColor = .ypBlack
+        noNFTLabel.isHidden = true
 
         return noNFTLabel
     }()
@@ -69,14 +74,12 @@ final class MyNFTViewController: UIViewController {
             guard let self else { return }
 
             self.setupTableData(tableData: tableData)
-            ProgressHUD.dismiss()
         }
 
         myNFTViewModel.onError = { [weak self] error in
             guard let self else { return }
             self.showAlert(title: "Ошибка", message: error.localizedDescription)
-
-            ProgressHUD.dismiss()
+            setupNoNFT()
         }
     }
 
@@ -96,7 +99,7 @@ final class MyNFTViewController: UIViewController {
 
 
     private func setupView() {
-        view.backgroundColor = .background
+        view.backgroundColor = .ypWhite
 
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.leftBarButtonItem = customBackButton
@@ -111,6 +114,8 @@ final class MyNFTViewController: UIViewController {
             navigationItem.rightBarButtonItem = sortButton
             noNFTLabel.isHidden = true
         }
+        tableView.reloadData()
+        ProgressHUD.dismiss()
     }
 
     private func setupHierarchy() {
@@ -130,8 +135,9 @@ final class MyNFTViewController: UIViewController {
         ])
     }
 
-    init(myNFTViewModel: MyNFTViewModel) {
+    init(myNFTViewModel: MyNFTViewModel, profileViewModel: ProfileViewModel) {
         self.myNFTViewModel = myNFTViewModel
+        self.profileViewModel = profileViewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -203,16 +209,22 @@ extension MyNFTViewController: UITableViewDataSource {
         guard let myNFTCell = tableView.dequeueReusableCell(withIdentifier: MyNFTCell.identifier) as? MyNFTCell
         else { return UITableViewCell() }
 
+        myNFTCell.myNFTViewModel = myNFTViewModel
+        myNFTCell.profileViewModel = profileViewModel
+
         let myNFT = tableData[indexPath.row]
 
-        myNFTCell.configure(nft: NFTModel(
+        myNFTCell.currentNFT = NFTModel(
             nftImage: myNFT.nftImage,
             name: myNFT.name,
             markedFavorite: myNFT.markedFavorite,
             price: myNFT.price,
             author: myNFTViewModel.authorsSet[myNFT.author] ?? "",
-            rating: myNFT.rating)
-        )
+            rating: myNFT.rating,
+            id: myNFT.id)
+
+        myNFTCell.configure()
+
         return myNFTCell
     }
 }

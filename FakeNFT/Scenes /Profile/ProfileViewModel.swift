@@ -11,16 +11,14 @@ import UIKit
 class ProfileViewModel {
     var onProfileLoad: ((ProfileModel) -> Void)?
     var onError: ((Error) -> Void)?
-
-    private var networkClient: NetworkClient = DefaultNetworkClient()
-    private var error: Error?
-
     var profile: ProfileModel? {
         didSet {
             guard let profile = profile else { return}
             onProfileLoad?(profile)
         }
     }
+    private var networkClient: NetworkClient = DefaultNetworkClient()
+    private var error: Error?
 
     func viewWillAppear() {
         getProfile()
@@ -29,23 +27,29 @@ class ProfileViewModel {
     func getProfile() {
         let request = GetProfileRequest()
 
-        networkClient.send(request: request, type: ProfileNetworkModel.self) { [self] result in
-            DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.networkClient.send(request: request, type: ProfileNetworkModel.self) { result in
                 switch result {
                 case .success(let profile):
                     DispatchQueue.main.async {
-                        self.setupProfileModel(response: profile)
+                        self?.setupProfileModel(response: profile)
                     }
                 case .failure(let error):
                     DispatchQueue.main.async {
-                        self.onError?(error)
+                        self?.onError?(error)
                     }
                 }
             }
         }
     }
 
-    func putProfile(name: String, avatar: String, description: String, website: String, likes: [String]) {
+    func putProfile(
+        name: String?,
+        avatar: String?,
+        description: String?,
+        website: String?,
+        likes: [String]?
+    ) {
         let request = PutProfileRequest(
             name: name,
             avatar: avatar,
@@ -54,16 +58,16 @@ class ProfileViewModel {
             likes: likes
         )
 
-        networkClient.send(request: request, type: ProfileNetworkModel.self) { [self] result in
-            DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.networkClient.send(request: request, type: ProfileNetworkModel.self) { result in
                 switch result {
                 case .success(let profile):
                     DispatchQueue.main.async {
-                        self.setupProfileModel(response: profile)
+                        self?.setupProfileModel(response: profile)
                     }
                 case .failure(let error):
                     DispatchQueue.main.async {
-                        self.onError?(error)
+                        self?.onError?(error)
                     }
                 }
             }

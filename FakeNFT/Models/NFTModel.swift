@@ -14,6 +14,7 @@ struct NFTModel {
     let price: Double
     let author: String
     let rating: Int
+    let id: String
 
     static let mockedNFTs: [NFTModel] = [
         NFTModel(
@@ -22,20 +23,23 @@ struct NFTModel {
             markedFavorite: true,
             price: 1.78,
             author: "John Doe",
-            rating: 3),
+            rating: 3,
+            id: "1"),
         NFTModel(
             nftImage: "NFT2",
             name: "Spring",
             markedFavorite: true,
             price: 1.78,
             author: "John Doe",
-            rating: 3),
+            rating: 3,
+            id: "2"),
         NFTModel(
             nftImage: "NFT1",
             name: "April",
             markedFavorite: true,
             price: 1.78,
             author: "John Doe",
-            rating: 3)
+            rating: 3,
+            id: "3")
     ]
 }

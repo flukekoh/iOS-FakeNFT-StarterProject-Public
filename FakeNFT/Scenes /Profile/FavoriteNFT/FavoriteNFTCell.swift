@@ -10,60 +10,66 @@ import Kingfisher
 
 final class FavoriteNFTCell: UICollectionViewCell {
     static let identifier = "FavoriteNFTCell"
+    var favoriteNFTViewModel: FavoriteNFTViewModel?
+    var profileViewModel: ProfileViewModel?
+    var currentNFT: NFTModel?
 
     private var nftImage: UIImageView = {
         let nftImage = UIImageView()
         nftImage.translatesAutoresizingMaskIntoConstraints = false
-        nftImage.image = UIImage(named: "MockUserPic")
+        nftImage.layer.cornerRadius = 12
+        nftImage.layer.masksToBounds = true
 
         return nftImage
     }()
 
-    private let onLikeImage: UIImageView = {
-        let onLikeImage = UIImageView()
-        onLikeImage.translatesAutoresizingMaskIntoConstraints = false
-        onLikeImage.image = UIImage(named: "dislike")
+    private lazy var likeButton: UIButton = {
+        let likeButton = UIButton()
+        likeButton.addTarget(self, action: #selector(didTapLikeButton), for: .touchUpInside)
+        likeButton.translatesAutoresizingMaskIntoConstraints = false
 
-        return onLikeImage
-    }()
-
-    private let offLikeImage: UIImageView = {
-        let offLikeImage = UIImageView()
-        offLikeImage.translatesAutoresizingMaskIntoConstraints = false
-        offLikeImage.image = UIImage(named: "Like")
-
-        return offLikeImage
+        return likeButton
     }()
 
     private var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        label.textColor = .ypBlack
+        label.font = .bodyBold
         return label
     }()
 
     private let priceLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        label.textColor = .ypBlack
+        label.font = .caption1
         return label
     }()
 
-    private let ratingImage: UIImageView = {
-        let ratingImage = UIImageView()
-        ratingImage.translatesAutoresizingMaskIntoConstraints = false
-        ratingImage.image = UIImage(named: "star_yellow")
-
-        return ratingImage
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 2
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
     }()
+
+    private let numberFormatter = NumberFormatter()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+
         setupView()
         setupHierarchy()
         setupLayout()
+
+        numberFormatter.numberStyle = .currency
+        numberFormatter.currencySymbol = "ETH"
+
+        numberFormatter.locale = Locale(identifier: "ru_RU")
     }
 
     required init?(coder: NSCoder) {
@@ -71,16 +77,22 @@ final class FavoriteNFTCell: UICollectionViewCell {
     }
 
     private func setupView() {
-        backgroundColor = .clear
+        backgroundColor = .ypWhite
     }
 
     func setupHierarchy() {
-        //        selectionStyle = .none
+        for _ in 1...5 {
+            let imageView = UIImageView(image: UIImage(named: "star"))
+            imageView.contentMode = .scaleAspectFit
+
+            stackView.addArrangedSubview(imageView)
+        }
+
         contentView.addSubview(nftImage)
-        contentView.addSubview(onLikeImage)
+        contentView.addSubview(likeButton)
         contentView.addSubview(titleLabel)
         contentView.addSubview(priceLabel)
-        contentView.addSubview(ratingImage)
+        contentView.addSubview(stackView)
     }
 
     func setupLayout() {
@@ -90,42 +102,70 @@ final class FavoriteNFTCell: UICollectionViewCell {
             nftImage.heightAnchor.constraint(equalToConstant: 80),
             nftImage.widthAnchor.constraint(equalToConstant: 80),
 
-            onLikeImage.trailingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: -6),
-            onLikeImage.topAnchor.constraint(equalTo: nftImage.topAnchor, constant: -6),
-            onLikeImage.heightAnchor.constraint(equalToConstant: 40),
-            onLikeImage.widthAnchor.constraint(equalToConstant: 40),
+            likeButton.trailingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: 6),
+            likeButton.topAnchor.constraint(equalTo: nftImage.topAnchor, constant: -6),
+            likeButton.heightAnchor.constraint(equalToConstant: 42),
+            likeButton.widthAnchor.constraint(equalToConstant: 42),
 
             titleLabel.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: 12),
             titleLabel.topAnchor.constraint(equalTo: nftImage.topAnchor, constant: 7),
             titleLabel.heightAnchor.constraint(equalToConstant: 22),
-            //            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 
-            ratingImage.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: 12),
-            ratingImage.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
-            //            ratingImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            ratingImage.heightAnchor.constraint(equalToConstant: 12),
+            stackView.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: 12),
+            stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
+            stackView.heightAnchor.constraint(equalToConstant: 12),
 
             priceLabel.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: 12),
-            priceLabel.topAnchor.constraint(equalTo: ratingImage.bottomAnchor, constant: 8),
+            priceLabel.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 8),
             priceLabel.heightAnchor.constraint(equalToConstant: 20)
-            //            priceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-
-
         ])
     }
-    func configure(nft: NFTModel) {
-        nftImage.kf.setImage(
-            with: URL(string: nft.nftImage),
-            placeholder: UIImage(named: "MockUserPic"),
-            options: [.processor(RoundCornerImageProcessor(cornerRadius: 35))])
 
-        if nft.markedFavorite {
-            onLikeImage.image = onLikeImage.image
+    func configure() {
+        guard let currentNFT = currentNFT else { return }
+        nftImage.kf.setImage(with: URL(string: currentNFT.nftImage))
+
+        if currentNFT.markedFavorite {
+            likeButton.setImage(UIImage(named: "Like"), for: .normal)
         } else {
-            onLikeImage.image = offLikeImage.image
+            likeButton.setImage(UIImage(named: "dislike"), for: .normal)
         }
 
-        titleLabel.text = nft.name
-        priceLabel.text = "\(nft.price)"
+        titleLabel.text = currentNFT.name
+
+        if let formattedString = numberFormatter.string(from: NSNumber(value: currentNFT.price)) {
+            priceLabel.text = formattedString
+        }
+
+        for viewNumber in 0...4 {
+            if let currentImageView = stackView.arrangedSubviews[viewNumber] as? UIImageView {
+                if viewNumber < currentNFT.rating {
+                    currentImageView.image = UIImage(named: "star_yellow")
+                } else {
+                    currentImageView.image = UIImage(named: "star")
+                }
+            }
+        }
+    }
+
+    @objc
+    private func didTapLikeButton() {
+        guard let currentNFT = currentNFT else { return }
+
+        if currentNFT.markedFavorite {
+            favoriteNFTViewModel?.likesIds.removeAll { $0 == currentNFT.id }
+            likeButton.setImage(UIImage(named: "dislike"), for: .normal)
+        } else {
+            favoriteNFTViewModel?.likesIds.append(currentNFT.id)
+            likeButton.setImage(UIImage(named: "Like"), for: .normal)
+        }
+
+        profileViewModel?.putProfile(
+            name: nil,
+            avatar: nil,
+            description: nil,
+            website: nil,
+            likes: favoriteNFTViewModel?.likesIds
+        )
     }
 }

@@ -11,11 +11,11 @@ struct PutProfileRequest: NetworkRequest {
     var dto: Encodable?
 
     struct Body: Encodable {
-        let name: String
-        let avatar: String
-        let description: String
-        let website: String
-        let likes: [String]
+        let name: String?
+        let avatar: String?
+        let description: String?
+        let website: String?
+        let likes: [String]?
     }
 
     var endpoint: URL? {
@@ -24,7 +24,7 @@ struct PutProfileRequest: NetworkRequest {
 
     var httpMethod: HttpMethod = .put
 
-    init(name: String, avatar: String, description: String, website: String, likes: [String]) {
+    init(name: String?, avatar: String?, description: String?, website: String?, likes: [String]?) {
         self.dto = Body(
             name: name,
             avatar: avatar,
