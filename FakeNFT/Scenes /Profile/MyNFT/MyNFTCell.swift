@@ -152,6 +152,7 @@ final class MyNFTCell: UITableViewCell {
             stackView.heightAnchor.constraint(equalToConstant: 12)
         ])
     }
+    
     func configure() {
         guard let currentNFT = currentNFT else { return }
 

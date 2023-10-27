@@ -97,7 +97,6 @@ final class MyNFTViewController: UIViewController {
 
     private var tableData: [NFTModel] = []
 
-
     private func setupView() {
         view.backgroundColor = .ypWhite
 

@@ -279,10 +279,10 @@
 		3F6806C729CBBC5B00B4F915 /* Scenes  */ = {
 			isa = PBXGroup;
 			children = (
-				A2747B672AEBF056003A72D2 /* Catalog */,
-				A226A86D2ACFF27B00E782E3 /* Statistics */,
-				A226A86C2ACFF1F000E782E3 /* ShoppingCart */,
 				A2D5203B2ACF2B070083FAA7 /* Profile */,
+				A2747B672AEBF056003A72D2 /* Catalog */,
+				A226A86C2ACFF1F000E782E3 /* ShoppingCart */,
+				A226A86D2ACFF27B00E782E3 /* Statistics */,
 				3F6806C829CBBC8100B4F915 /* ProductDetails */,
 			);
 			path = "Scenes ";
@@ -323,6 +323,7 @@
 				3F6806D029CBBE6B00B4F915 /* NetworkClient.swift */,
 				3F6806D229CBBE9600B4F915 /* NetworkRequest.swift */,
 				3F6806D429CBBEC700B4F915 /* NetworkTask.swift */,
+				A2585D1A2AE54B7B002E0493 /* NFTNetworkSevice.swift */,
 			);
 			path = NetworkClient;
 			sourceTree = "<group>";
@@ -336,7 +337,6 @@
 				A2747B852AEBF175003A72D2 /* ProfileNetworkModel.swift */,
 				300C45E92ADECF0200D00B8E /* OrderNetworkModel.swift */,
 				300C45ED2ADED08100D00B8E /* NFTNetworkModel.swift */,
-				A2585D1A2AE54B7B002E0493 /* NFTNetworkSevice.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";

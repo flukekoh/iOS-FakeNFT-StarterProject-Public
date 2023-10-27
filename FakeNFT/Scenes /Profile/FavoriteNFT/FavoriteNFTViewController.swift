@@ -94,18 +94,12 @@ final class FavoriteNFTViewController: UIViewController {
         }
     }
 
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        favoriteNFTViewModel.viewWillAppear()
-//    }
-
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         refreshControl.beginRefreshing()
         collectionView.setContentOffset(CGPoint(x: 0, y: -refreshControl.frame.size.height), animated: true)
 
-        // Вызовите метод refreshData для инициирования первоначальной загрузки данных
         refreshData()
     }
 
@@ -208,9 +202,6 @@ extension FavoriteNFTViewController: UICollectionViewDataSource {
 
         return cell
     }
-}
-
-extension FavoriteNFTViewController: UICollectionViewDelegate {
 }
 
 extension FavoriteNFTViewController: UICollectionViewDelegateFlowLayout {
