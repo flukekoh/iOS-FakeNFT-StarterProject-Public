@@ -12,6 +12,8 @@
 
 Доска: https://github.com/users/flukekoh/projects/1/views/1
 
+Скринкаст эпика "Каталог": https://www.youtube.com/watch?v=dZWHjWFEhAY
+
 **Декомпозиция эпика «Каталог»**
 
 ### Module 1:
