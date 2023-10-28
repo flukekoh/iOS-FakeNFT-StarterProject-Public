@@ -36,11 +36,14 @@
 				<key>focused</key>
 				<string></string>
 				<key>leading</key>
-				<string>    var profileViewModel: ProfileViewModel?
-}
+				<string>
+
 </string>
 				<key>trailing</key>
-				<string></string>
+				<string>final class ProfileViewController: UIViewController {
+    private var profileViewModel: ProfileViewModel
+
+</string>
 			</dict>
 			<key>type</key>
 			<string>bookmark</string>

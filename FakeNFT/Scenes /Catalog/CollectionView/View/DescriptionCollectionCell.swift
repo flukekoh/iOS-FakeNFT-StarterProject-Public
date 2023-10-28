@@ -62,11 +62,13 @@ final class DescriptionCollectionCell: UICollectionViewCell {
 
     // MARK: - Private Func
 
-    @objc private func buttonTapped() {
+    @objc
+    private func buttonTapped() {
         onTapped?()
     }
 
     private func addSubviews() {
+        contentView.backgroundColor = .background
         contentView.addSubview(collectionNameLabel)
         contentView.addSubview(creatorCollectionLabel)
         contentView.addSubview(creatorCollectionButton)

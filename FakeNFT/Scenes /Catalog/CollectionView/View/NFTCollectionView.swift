@@ -22,6 +22,7 @@ final class NFTCollectionView: UIViewController {
             CatalogNFTCell.self,
             forCellWithReuseIdentifier: CatalogNFTCell.identifier
         )
+        collectionView.backgroundColor = .background
         return collectionView
     }()
 
@@ -44,7 +45,6 @@ final class NFTCollectionView: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .background
         addSubviews()
         setupLayout()
         makeNavBar()
@@ -90,7 +90,8 @@ final class NFTCollectionView: UIViewController {
         }
     }
 
-    @objc private func didTapBackButton() {
+    @objc
+    private func didTapBackButton() {
         self.navigationController?.popViewController(animated: true)
     }
 

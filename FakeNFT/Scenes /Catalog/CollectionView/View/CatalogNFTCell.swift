@@ -82,6 +82,7 @@ final class CatalogNFTCell: UICollectionViewCell {
     // MARK: - Private Func
 
     private func addSubviews() {
+        contentView.backgroundColor = .background
         contentView.addSubview(nftImageView)
         contentView.addSubview(likeOrDislikeButton)
         contentView.addSubview(nftRatingStackView)
@@ -124,11 +125,13 @@ final class CatalogNFTCell: UICollectionViewCell {
         ])
     }
 
-    @objc private func likeButtonTapped() {
+    @objc
+    private func likeButtonTapped() {
         onToggleLike?()
     }
 
-    @objc private func cartButtonTapped() {
+    @objc
+    private func cartButtonTapped() {
         onToggleCart?()
     }
 

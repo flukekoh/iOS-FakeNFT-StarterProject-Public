@@ -60,7 +60,8 @@ final class WebViewView: UIViewController {
         }
     }
 
-    @objc private func didTapBackButton() {
+    @objc
+    private func didTapBackButton() {
         self.navigationController?.popViewController(animated: true)
     }
 }

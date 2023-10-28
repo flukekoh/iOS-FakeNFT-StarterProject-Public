@@ -125,7 +125,8 @@ final class CatalogViewController: UIViewController {
         }
     }
 
-    @objc private func didTapSortButton() {
+    @objc
+    private func didTapSortButton() {
         let alertSort = UIAlertController(
             title: "Сортировка",
             message: nil,
