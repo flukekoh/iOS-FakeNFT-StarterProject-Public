@@ -27,6 +27,9 @@ final class NFTNetworkSevice {
         didSet {
             guard let sorting else { return }
             sort(by: sorting)
+            if !tableData.isEmpty {
+                delegate?.updateData(loadedData: tableData)
+            }
         }
     }
 
@@ -48,7 +51,7 @@ final class NFTNetworkSevice {
 
         for id in arrayOfIDs {
             group.enter()
-            DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 2) { [weak self] in
+            DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 4) { [weak self] in
                 self?.networkClient.send(request: GetNFTsRequest(id: id), type: NFTNetworkModel.self) { result in
                     switch result {
                     case .success(let nftData):
