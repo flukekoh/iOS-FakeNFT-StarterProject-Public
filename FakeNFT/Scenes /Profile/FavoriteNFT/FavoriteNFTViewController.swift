@@ -35,7 +35,7 @@ final class FavoriteNFTViewController: UIViewController {
             FavoriteNFTCell.self,
             forCellWithReuseIdentifier: FavoriteNFTCell.identifier
         )
-
+        view.tintColor = .ypWhite
         view.dataSource = self
         view.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -108,6 +108,7 @@ final class FavoriteNFTViewController: UIViewController {
     private func setupView() {
         title = "Избранные NFT"
         view.backgroundColor = .ypWhite
+        view.tintColor = .ypWhite
         navigationItem.backBarButtonItem = UIBarButtonItem(
             title: "",
             style: .plain,

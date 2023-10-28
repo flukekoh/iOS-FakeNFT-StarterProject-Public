@@ -48,7 +48,7 @@ final class NFTNetworkSevice {
 
         for id in arrayOfIDs {
             group.enter()
-            DispatchQueue.global(qos: .background).asyncAfter(deadline: .now()) { [weak self] in
+            DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 2) { [weak self] in
                 self?.networkClient.send(request: GetNFTsRequest(id: id), type: NFTNetworkModel.self) { result in
                     switch result {
                     case .success(let nftData):
@@ -71,9 +71,8 @@ final class NFTNetworkSevice {
                 self.getAuthors(loadedNFTS: self.tableData)
             } else {
                 self.sort(by: self.sorting ?? .rating)
+                self.delegate?.updateData(loadedData: self.tableData)
             }
-
-            self.delegate?.updateData(loadedData: self.tableData)
         }
     }
 
@@ -83,7 +82,7 @@ final class NFTNetworkSevice {
         let group = DispatchGroup()
         for nft in loadedNFTS {
             group.enter()
-            DispatchQueue.global(qos: .background).async { [weak self] in
+            DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 2) { [weak self] in
                 self?.networkClient.send(request: GetUserRequest(id: nft.author), type: UserNetworkModel.self) { result in
                     switch result {
                     case .success(let authorData):
@@ -104,6 +103,7 @@ final class NFTNetworkSevice {
         group.notify(queue: .main) {
             self.delegate?.updateAuthors(authors: self.authorsSet)
             self.sort(by: self.sorting ?? .rating)
+            self.delegate?.updateData(loadedData: self.tableData)
         }
     }
 
