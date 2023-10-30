@@ -5,10 +5,9 @@
 //  Created by Артем Кохан on 06.10.2023.
 //
 
-import Foundation
 import UIKit
 
-class ProfileViewModel {
+final class ProfileViewModel {
     var onProfileLoad: ((ProfileModel) -> Void)?
     var onError: ((Error) -> Void)?
     var profile: ProfileModel? {
