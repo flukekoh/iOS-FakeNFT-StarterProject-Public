@@ -80,7 +80,10 @@ final class ShoppingCartViewController: UIViewController {
         label.numberOfLines = 0
         label.isHidden = true
         label.textAlignment = .center
-        label.text = "Вы уверены, что хотите \n удалить объект из корзины?"
+        label.text = """
+Вы уверены, что хотите
+удалить объект из корзины?
+"""
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -377,7 +380,7 @@ extension ShoppingCartViewController: CartCellDelegate {
         
         iconDeleteImageView.kf.setImage(with: viewModel.NFTModels[index].images.first)
         iconDeleteImageView.layer.cornerRadius = 12
-                iconDeleteImageView.layer.masksToBounds = true
+        iconDeleteImageView.layer.masksToBounds = true
         indexDelete = index
         
         navigationController?.isNavigationBarHidden = true

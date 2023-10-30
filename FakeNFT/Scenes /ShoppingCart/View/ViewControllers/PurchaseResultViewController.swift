@@ -57,7 +57,7 @@ class PurchaseResultViewController: UIViewController {
         if purchaseWasCompleted == true {
             centreImage.image = UIImage(named: "purchaseTrue")
             centreLabel.text = "Успех! Оплата прошла,/n поздравляем с покупкой!"
-            resultButton.setTitle("returnCatalog", for: .normal)
+            resultButton.setTitle("Вернуться в каталог", for: .normal)
         } else {
             let alert = UIAlertController(title: "Упс! Что-то пошло не так :(", message: "Попробуйте ещё раз!", preferredStyle: .alert)
             
