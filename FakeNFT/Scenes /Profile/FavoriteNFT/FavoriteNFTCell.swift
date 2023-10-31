@@ -68,8 +68,6 @@ final class FavoriteNFTCell: UICollectionViewCell {
 
         numberFormatter.numberStyle = .currency
         numberFormatter.currencySymbol = "ETH"
-
-        numberFormatter.locale = Locale(identifier: "ru_RU")
     }
 
     required init?(coder: NSCoder) {
