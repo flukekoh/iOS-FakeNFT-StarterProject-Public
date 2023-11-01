@@ -167,6 +167,7 @@ final class ShoppingCartViewController: UIViewController {
             setupPaymentView()
             hiddenCorrection()
             setupLoader()
+            setupLayout()
         }
     }
     
@@ -202,13 +203,6 @@ final class ShoppingCartViewController: UIViewController {
         tableView.isUserInteractionEnabled = true
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 80, right: 0)
         view.addSubview(tableView)
-        
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 108),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0)
-        ])
     }
     
     private func setupPaymentView() {
@@ -216,7 +210,9 @@ final class ShoppingCartViewController: UIViewController {
         paymentView.addSubview(nftCountLabel)
         paymentView.addSubview(totalPriceLabel)
         paymentView.addSubview(paymentButton)
-        
+
+    }
+    private func setupLayout() {
         NSLayoutConstraint.activate([
             paymentView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             paymentView.heightAnchor.constraint(equalToConstant: 76),
@@ -236,7 +232,13 @@ final class ShoppingCartViewController: UIViewController {
             paymentButton.centerYAnchor.constraint(equalTo: paymentView.centerYAnchor),
             paymentButton.trailingAnchor.constraint(equalTo: paymentView.trailingAnchor, constant: -16),
             paymentButton.heightAnchor.constraint(equalToConstant: 44),
-            paymentButton.widthAnchor.constraint(equalToConstant: 240)
+            paymentButton.widthAnchor.constraint(equalToConstant: 240),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 108),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
     
@@ -245,10 +247,6 @@ final class ShoppingCartViewController: UIViewController {
         activityIndicator.layer.zPosition = 99
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([
-            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
     }
     
     private func countPrice(_ nftArray: [NFT]) -> Float {

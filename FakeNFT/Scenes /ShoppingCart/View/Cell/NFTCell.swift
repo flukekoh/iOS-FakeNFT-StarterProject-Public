@@ -75,6 +75,7 @@ class NFTCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupSubviews()
+        setupLayout()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -89,6 +90,9 @@ class NFTCell: UITableViewCell {
         contentView.addSubview(priceLabelName)
         contentView.addSubview(priceLabel)
         contentView.addSubview(cartDeleteButton)
+    }
+    
+    private func setupLayout() {
         
         NSLayoutConstraint.activate([
             pictureImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
@@ -119,7 +123,6 @@ class NFTCell: UITableViewCell {
             cartDeleteButton.widthAnchor.constraint(equalToConstant: 40)
         ])
     }
-    
     override func prepareForReuse() {
         super.prepareForReuse()
         

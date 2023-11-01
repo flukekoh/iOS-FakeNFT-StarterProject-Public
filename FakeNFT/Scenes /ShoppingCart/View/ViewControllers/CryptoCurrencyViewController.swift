@@ -81,12 +81,29 @@ class CryptoCurrencyViewController: UIViewController {
         setupTopLine()
         setupCollectionView()
         setupPaymentView()
+        setupLayout()
     }
     
     private func setupTopLine() {
         view.addSubview(titleLabel)
         view.addSubview(backButton)
-        
+    }
+    
+    private func setupPaymentView() {
+        view.addSubview(paymentView)
+        view.addSubview(paymentButton)
+        view.addSubview(upperPaymentText)
+        view.addSubview(lowerPaymentText)
+    }
+    
+    private func setupCollectionView() {
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.backgroundColor = .clear
+        view.addSubview(collectionView)
+    }
+    
+    private func setupLayout() {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 56),
             titleLabel.heightAnchor.constraint(equalToConstant: 22),
@@ -95,18 +112,7 @@ class CryptoCurrencyViewController: UIViewController {
             backButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 55),
             backButton.widthAnchor.constraint(equalToConstant: 24),
             backButton.heightAnchor.constraint(equalToConstant: 24),
-            backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 9)
-        ])
-    }
-    
-    private func setupPaymentView() {
-        view.addSubview(paymentView)
-        view.addSubview(paymentButton)
-        view.addSubview(upperPaymentText)
-        view.addSubview(lowerPaymentText)
-        
-        NSLayoutConstraint.activate([
-            
+            backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 9),
             paymentView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
             paymentView.heightAnchor.constraint(equalToConstant: 186),
             paymentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -125,18 +131,7 @@ class CryptoCurrencyViewController: UIViewController {
             lowerPaymentText.topAnchor.constraint(equalTo: upperPaymentText.bottomAnchor, constant: 0),
             lowerPaymentText.bottomAnchor.constraint(equalTo: paymentButton.topAnchor, constant: -16),
             lowerPaymentText.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            lowerPaymentText.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
-            
-        ])
-    }
-    
-    private func setupCollectionView() {
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.backgroundColor = .clear
-        view.addSubview(collectionView)
-        
-        NSLayoutConstraint.activate([
+            lowerPaymentText.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 108),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
@@ -215,55 +210,3 @@ extension CryptoCurrencyViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-enum Cryptocurrency: Int, CaseIterable {
-    case bitcoin
-    case dogecoin
-    case tether
-    case apecoin
-    case solana
-    case ethereum
-    case cardano
-    case shibaInu
-    
-    var fullName: String {
-        switch self {
-        case .bitcoin:
-            return "Bitcoin"
-        case .dogecoin:
-            return "Dogecoin"
-        case .tether:
-            return "Tether"
-        case .apecoin:
-            return "Apecoin"
-        case .solana:
-            return "Solana"
-        case .ethereum:
-            return "Ethereum"
-        case .cardano:
-            return "Cardano"
-        case .shibaInu:
-            return "Shiba Inu"
-        }
-    }
-    
-    var abbreviation: String {
-        switch self {
-        case .bitcoin:
-            return "BTC"
-        case .dogecoin:
-            return "DOGE"
-        case .tether:
-            return "USDT"
-        case .apecoin:
-            return "APE"
-        case .solana:
-            return "SOL"
-        case .ethereum:
-            return "ETH"
-        case .cardano:
-            return "ADA"
-        case .shibaInu:
-            return "SHIB"
-        }
-    }
-}
