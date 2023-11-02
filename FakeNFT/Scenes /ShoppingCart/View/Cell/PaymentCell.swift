@@ -41,11 +41,13 @@ class PaymentCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupCell()
+        setupLayout()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupCell()
+        setupLayout()
     }
 
     override var isSelected: Bool {
@@ -62,7 +64,8 @@ class PaymentCell: UICollectionViewCell {
         containerView.addSubview(iconImageView)
         containerView.addSubview(topTextLabel)
         containerView.addSubview(bottomTextLabel)
-
+    }
+    private func setupLayout() {
         NSLayoutConstraint.activate([
             containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
             containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0),
@@ -85,5 +88,6 @@ class PaymentCell: UICollectionViewCell {
             bottomTextLabel.widthAnchor.constraint(equalToConstant: 70),
             bottomTextLabel.heightAnchor.constraint(equalToConstant: 18)
         ])
+
     }
 }

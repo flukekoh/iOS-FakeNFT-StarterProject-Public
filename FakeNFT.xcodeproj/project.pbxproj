@@ -38,6 +38,7 @@
 		56D4BEF62ADDD01700028652 /* Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D4BEF52ADDD01700028652 /* Web.swift */; };
 		56D4BEF92ADF168000028652 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D4BEF82ADF168000028652 /* Observable.swift */; };
 		56D4BEFB2ADF175700028652 /* NFTStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D4BEFA2ADF175700028652 /* NFTStruct.swift */; };
+		56D4BEFD2AF2B21400028652 /* CryptoCurrencyEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D4BEFC2AF2B21400028652 /* CryptoCurrencyEnum.swift */; };
 		A226A86B2ACFECE500E782E3 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A226A86A2ACFECE500E782E3 /* CatalogViewController.swift */; };
 		A226A86F2ACFF2A900E782E3 /* ShoppingCartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A226A86E2ACFF2A900E782E3 /* ShoppingCartViewController.swift */; };
 		A226A8712ACFF2BA00E782E3 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A226A8702ACFF2BA00E782E3 /* StatisticsViewController.swift */; };
@@ -100,6 +101,7 @@
 		56D4BEF52ADDD01700028652 /* Web.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
 		56D4BEF82ADF168000028652 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		56D4BEFA2ADF175700028652 /* NFTStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTStruct.swift; sourceTree = "<group>"; };
+		56D4BEFC2AF2B21400028652 /* CryptoCurrencyEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoCurrencyEnum.swift; sourceTree = "<group>"; };
 		A226A86A2ACFECE500E782E3 /* CatalogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
 		A226A86E2ACFF2A900E782E3 /* ShoppingCartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCartViewController.swift; sourceTree = "<group>"; };
 		A226A8702ACFF2BA00E782E3 /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				3F6806CF29CBBDB100B4F915 /* NetworkClient */,
 				3F6806D629CBC50A00B4F915 /* CellsReusingUtils.swift */,
 				3FC8C39229D246BA0081F015 /* DateFormatters+Presets.swift */,
+				56D4BEFC2AF2B21400028652 /* CryptoCurrencyEnum.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -555,6 +558,7 @@
 				56D4BEE42ADDC25900028652 /* ShoppingCartNFTModel.swift in Sources */,
 				56D4BEF92ADF168000028652 /* Observable.swift in Sources */,
 				56D4BEEC2ADDCE8400028652 /* NFTNetworkModel.swift in Sources */,
+				56D4BEFD2AF2B21400028652 /* CryptoCurrencyEnum.swift in Sources */,
 				56D4BEF42ADDCFB700028652 /* PurchaseResultViewController.swift in Sources */,
 				56D4BEEA2ADDC47C00028652 /* NFTServerModel.swift in Sources */,
 				3F6806D729CBC50A00B4F915 /* CellsReusingUtils.swift in Sources */,
