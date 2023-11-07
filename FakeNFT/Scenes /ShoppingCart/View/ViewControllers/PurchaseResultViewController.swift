@@ -34,7 +34,7 @@ class PurchaseResultViewController: UIViewController {
     
     private lazy var centreLabel: UILabel = {
         let label = UILabel()
-        label.text = "Успех! Оплата прошла,/n поздравляем с покупкой!"
+        label.text = "Успех! Оплата прошла,\n поздравляем с покупкой!"
         label.font = .headline3
         label.numberOfLines = 0
         label.textAlignment = .center
@@ -56,7 +56,7 @@ class PurchaseResultViewController: UIViewController {
     func setupResults() {
         if purchaseWasCompleted == true {
             centreImage.image = UIImage(named: "purchaseTrue")
-            centreLabel.text = "Успех! Оплата прошла,/n поздравляем с покупкой!"
+            centreLabel.text = "Успех! Оплата прошла,\n поздравляем с покупкой!"
             resultButton.setTitle("Вернуться в каталог", for: .normal)
         } else {
             let alert = UIAlertController(title: "Упс! Что-то пошло не так :(", message: "Попробуйте ещё раз!", preferredStyle: .alert)
