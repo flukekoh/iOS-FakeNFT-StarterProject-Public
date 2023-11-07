@@ -65,6 +65,7 @@ class PaymentCell: UICollectionViewCell {
         containerView.addSubview(topTextLabel)
         containerView.addSubview(bottomTextLabel)
     }
+    
     private func setupLayout() {
         NSLayoutConstraint.activate([
             containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
