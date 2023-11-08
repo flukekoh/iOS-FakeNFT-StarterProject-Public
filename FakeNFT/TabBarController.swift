@@ -40,17 +40,15 @@ final class TabBarController: UITabBarController {
             selectedImage: UIImage(named: "catalogTabBarImageActive"))
 
         // Корзина
-        let shoppingCartViewController = ShoppingCartViewController()
-
-        let shoppingCartViewModel = ShoppingCartViewModel()
-        shoppingCartViewController.shoppingCartViewModel = shoppingCartViewModel
-
-        shoppingCartViewController.tabBarItem = UITabBarItem(
+       let cartModel: ShoppingCartContentLoader = ShoppingCartContentLoader(networkClient: DefaultNetworkClient())
+        let cartViewModel: ShoppingCartViewModel = ShoppingCartViewModel(model: cartModel)
+        
+        let cartVC = UINavigationController(rootViewController: ShoppingCartViewController(viewModel: cartViewModel))
+       
+        cartVC.tabBarItem = UITabBarItem(
             title: "Корзина",
-            image: UIImage(systemName: "trash"),
-            selectedImage: nil
-        )
-
+            image: UIImage(named: "cartTabBarImageNoActive"),
+            selectedImage: UIImage(named: "cartTabBarImageActive"))
         // Статистика
         let statisticsViewController = StatisticsViewController()
 
@@ -66,8 +64,8 @@ final class TabBarController: UITabBarController {
         self.viewControllers = [
             profileViewController,
             catalogViewController,
-            shoppingCartViewController,
-            statisticsViewController
+            cartVC,
+            statisticsViewController,
         ]
     }
 }
