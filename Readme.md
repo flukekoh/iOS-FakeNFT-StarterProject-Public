@@ -1,7 +1,7 @@
 
 <img src="https://github.com/flukekoh/iOS-FakeNFT-StarterProject-Public/assets/109647805/d9a2afbd-c46d-41f7-8a6a-e21d4cc2cc1e" alt="drawing" width="200"/>
 
-![Simulator Screenshot - iPhone 14 Pro - 2023-12-17 at 22 47 54](https://github.com/flukekoh/iOS-FakeNFT-StarterProject-Public/assets/109647805/a7d361ce-6dc6-40e0-9752-e59832025c50)
+<img src="https://github.com/flukekoh/iOS-FakeNFT-StarterProject-Public/assets/109647805/a7d361ce-6dc6-40e0-9752-e59832025c50" alt="drawing" width="200"/>
 
 
 # ТЗ мобильного приложения FakeNFT
