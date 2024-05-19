@@ -1,0 +1,68 @@
+import UIKit
+import Kingfisher
+
+final class CatalogTableViewCell: UITableViewCell {
+    // MARK: - Properties
+
+    static let identifier = "CatalogTableViewCell"
+
+    private lazy var imageCategory: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.cornerRadius = 12
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        return imageView
+    }()
+
+    private lazy var label: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .textPrimary
+        label.textAlignment = .left
+        label.font = .bodyBold
+        return label
+    }()
+
+    // MARK: - Init
+
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: .default, reuseIdentifier: CatalogTableViewCell.identifier)
+
+        setupView()
+        setupLayout()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Private Func
+
+    private func setupView() {
+        self.contentView.addSubview(imageCategory)
+        self.contentView.addSubview(label)
+        self.contentView.backgroundColor = .background
+    }
+
+    private func setupLayout() {
+        NSLayoutConstraint.activate([
+            imageCategory.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageCategory.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            imageCategory.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            imageCategory.heightAnchor.constraint(equalToConstant: 140),
+
+            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            label.topAnchor.constraint(equalTo: imageCategory.bottomAnchor, constant: 4),
+            label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -21)
+        ])
+    }
+
+    // MARK: - Func
+
+    func configure(image: URL, title: String) {
+        imageCategory.kf.setImage(with: image)
+        label.text = title
+    }
+}
